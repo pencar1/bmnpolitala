@@ -17,9 +17,9 @@ Circles.create({
 
 //Notify
 $.notify({
-	icon: 'flaticon-alarm-1',
-	title: 'Azzara',
-	message: 'Premium Bootstrap 4 Admin Dashboard',
+	icon: 'flaticon-box-2',
+	title: 'BMN',
+	message: 'Politeknik Negeri Tanah Laut',
 },{
 	type: 'info',
 	placement: {
