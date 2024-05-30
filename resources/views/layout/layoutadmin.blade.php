@@ -6,12 +6,7 @@
         @include('layout.nav')
         @include('layout.side')
 
-        <div class="main-panel">
-            <div class="content">
-                @yield('content')
-            </div>
-            @include('layout.footer')
-        </div>
+        @include('layout.footer')
     </div>
 </body>
 </html>
