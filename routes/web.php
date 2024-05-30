@@ -1,7 +1,14 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Peminjaman;
+use App\Http\Controllers\Pengembalian;
+use App\Http\Controllers\Arsiptolak;
+use App\Http\Controllers\Barang;
+use App\Http\Controllers\Ruangan;
+use App\Http\Controllers\Transportasi;
 use Illuminate\Support\Facades\Route;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +26,14 @@ use Illuminate\Support\Facades\Route;
 //});
 
 Route::get('/', [HomeController::class, 'dashboard']);
+
+Route::get('/peminjaman', [Peminjaman::class, 'peminjaman']);
+Route::get('/pengembalian', [Pengembalian::class, 'pengembalian']);
+Route::get('/arsiptolak', [Arsiptolak::class, 'arsiptolak']);
+Route::get('/barang', [Barang::class, 'barang']);
+Route::get('/ruangan', [Ruangan::class, 'ruangan']);
+Route::get('/transportasi', [Transportasi::class, 'transportasi']);
+
 
 Route::get('/user', [HomeController::class, 'index'])->name('index');
 

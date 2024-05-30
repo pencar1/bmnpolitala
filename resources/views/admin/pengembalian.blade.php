@@ -3,8 +3,8 @@
 @section('content')
 <div class="page-inner">
     <div class="page-header">
-        <h4 class="page-title">Menu User</h4>
-    
+        <h4 class="page-title">Menu Pengembalian</h4>
+       
     </div>
     <div class="page-body">
         <div class="row">
@@ -31,7 +31,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($data as $d)
+                                    {{-- @foreach ($data as $d)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $d->name }}</td>
@@ -71,7 +71,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    @endforeach
+                                    @endforeach --}}
                                 </tbody>
                             </table>
                         </div>
