@@ -48,9 +48,6 @@
 <script src="{{ asset ('azzara/assets/js/setting-demo.js')}}"></script>
 <script src="{{ asset ('azzara/assets/js/demo.js')}}"></script>
 
-
-
-
 <script >
     $(document).ready(function() {
         $('#basic-datatables').DataTable({
