@@ -4,7 +4,6 @@
 <div class="page-inner">
     <div class="page-header">
         <h4 class="page-title">Menu Barang</h4>
-       
     </div>
     <div class="page-body">
         <div class="row">
