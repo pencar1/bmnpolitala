@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\Peminjaman;
 use App\Http\Controllers\Pengembalian;
 use App\Http\Controllers\Arsiptolak;
@@ -25,13 +26,24 @@ use Illuminate\Support\Facades\Route;
 //    return view('welcome');
 //});
 
-Route::get('/', [HomeController::class, 'dashboard']);
+// Route::get('/', [HomeController::class, 'dashboard']);
+
+Route::get('/login', [LoginController::class, 'index'])->name('login');
+Route::post('/login_proses', [LoginController::class, 'login_proses'])->name('login_proses');
+Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+
+
+
+Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
 
 Route::get('/peminjaman', [Peminjaman::class, 'peminjaman']);
 Route::get('/pengembalian', [Pengembalian::class, 'pengembalian']);
 Route::get('/arsiptolak', [Arsiptolak::class, 'arsiptolak']);
 Route::get('/barang', [Barang::class, 'barang']);
 Route::get('/ruangan', [Ruangan::class, 'ruangan']);
+
+
+
 Route::get('/transportasi', [TransportasiController::class, 'index'])->name('transportasi');
 Route::get('/tambahtransportasi', [TransportasiController::class, 'tambahtransportasi'])->name('transportasi.tambah');
 Route::post('/transportasi', [TransportasiController::class, 'store'])->name('transportasi.store');

@@ -6,8 +6,8 @@
         <div class="sidebar-content">
 
             <ul class="nav">
-                <li class="nav-item{{ request()->is('/') ? ' active' : '' }}">
-                    <a href="/">
+                <li class="nav-item{{ request()->is('dashboard') ? ' active' : '' }}">
+                    <a href="/dashboard">
                         <i class="fas fa-home"></i>
                         <p>Dashboard</p>
                     </a>

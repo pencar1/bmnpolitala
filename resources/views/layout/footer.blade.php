@@ -97,5 +97,12 @@
     });
 </script>
 
+
+<script>
+    $('#logoutModal').on('shown.bs.modal', function () {
+        $('#logoutConfirmBtn').focus(); // Fokus pada tombol "Logout" saat modal ditampilkan
+    });
+</script>
+
 </body>
 </html>
