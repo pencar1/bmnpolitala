@@ -13,7 +13,7 @@
                     <div class="card-header">
                         <div class="d-flex align-items-center">
                             <h4 class="card-title">User</h4>
-                            <a href="{{ route('user.create') }}" class="btn btn-primary btn-round ml-auto">
+                            <a href="{{ route('admin.user.create') }}" class="btn btn-primary btn-round ml-auto">
                                 <i class="fa fa-plus"></i>
                                 Tambah
                             </a>
@@ -38,7 +38,7 @@
                                         <td>{{ $d->email }}</td>
                                         <td>
                                             <div class="form-button-action">
-                                                <a href="{{ route('user.edit', ['id' => $d->id]) }}" data-toggle="tooltip" title="Ubah User" class="btn btn-link btn-primary btn-lg">
+                                                <a href="{{ route('admin.user.edit', ['id' => $d->id]) }}" data-toggle="tooltip" title="Ubah User" class="btn btn-link btn-primary btn-lg">
                                                     <i class="fa fa-edit"></i>
                                                 </a>
                                                 <button type="button" data-id="{{ $d->id }}" data-name="{{ $d->name }}" data-toggle="modal" data-target="#deleteModal-{{ $d->id }}" title="Hapus User" class="btn btn-link btn-danger deleteButton">
@@ -61,7 +61,7 @@
                                                     Apakah Anda yakin ingin menghapus pengguna {{ $d->name }}?
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <form action="{{ route('user.delete',['id' => $d->id])}}" method="POST">
+                                                    <form action="{{ route('admin.user.delete',['id' => $d->id])}}" method="POST">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>

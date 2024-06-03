@@ -45,7 +45,7 @@ class TransportasiController extends Controller
 
         $transportasi->save();
 
-        return redirect()->route('transportasi');
+        return redirect()->route('admin.transportasi');
     }
 
 
@@ -53,7 +53,7 @@ class TransportasiController extends Controller
     {
         $data = Transportasi::find($id);
         if (!$data) {
-            return redirect()->route('transportasi')->withErrors('Data tidak ditemukan.');
+            return redirect()->route('admin.transportasi')->withErrors('Data tidak ditemukan.');
         }
         return view('admin.transportasi.editt', compact('data'));
     }
@@ -73,7 +73,7 @@ class TransportasiController extends Controller
     
         $transportasi = Transportasi::find($id);
         if (!$transportasi) {
-            return redirect()->route('transportasi')->withErrors('Data tidak ditemukan.');
+            return redirect()->route('admin.transportasi')->withErrors('Data tidak ditemukan.');
         }
     
         $transportasi->namatransportasi = $request->input('namatransportasi');
@@ -98,7 +98,7 @@ class TransportasiController extends Controller
     
         $transportasi->save();
     
-        return redirect()->route('transportasi')->with('success', 'Data berhasil diperbarui.');
+        return redirect()->route('admin.transportasi')->with('success', 'Data berhasil diperbarui.');
     }
 
     public function destroy($id)
@@ -115,7 +115,7 @@ class TransportasiController extends Controller
             $transportasi->delete();
         }
 
-        return redirect()->route('transportasi')->with('success', 'Data berhasil dihapus.');
+        return redirect()->route('admin.transportasi')->with('success', 'Data berhasil dihapus.');
     }
 }
 

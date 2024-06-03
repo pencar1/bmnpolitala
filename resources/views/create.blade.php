@@ -5,7 +5,7 @@
 <div class="page-inner">
     <div class="page-header">
         <div class="col-md-12">
-            <form action="{{route('user.store')}}" method="POST">
+            <form action="{{route('admin.user.store')}}" method="POST">
                 @csrf
                 <div class="card">
                     <div class="card-header">
@@ -46,7 +46,7 @@
                     </div>
                     <div class="card-action">
                         <button type="submit"  class="btn btn-success">Simpan</button>
-                        <button type="button" class="btn btn-danger" onclick="window.location.href='{{ route('index') }}'">Batal</button>
+                        <button type="button" class="btn btn-danger" onclick="window.location.href='{{ route('admin.index') }}'">Batal</button>
                     </div>
                 </div>
             </form>

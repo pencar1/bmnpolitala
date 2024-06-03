@@ -12,7 +12,7 @@
                     <div class="card-header">
                         <div class="d-flex align-items-center">
                             <h4 class="card-title">Transportasi</h4>
-                            <a href="{{ route('transportasi.tambah') }}" class="btn btn-primary btn-round ml-auto">
+                            <a href="{{ route('admin.transportasi.tambah') }}" class="btn btn-primary btn-round ml-auto">
                                 <i class="fa fa-plus"></i>
                                 Tambah
                             </a>
@@ -47,7 +47,7 @@
                                         </td>                                        
                                         <td>
                                             <div class="form-button-action">
-                                                <a href="{{ route('transportasi.edit', ['id' => $d->idtransportasi]) }}" data-toggle="tooltip" title="Ubah Transportasi" class="btn btn-link btn-primary btn-lg">
+                                                <a href="{{ route('admin.transportasi.edit', ['id' => $d->idtransportasi]) }}" data-toggle="tooltip" title="Ubah Transportasi" class="btn btn-link btn-primary btn-lg">
                                                     <i class="fa fa-edit"></i>
                                                 </a>
                                                 <button type="button" data-toggle="modal" data-target="#deleteModal-{{ $d->idtransportasi }}" title="Hapus Transportasi" class="btn btn-link btn-danger deleteButton">
@@ -71,7 +71,7 @@
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                                                    <form action="{{ route('transportasi.destroy', ['id' => $d->idtransportasi]) }}" method="POST">
+                                                    <form action="{{ route('admin.transportasi.destroy', ['id' => $d->idtransportasi]) }}" method="POST">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="btn btn-danger">Hapus</button>

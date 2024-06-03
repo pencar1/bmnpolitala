@@ -5,7 +5,7 @@
 <div class="page-inner">
     <div class="page-header">
         <div class="col-md-12">
-            <form action="{{ route('user.update', ['id' => $data->id]) }}" method="POST">
+            <form action="{{ route('admin.user.update', ['id' => $data->id]) }}" method="POST">
                 @csrf
                 @method('PUT')
                 <div class="card">
@@ -47,7 +47,7 @@
                     </div>
                     <div class="card-action">
                         <button type="submit"  class="btn btn-success">Simpan</button>
-                        <button type="button" class="btn btn-danger" onclick="window.location.href='{{ route('index') }}'">Batal</button>
+                        <button type="button" class="btn btn-danger" onclick="window.location.href='{{ route('admin.index') }}'">Batal</button>
                     </div>
                 </div>
             </form>

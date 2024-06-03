@@ -5,7 +5,7 @@
 <div class="page-inner">
     <div class="page-header">
         <div class="col-md-12">
-            <form action="{{ route('transportasi.store') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('admin.transportasi.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="card">
                     <div class="card-header">
@@ -43,7 +43,7 @@
                     </div>
                     <div class="card-action">
                         <button type="submit" class="btn btn-success">Simpan</button>
-                        <button type="button" class="btn btn-danger" onclick="window.location.href='{{ route('transportasi') }}'">Batal</button>
+                        <button type="button" class="btn btn-danger" onclick="window.location.href='{{ route('admin.transportasi') }}'">Batal</button>
                     </div>
                 </div>
             </form>
