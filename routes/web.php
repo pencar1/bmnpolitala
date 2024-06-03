@@ -6,6 +6,7 @@ use App\Http\Controllers\Peminjaman;
 use App\Http\Controllers\Pengembalian;
 use App\Http\Controllers\Arsiptolak;
 use App\Http\Controllers\Barang;
+use App\Http\Controllers\BarangController;
 use App\Http\Controllers\Ruangan;
 use App\Http\Controllers\TransportasiController;
 use Illuminate\Support\Facades\Route;
@@ -39,10 +40,13 @@ Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard'
 Route::get('/peminjaman', [Peminjaman::class, 'peminjaman']);
 Route::get('/pengembalian', [Pengembalian::class, 'pengembalian']);
 Route::get('/arsiptolak', [Arsiptolak::class, 'arsiptolak']);
-Route::get('/barang', [Barang::class, 'barang']);
-Route::get('/ruangan', [Ruangan::class, 'ruangan']);
 
-
+Route::get('/barang', [BarangController::class, 'index'])->name('barang');
+Route::get('/tambahbarang', [BarangController::class, 'tambahbarang'])->name('barang.tambah');
+Route::post('/barang', [BarangController::class, 'store'])->name('barang.store');
+Route::get('/barang/{id}/edit', [BarangController::class, 'edit'])->name('barang.edit');
+Route::put('/barang/{id}', [BarangController::class, 'update'])->name('barang.update');
+Route::delete('/barang/{id}', [BarangController::class, 'destroy'])->name('barang.destroy');
 
 Route::get('/transportasi', [TransportasiController::class, 'index'])->name('transportasi');
 Route::get('/tambahtransportasi', [TransportasiController::class, 'tambahtransportasi'])->name('transportasi.tambah');
@@ -51,7 +55,7 @@ Route::get('/transportasi/{id}/edit', [TransportasiController::class, 'edit'])->
 Route::put('/transportasi/{id}', [TransportasiController::class, 'update'])->name('transportasi.update');
 Route::delete('/transportasi/{id}', [TransportasiController::class, 'destroy'])->name('transportasi.destroy');
 
-
+Route::get('/ruangan', [Ruangan::class, 'ruangan']);
 
 Route::get('/user', [HomeController::class, 'index'])->name('index');
 Route::get('/create', [HomeController::class, 'create'])->name('user.create');
