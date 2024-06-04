@@ -8,6 +8,7 @@ use App\Http\Controllers\Arsiptolak;
 use App\Http\Controllers\Barang;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\Ruangan;
+use App\Http\Controllers\RuanganController;
 use App\Http\Controllers\TransportasiController;
 use Illuminate\Support\Facades\Route;
 
@@ -55,7 +56,13 @@ Route::get('/transportasi/{id}/edit', [TransportasiController::class, 'edit'])->
 Route::put('/transportasi/{id}', [TransportasiController::class, 'update'])->name('transportasi.update');
 Route::delete('/transportasi/{id}', [TransportasiController::class, 'destroy'])->name('transportasi.destroy');
 
-Route::get('/ruangan', [Ruangan::class, 'ruangan']);
+Route::get('/ruangan', [RuanganController::class, 'index'])->name('ruangan');
+Route::get('/tambahruangan', [RuanganController::class, 'tambahruangan'])->name('ruangan.tambah');
+Route::post('/ruangan', [RuanganController::class, 'store'])->name('ruangan.store');
+Route::get('/ruangan/{id}/edit', [RuanganController::class, 'edit'])->name('ruangan.edit');
+Route::put('/ruangan/{id}', [RuanganController::class, 'update'])->name('ruangan.update');
+Route::delete('/ruangan/{id}', [RuanganController::class, 'destroy'])->name('ruangan.destroy');
+Route::delete('/ruangan/{id}', [RuanganController::class, 'destroy'])->name('ruangan.delete');
 
 Route::get('/user', [HomeController::class, 'index'])->name('index');
 Route::get('/create', [HomeController::class, 'create'])->name('user.create');
