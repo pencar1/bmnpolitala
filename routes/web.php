@@ -7,11 +7,15 @@ use App\Http\Controllers\Pengembalian;
 use App\Http\Controllers\Arsiptolak;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\Ruangan;
+use App\Http\Controllers\RuanganController;
 use App\Http\Controllers\TransportasiController;
 
 use App\Http\Controllers\peminjam\HomepController;
 use App\Http\Controllers\peminjam\TransportasipController;
 use App\Http\Controllers\peminjam\BarangpController;
+use App\Http\Controllers\peminjam\RuanganpController;
+use App\Http\Controllers\peminjam\PeminjamanpController;
+use App\Http\Controllers\peminjam\ArsipditolakpController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -54,6 +58,15 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:admin'], 'as' 
     Route::put('/transportasi/{id}', [TransportasiController::class, 'update'])->name('transportasi.update');
     Route::delete('/transportasi/{id}', [TransportasiController::class, 'destroy'])->name('transportasi.destroy');
 
+    Route::get('/ruangan', [RuanganController::class, 'index'])->name('ruangan');
+    Route::get('/tambahruangan', [RuanganController::class, 'tambahruangan'])->name('ruangan.tambah');
+    Route::post('/ruangan', [RuanganController::class, 'store'])->name('ruangan.store');
+    Route::get('/ruangan/{id}/edit', [RuanganController::class, 'edit'])->name('ruangan.edit');
+    Route::put('/ruangan/{id}', [RuanganController::class, 'update'])->name('ruangan.update');
+    Route::delete('/ruangan/{id}', [RuanganController::class, 'destroy'])->name('ruangan.destroy');
+    Route::delete('/ruangan/{id}', [RuanganController::class, 'destroy'])->name('ruangan.delete');
+
+
     Route::get('/user', [HomeController::class, 'index'])->name('index');
     Route::get('/create', [HomeController::class, 'create'])->name('user.create');
     Route::post('/store', [HomeController::class, 'store'])->name('user.store');
@@ -68,18 +81,20 @@ Route::group(['prefix' => 'staf', 'middleware' => ['auth', 'role:staf'], 'as' =>
     // Tambahkan rute khusus staf lainnya di sini...
 });
 
+
 // Route group for peminjam
 Route::group(['prefix' => 'peminjam', 'middleware' => ['auth', 'role:peminjam'], 'as' => 'peminjam.'], function () {
         Route::get('/dashboard', [HomepController::class, 'dashboard'])->name('dashboard');
         Route::get('/dashboard', [HomepController::class, 'dashboard'])->name('dashboard');
         Route::get('/transportasi', [TransportasipController::class, 'index'])->name('transportasi');
         Route::get('/barang', [BarangpController::class, 'index'])->name('barang');
+        Route::get('/ruangan', [RuanganpController::class, 'index'])->name('ruangan');
+        Route::get('/peminjaman', [PeminjamanpController::class, 'index'])->name('peminjaman');
+        Route::get('/arsipditolak', [ArsipditolakpController::class, 'index'])->name('arsipditolak');
+
         // Tambahkan rute khusus peminjam lainnya di sini...
     });
     
-    // Route group for wadir
-    Route::group(['prefix' => 'wadir', 'middleware' => ['auth', 'role:wadir'], 'as' => 'wadir.'], function () {
-        Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
-        // Tambahkan rute khusus wadir lainnya di sini...
-    });
-    
+
+
+

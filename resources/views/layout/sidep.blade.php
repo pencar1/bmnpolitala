@@ -36,14 +36,14 @@
                         </a>
                     </li>
 
-                    <li class="nav-item{{ request()->is('peminjam/user') ? ' active' : '' }}">
+                    <li class="nav-item{{ request()->is('peminjam/peminjaman') ? ' active' : '' }}">
                         <a href="/peminjam/peminjaman">
                             <i class="fas fa-user"></i>
                             <p>Peminjaman</p>
                         </a>
                     </li>
 
-                    <li class="nav-item{{ request()->is('peminjam/user') ? ' active' : '' }}">
+                    <li class="nav-item{{ request()->is('peminjam/arsipditolak') ? ' active' : '' }}">
                         <a href="/peminjam/arsipditolak">
                             <i class="fas fa-user"></i>
                             <p>Arsip Ditolak</p>
