@@ -1,9 +1,9 @@
-@extends('layout.layoutadmin')
+@extends('layout.layoutpeminjam')
 
 @section('content')
 <div class="page-inner">
     <div class="page-header">
-        <h4 class="page-title">Menu Barang</h4>
+        <h4 class="page-title">Menu Transportasi</h4>
     </div>
     <div class="page-body">
         <div class="row">
@@ -11,8 +11,8 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="d-flex align-items-center">
-                            <h4 class="card-title">User</h4>
-                            <a href="{{ route('admin.barang.tambah') }}" class="btn btn-primary btn-round ml-auto">
+                            <h4 class="card-title">Transportasi</h4>
+                            {{-- <a href="{{ route('peminjam.transportasi.tambah') }}" class="btn btn-primary btn-round ml-auto"> --}}
                                 <i class="fa fa-plus"></i>
                                 Tambah
                             </a>
@@ -20,12 +20,11 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table id="add-row" class="display table table-striped table-hover" >
+                            <table id="add-row" class="display table table-striped table-hover">
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Nama Barang</th>
-                                        <th>Merk Barang</th>
+                                        <th>Nama Transportasi</th>
                                         <th>Stok</th>
                                         <th>Deskripsi</th>
                                         <th>Foto</th>
@@ -36,44 +35,43 @@
                                     @foreach ($data as $d)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $d->namabarang }}</td>
-                                        <td>{{ $d->merkbarang }}</td>
-                                        <td>{{ $d->stokbarang }}</td>
-                                        <td>{{ $d->deskripsibarang }}</td>
+                                        <td>{{ $d->namatransportasi }}</td>
+                                        <td>{{ $d->stoktransportasi }}</td>
+                                        <td>{{ $d->deskripsitransportasi }}</td>
                                         <td class="text-center">
                                             @if ($d->foto)
-                                                <img src="{{ asset('images/barang/' . $d->foto) }}" alt="Foto Barang" style="max-width: 120px;">
+                                                <img src="{{ asset('images/transportasi/' . $d->foto) }}" alt="Foto Transportasi" style="max-width: 120px;">
                                             @else
                                                 Tidak ada foto
                                             @endif
-                                        </td>
+                                        </td>                                        
                                         <td>
                                             <div class="form-button-action">
-                                                <a href="{{ route('admin.barang.edit', ['id' => $d->idbarang]) }}" data-toggle="tooltip" title="Ubah Barang" class="btn btn-link btn-primary btn-lg">
+                                                {{-- <a href="{{ route('peminjam.transportasi.edit', ['id' => $d->idtransportasi]) }}" data-toggle="tooltip" title="Ubah Transportasi" class="btn btn-link btn-primary btn-lg"> --}}
                                                     <i class="fa fa-edit"></i>
                                                 </a>
-                                                <button type="button" data-toggle="modal" data-target="#deleteModal-{{ $d->idbarang }}" title="Hapus Barang" class="btn btn-link btn-danger deleteButton">
+                                                <button type="button" data-toggle="modal" data-target="#deleteModal-{{ $d->idtransportasi }}" title="Hapus Transportasi" class="btn btn-link btn-danger deleteButton">
                                                     <i class="fa fa-times"></i>
                                                 </button>
                                             </div>
                                         </td>
                                     </tr>
-                                    <!--   Modal   -->
-                                    <div class="modal fade" id="deleteModal-{{ $d->idbarang }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel-{{ $d->idbarang }}" aria-hidden="true">
+                                    <!-- Delete Modal -->
+                                    <div class="modal fade" id="deleteModal-{{ $d->idtransportasi }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel-{{ $d->idtransportasi }}" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" id="deleteModalLabel-{{ $d->idbarang }}">Konfirmasi Hapus</h5>
+                                                    <h5 class="modal-title" id="deleteModalLabel-{{ $d->idtransportasi }}">Konfirmasi Hapus</h5>
                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    Apakah Anda yakin ingin menghapus Barang <strong>{{ $d->namabarang }}</strong>?
+                                                    Apakah Anda yakin ingin menghapus transportasi <strong>{{ $d->namatransportasi }}</strong>?
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                                                    <form action="{{ route('admin.barang.destroy', ['id' => $d->idbarang]) }}" method="POST">
+                                                    {{-- <form action="{{ route('peminjam.transportasi.destroy', ['id' => $d->idtransportasi]) }}" method="POST"> --}}
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="btn btn-danger">Hapus</button>
@@ -82,6 +80,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <!-- End Delete Modal -->
                                     @endforeach
                                 </tbody>
                             </table>

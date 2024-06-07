@@ -7,30 +7,48 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         return view('auth.login');
     }
 
-    public function login_proses(Request $request){
-        $request->validate ([
-            'email'      => 'required',
-            'password'   => 'required',
+    public function login_proses(Request $request)
+    {
+        $request->validate([
+            'email'    => 'required|email',
+            'password' => 'required',
         ]);
 
-    $data = [
-        'email'     => $request->email,
-        'password'  => $request->password
-    ];
-    if(Auth::attempt($data)){
-        return redirect()->route('admin.dashboard');
-    }else{
-        return redirect()->route('login')->with('failed', 'Email atau Password Salah');
+        $credentials = [
+            'email'    => $request->email,
+            'password' => $request->password,
+        ];
+
+        if (Auth::attempt($credentials)) {
+            $user = Auth::user();
+
+            // Redirect based on user role
+            switch ($user->role) {
+                case 'admin':
+                    return redirect()->route('admin.dashboard');
+                case 'peminjam':
+                    return redirect()->route('peminjam.dashboard');
+                case 'wadir':
+                    return redirect()->route('wadir.dashboard');
+                case 'staf':
+                    return redirect()->route('staf.dashboard');
+                default:
+                    Auth::logout();
+                    return redirect()->route('login')->with('failed', 'Role tidak dikenal.');
+            }
+        } else {
+            return redirect()->route('login')->with('failed', 'Email atau Password Salah');
+        }
     }
 
-    }
-
-    public function logout(){
+    public function logout()
+    {
         Auth::logout();
-        return redirect()->route('login')->with('succes', 'Kamu Berhasil Logout');
+        return redirect()->route('login')->with('success', 'Kamu Berhasil Logout');
     }
 }

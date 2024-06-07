@@ -1,4 +1,4 @@
-@extends('layout.layoutadmin')
+@extends('layout.layoutpeminjam')
 
 @section('content')
 <div class="page-inner">
@@ -12,7 +12,7 @@
                     <div class="card-header">
                         <div class="d-flex align-items-center">
                             <h4 class="card-title">User</h4>
-                            <a href="{{ route('admin.barang.tambah') }}" class="btn btn-primary btn-round ml-auto">
+                            {{-- <a href="{{ route('admin.barang.tambah') }}" class="btn btn-primary btn-round ml-auto"> --}}
                                 <i class="fa fa-plus"></i>
                                 Tambah
                             </a>
@@ -49,7 +49,7 @@
                                         </td>
                                         <td>
                                             <div class="form-button-action">
-                                                <a href="{{ route('admin.barang.edit', ['id' => $d->idbarang]) }}" data-toggle="tooltip" title="Ubah Barang" class="btn btn-link btn-primary btn-lg">
+                                                {{-- <a href="{{ route('admin.barang.edit', ['id' => $d->idbarang]) }}" data-toggle="tooltip" title="Ubah Barang" class="btn btn-link btn-primary btn-lg"> --}}
                                                     <i class="fa fa-edit"></i>
                                                 </a>
                                                 <button type="button" data-toggle="modal" data-target="#deleteModal-{{ $d->idbarang }}" title="Hapus Barang" class="btn btn-link btn-danger deleteButton">
@@ -73,7 +73,7 @@
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                                                    <form action="{{ route('admin.barang.destroy', ['id' => $d->idbarang]) }}" method="POST">
+                                                    {{-- <form action="{{ route('admin.barang.destroy', ['id' => $d->idbarang]) }}" method="POST"> --}}
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="btn btn-danger">Hapus</button>
