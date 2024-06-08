@@ -40,11 +40,11 @@
                                         <td>{{ $d->deskripsitransportasi }}</td>
                                         <td class="text-center">
                                             @if ($d->foto)
-                                                <img src="{{ asset('images/transportasi/' . $d->foto) }}" alt="Foto Transportasi" style="max-width: 120px;">
+                                                <img src="{{ asset('images/transportasi/' . $d->foto) }}" alt="Foto Transportasi" style="max-width: 100px; margin: 10px auto; border: 2px solid #ccc;">
                                             @else
                                                 Tidak ada foto
                                             @endif
-                                        </td>                                        
+                                        </td>
                                         <td>
                                             <div class="form-button-action">
                                                 <a href="{{ route('admin.transportasi.edit', ['id' => $d->idtransportasi]) }}" data-toggle="tooltip" title="Ubah Transportasi" class="btn btn-link btn-primary btn-lg">

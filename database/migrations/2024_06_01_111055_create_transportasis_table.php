@@ -14,9 +14,10 @@ return new class extends Migration
         Schema::create('transportasis', function (Blueprint $table) {
             $table->increments('idtransportasi'); // Primary key
             $table->string('namatransportasi', 50);
+            $table->string('merktransportasi', 50);
             $table->integer('stoktransportasi');
             $table->text('deskripsitransportasi');
-            $table->text('foto');
+            $table->text('foto')->nullable();
             // $table->timestamps();
         });
     }

@@ -38,11 +38,9 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:admin'], 'as' => 'admin.'], function () {
     Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
 
-    Route::get('/ruangan', [Ruangan::class, 'ruangan']);
     Route::get('/peminjaman', [Peminjaman::class, 'peminjaman']);
     Route::get('/pengembalian', [Pengembalian::class, 'pengembalian']);
     Route::get('/arsiptolak', [Arsiptolak::class, 'arsiptolak']);
-    Route::get('/barang', [Barang::class, 'barang']);
 
     Route::get('/barang', [BarangController::class, 'index'])->name('barang');
     Route::get('/tambahbarang', [BarangController::class, 'tambahbarang'])->name('barang.tambah');
@@ -85,16 +83,22 @@ Route::group(['prefix' => 'staf', 'middleware' => ['auth', 'role:staf'], 'as' =>
 // Route group for peminjam
 Route::group(['prefix' => 'peminjam', 'middleware' => ['auth', 'role:peminjam'], 'as' => 'peminjam.'], function () {
         Route::get('/dashboard', [HomepController::class, 'dashboard'])->name('dashboard');
-        Route::get('/dashboard', [HomepController::class, 'dashboard'])->name('dashboard');
-        Route::get('/transportasi', [TransportasipController::class, 'index'])->name('transportasi');
+
         Route::get('/barang', [BarangpController::class, 'index'])->name('barang');
+        Route::get('/barang/search', [BarangpController::class, 'search'])->name('barang.search');
+
+        Route::get('/transportasi', [TransportasipController::class, 'index'])->name('transportasi');
+        Route::get('/transportasi/search', [TransportasipController::class, 'search'])->name('transportasi.search');
+
         Route::get('/ruangan', [RuanganpController::class, 'index'])->name('ruangan');
+        Route::get('/ruangan/search', [RuanganpController::class, 'search'])->name('ruangan.search');
+
         Route::get('/peminjaman', [PeminjamanpController::class, 'index'])->name('peminjaman');
         Route::get('/arsipditolak', [ArsipditolakpController::class, 'index'])->name('arsipditolak');
 
         // Tambahkan rute khusus peminjam lainnya di sini...
     });
-    
+
 
 
 

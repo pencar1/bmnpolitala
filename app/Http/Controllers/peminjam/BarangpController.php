@@ -14,4 +14,18 @@ class BarangpController extends Controller
         $data = Barang::get();
         return view('peminjam.barang', compact('data'));
     }
+
+    public function search(Request $request)
+    {
+        $request->validate([
+            'query' => 'required|string|max:255',
+        ]);
+
+        $query = $request->input('query');
+        $barang = Barang::where('namabarang', 'like', "%$query%")
+                        ->orWhere('deskripsibarang', 'like', "%$query%")
+                        ->get();
+
+        return view('peminjam.barang', ['data' => $barang]);
+    }
 }

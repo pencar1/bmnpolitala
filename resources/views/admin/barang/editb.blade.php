@@ -14,6 +14,19 @@
                     </div>
                     <div class="card-body">
                         <div class="form-group">
+                            <div class="form-group text-center">
+                            @if ($data->foto)
+                                <img src="{{ asset('images/barang/' . $data->foto) }}" alt="Foto barang" style="display: block; max-width: 300px; margin: 10px auto; border: 2px solid #ccc;"">
+                                <br>
+                            @endif
+                            </div>
+                            <label for="foto">Gambar</label>
+                            <input type="file" name="foto" class="form-control" id="foto">
+                            @error('foto')
+                                <small>{{ $message }}</small>
+                            @enderror
+                        </div>
+                        <div class="form-group">
                             <label for="namabarang">Nama Barang</label>
                             <input type="text" name="namabarang" class="form-control" id="namabarang" value="{{ old('namabarang', $data->namabarang) }}" placeholder="Masukkan Nama">
                             @error('namabarang')
@@ -40,16 +53,6 @@
                             @error('deskripsibarang')
                                 <small>{{ $message }}</small>
                             @enderror
-                        </div>
-                        <div class="form-group">
-                            <label for="foto">Gambar</label>
-                            <input type="file" name="foto" class="form-control" id="foto">
-                            @error('foto')
-                                <small>{{ $message }}</small>
-                            @enderror
-                            @if ($data->foto)
-                                <img src="{{ asset('images/barang/' . $data->foto) }}" alt="Foto barang" style="width: 150px; margin-top: 10px;">
-                            @endif
                         </div>
                     </div>
                     <div class="card-action">

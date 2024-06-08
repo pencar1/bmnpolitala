@@ -4,7 +4,7 @@
 <div class="page-inner">
     <div class="page-header">
         <h4 class="page-title">Menu User</h4>
-    
+
     </div>
     <div class="page-body">
         <div class="row">
@@ -26,6 +26,7 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Nama</th>
+                                        <th>No HP</th>
                                         <th>Email</th>
                                         <th style="width: 10%">Action</th>
                                     </tr>
@@ -34,7 +35,8 @@
                                     @foreach ($data as $d)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $d->name }}</td>
+                                        <td>{{ $d->nama }}</td>
+                                        <td>{{ $d->nohp }}</td>
                                         <td>{{ $d->email }}</td>
                                         <td>
                                             <div class="form-button-action">

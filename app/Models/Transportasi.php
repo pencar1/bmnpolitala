@@ -27,6 +27,7 @@ class Transportasi extends Model
     // Kolom-kolom yang dapat diisi secara massal
     protected $fillable = [
         'namatransportasi',
+        'merktransportasi',
         'stoktransportasi',
         'deskripsitransportasi',
         'foto',

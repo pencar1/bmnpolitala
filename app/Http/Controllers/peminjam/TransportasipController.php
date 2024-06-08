@@ -14,4 +14,18 @@ class TransportasipController extends Controller
         $data = Transportasi::get();
         return view('peminjam.transportasi', compact('data'));
     }
+
+    public function search(Request $request)
+    {
+        $request->validate([
+            'query' => 'required|string|max:255',
+        ]);
+
+        $query = $request->input('query');
+        $transportasi = Transportasi::where('namatransportasi', 'like', "%$query%")
+                        ->orWhere('deskripsitransportasi', 'like', "%$query%")
+                        ->get();
+
+        return view('peminjam.transportasi', ['data' => $transportasi]);
+    }
 }

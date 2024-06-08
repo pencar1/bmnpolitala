@@ -42,7 +42,7 @@
                                         <td>{{ $d->deskripsibarang }}</td>
                                         <td class="text-center">
                                             @if ($d->foto)
-                                                <img src="{{ asset('images/barang/' . $d->foto) }}" alt="Foto Barang" style="max-width: 120px;">
+                                                <img src="{{ asset('images/barang/' . $d->foto) }}" alt="Foto Barang" style="max-width: 100px; margin: 10px auto; border: 2px solid #ccc;">
                                             @else
                                                 Tidak ada foto
                                             @endif

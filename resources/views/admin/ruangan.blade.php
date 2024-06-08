@@ -4,7 +4,7 @@
 <div class="page-inner">
     <div class="page-header">
         <h4 class="page-title">Menu Ruangan</h4>
-      
+
     </div>
     <div class="page-body">
         <div class="row">
@@ -39,7 +39,7 @@
                                         <td>{{ $d->deskripsiruangan }}</td>
                                         <td class="text-center">
                                             @if ($d->foto)
-                                                <img src="{{ asset('images/ruangan/' . $d->foto) }}" alt="Foto Ruangan" style="max-width: 120px;">
+                                                <img src="{{ asset('images/ruangan/' . $d->foto) }}" alt="Foto Ruangan" style="max-width: 100px; margin: 10px auto; border: 2px solid #ccc;">
                                             @else
                                                 Tidak ada foto
                                             @endif

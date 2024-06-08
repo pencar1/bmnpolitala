@@ -20,6 +20,44 @@
                             @enderror
                         </div>
                         <div class="form-group">
+                            <label for="exampleFormControlSelect1">Prodi</label>
+                            <select class="form-control" id="exampleFormControlSelect1" name="prodi">
+                                <option selected disabled hidden>Pilih Prodi</option>
+                                <option>Teknologi Informasi</option>
+                                <option>Mesin Otomotif</option>
+                                <option>Agroindustri</option>
+                            </select>
+                            @error('prodi')
+                                <small>{{ $message }}</small>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="nim">NIM</label>
+                            <input type="text" name="nim" class="form-control" id="nim" placeholder="Masukkan NIM">
+                            @error('nim')
+                                <small>{{ $message }}</small>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="nohp">No HP</label>
+                            <input type="text" name="nohp" class="form-control" id="nohp" placeholder="Masukkan No HP">
+                            @error('nohp')
+                                <small>{{ $message }}</small>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">Organisasi</label>
+                            <select class="form-control" id="exampleFormControlSelect1" name="organisasi">
+                                <option selected disabled hidden>Pilih Organisasi</option>
+                                <option>DPM</option>
+                                <option>BEM</option>
+                                <option>Mapala</option>
+                            </select>
+                            @error('organisasi')
+                                <small>{{ $message }}</small>
+                            @enderror
+                        </div>
+                        <div class="form-group">
                             <label for="email2">Email</label>
                             <input type="email" name="email" class="form-control" id="email2" placeholder="Masukkan Email">
                             @error('email')
@@ -34,14 +72,16 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="exampleFormControlSelect1">Organisasi</label>
-                            <select class="form-control" id="exampleFormControlSelect1">
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
+                            <label for="exampleFormControlSelect1">Role</label>
+                            <select class="form-control" id="exampleFormControlSelect1" name="role">
+                                <option selected disabled hidden>Pilih Role</option>
+                                <option>admin</option>
+                                <option>staf</option>
+                                <option>peminjam</option>
                             </select>
+                            @error('role')
+                                <small>{{ $message }}</small>
+                            @enderror
                         </div>
                     </div>
                     <div class="card-action">

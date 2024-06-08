@@ -15,8 +15,41 @@
                     <div class="card-body">
                         <div class="form-group">
                             <label for="nama">Nama</label>
-                            <input type="text" name="nama" value="{{ $data->name }}" class="form-control" id="nama" placeholder="Masukkan Nama">
+                            <input type="text" name="nama" value="{{ $data->nama }}" class="form-control" id="nama" placeholder="Masukkan Nama">
                             @error('nama')
+                                <small>{{ $message }}</small>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">Prodi</label>
+                            <select class="form-control" id="exampleFormControlSelect1" name="prodi">
+                                <option value="teknologi informasi" {{ $data->prodi == 'teknologi informasi' ? 'selected' : '' }}>Teknologi Informasi</option>
+                                <option value="mesin otomotif" {{ $data->prodi == 'mesin otomotif' ? 'selected' : '' }}>Mesin Otomotif</option>
+                                <option value="agroindustri" {{ $data->prodi == 'agroindustri' ? 'selected' : '' }}>Agroindustri</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="nim">NIM</label>
+                            <input type="text" name="nim" value="{{ $data->nim }}" class="form-control" id="nim" placeholder="Masukkan NIM">
+                            @error('nim')
+                                <small>{{ $message }}</small>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="nohp">No HP</label>
+                            <input type="text" name="nohp" value="{{ $data->nohp }}" class="form-control" id="nohp" placeholder="Masukkan No HP">
+                            @error('nohp')
+                                <small>{{ $message }}</small>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">Organisasi</label>
+                            <select class="form-control" id="exampleFormControlSelect1" name="organisasi">
+                                <option value="dpm" {{ $data->organisasi == 'dpm' ? 'selected' : '' }}>DPM</option>
+                                <option value="bem" {{ $data->organisasi == 'bem' ? 'selected' : '' }}>BEM</option>
+                                <option value="mapala" {{ $data->organisasi == 'mapala' ? 'selected' : '' }}>Mapala</option>
+                            </select>
+                            @error('organisasi')
                                 <small>{{ $message }}</small>
                             @enderror
                         </div>
@@ -35,14 +68,15 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="exampleFormControlSelect1">Organisasi</label>
-                            <select class="form-control" id="exampleFormControlSelect1">
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
+                            <label for="exampleFormControlSelect1">Role</label>
+                            <select class="form-control" id="exampleFormControlSelect1" name="role">
+                                <option value="admin" {{ $data->role == 'admin' ? 'selected' : '' }}>Admin</option>
+                                <option value="staf" {{ $data->role == 'staf' ? 'selected' : '' }}>Staf</option>
+                                <option value="peminjam" {{ $data->role == 'peminjam' ? 'selected' : '' }}>Peminjam</option>
                             </select>
+                            @error('role')
+                                <small>{{ $message }}</small>
+                            @enderror
                         </div>
                     </div>
                     <div class="card-action">

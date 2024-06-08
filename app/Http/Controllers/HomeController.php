@@ -28,18 +28,26 @@ class HomeController extends Controller
 
     public function store(Request $request){
         $validator = Validator::make($request->all(), [
-            'nama' => 'required|string|max:255',
-            'email' => 'required|email|max:255|unique:users,email',
-            'password' => 'required|string|min:8',
+            'nama'          => 'required|string|max:50',
+            'prodi'         => 'required|string|max:50',
+            'nim'           => 'required|string|max:16',
+            'nohp'          => 'required|string|max:16',
+            'organisasi'    => 'required|string|max:50',
+            'email'         => 'required|email|max:255|unique:users,email',
+            'password'      => 'required|string|min:8',
         ]);
 
         if ($validator->fails()) {
             return redirect()->back()->withInput()->withErrors($validator);
         }
 
-        $data['name'] = $request->input('nama');
-        $data['email'] = $request->input('email');
-        $data['password'] = Hash::make($request->input('password'));
+        $data['nama']           = $request->input('nama');
+        $data['prodi']          = $request->input('prodi');
+        $data['nim']            = $request->input('nim');
+        $data['nohp']           = $request->input('nohp');
+        $data['organisasi']     = $request->input('organisasi');
+        $data['email']          = $request->input('email');
+        $data['password']       = Hash::make($request->input('password'));
 
         User::create($data);
 
@@ -56,10 +64,14 @@ class HomeController extends Controller
     {
         // Ambil data pengguna yang ada berdasarkan ID
         $user = User::findOrFail($id);
-    
+
         // Aturan validasi dengan pengecualian email pengguna saat ini
         $validator = Validator::make($request->all(), [
-            'nama' => 'required|string|max:255',
+            'nama'          => 'required|string|max:50',
+            'prodi'         => 'required|string|max:50',
+            'nim'           => 'required|string|max:16',
+            'nohp'          => 'required|string|max:16',
+            'organisasi'    => 'required|string|max:50',
             'email' => [
                 'required',
                 'email',
@@ -68,23 +80,27 @@ class HomeController extends Controller
             ],
             'password' => 'nullable|min:8',
         ]);
-    
+
         if ($validator->fails()) {
             return redirect()->back()->withInput()->withErrors($validator);
         }
-    
-        $data['name'] = $request->input('nama');
-        $data['email'] = $request->input('email');
-    
+
+        $data['nama']           = $request->input('nama');
+        $data['prodi']          = $request->input('prodi');
+        $data['nim']            = $request->input('nim');
+        $data['nohp']           = $request->input('nohp');
+        $data['organisasi']     = $request->input('organisasi');
+        $data['email']          = $request->input('email');
+
         if ($request->password) {
             $data['password'] = Hash::make($request->input('password'));
         }
-    
+
         User::whereId($id)->update($data);
-    
+
         return redirect()->route('admin.index');
     }
-    
+
     public function delete(Request $request,$id){
         $data = User::find($id);
 

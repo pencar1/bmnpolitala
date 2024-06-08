@@ -4,7 +4,7 @@
         <div class="sidebar-background"></div>
         <div class="sidebar-wrapper scrollbar-inner">
             <div class="sidebar-content">
-    
+
                 <ul class="nav">
                     <li class="nav-item{{ request()->is('peminjam/dashboard') ? ' active' : '' }}">
                         <a href="/peminjam/dashboard">
@@ -12,23 +12,21 @@
                             <p>Dashboard</p>
                         </a>
                     </li>
-              
                     
-    
                     <li class="nav-item{{ request()->is('peminjam/barang') ? ' active' : '' }}">
                         <a href="/peminjam/barang">
                             <i class="fas fa-boxes"></i>
                             <p>Barang</p>
                         </a>
                     </li>
-    
+
                     <li class="nav-item{{ request()->is('peminjam/transportasi') ? ' active' : '' }}">
                         <a href="/peminjam/transportasi">
                             <i class="fas fa-truck-pickup"></i>
                             <p>Transportasi</p>
                         </a>
                     </li>
-    
+
                     <li class="nav-item{{ request()->is('peminjam/ruangan') ? ' active' : '' }}">
                         <a href="/peminjam/ruangan">
                             <i class="fas fa-building"></i>
@@ -54,7 +52,7 @@
         </div>
     </div>
     <!-- End Sidebar -->
-    
+
     <div class="main-panel">
         <div class="content">
             @yield('content')
@@ -62,4 +60,3 @@
     </div>
     </div>
     </div>
-    
