@@ -17,31 +17,30 @@
     <div class="page-body">
         <div class="row">
             <div class="col-md-12">
-                    <div class="row row-projects" id="search-results">
-                        @foreach ($data as $d)
-						<div class="col-sm-6 col-lg-3">
-							<div class="card">
-								<div class="p-2">
-                                    @if ($d->foto)
-									<img class="card-img-top rounded" src="{{ asset('images/barang/' . $d->foto) }}" alt="Foto Barang" alt="Product 1" style="border: 2px solid #ccc;">
-                                    @else
-                                        Tidak ada foto
-                                    @endif
-								</div>
-								<div class="card-body pt-2">
-									<h4 class="mb-1 fw-bold">{{ $d->namabarang }}</h4>
-									<p class="text-muted small mb-2">{{ $d->deskripsibarang }}</p>
-                                        <button type="submit"  class="btn btn-success">Pinjam</button>
-                                        <button type="submit"  class="btn btn-primary">Lihat</button>
-								</div>
-							</div>
-						</div>
-                        @endforeach
+                <div class="row row-projects" id="search-results">
+                    @foreach ($data as $d)
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="card">
+                            <div class="p-2">
+                                @if ($d->foto)
+                                <img class="card-img-top rounded" src="{{ asset('images/barang/' . $d->foto) }}" alt="Foto Barang" style="width: 100%; height: 200px; object-fit: cover; border: 2px solid #ccc;">
+                                @else
+                                Tidak ada foto
+                                @endif
+                            </div>
+                            <div class="card-body pt-2">
+                                <h4 class="mb-1 fw-bold">{{ $d->namabarang }}</h4>
+                                <p class="text-muted small mb-2">{{ $d->deskripsibarang }}</p>
+                                <button type="submit" class="btn btn-success">Pinjam</button>
+                                <button type="submit" class="btn btn-primary">Lihat</button>
+                            </div>
+                        </div>
                     </div>
+                    @endforeach
                 </div>
             </div>
         </div>
-
+        </div>
 </div>
 @endsection
 
