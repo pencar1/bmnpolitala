@@ -2,11 +2,10 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\Peminjaman;
+use App\Http\Controllers\PeminjamanController;
 use App\Http\Controllers\Pengembalian;
 use App\Http\Controllers\Arsiptolak;
 use App\Http\Controllers\BarangController;
-use App\Http\Controllers\Ruangan;
 use App\Http\Controllers\RuanganController;
 use App\Http\Controllers\TransportasiController;
 
@@ -16,7 +15,6 @@ use App\Http\Controllers\peminjam\BarangpController;
 use App\Http\Controllers\peminjam\RuanganpController;
 use App\Http\Controllers\peminjam\PeminjamanpController;
 use App\Http\Controllers\peminjam\ArsipditolakpController;
-
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -38,7 +36,13 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:admin'], 'as' => 'admin.'], function () {
     Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
 
-    Route::get('/peminjaman', [Peminjaman::class, 'peminjaman']);
+    Route::get('/peminjaman', [PeminjamanController::class, 'index'])->name('peminjaman');
+    Route::get('/tambahpeminjaman', [PeminjamanController::class, 'tambahpeminjaman'])->name('peminjaman.tambah');
+    Route::post('/peminjaman', [PeminjamanController::class, 'store'])->name('peminjaman.store');
+    Route::get('/peminjaman/{id}/edit', [PeminjamanController::class, 'edit'])->name('peminjaman.edit');
+    Route::put('/peminjaman/{id}', [PeminjamanController::class, 'update'])->name('peminjaman.update');
+    Route::delete('/peminjaman/{id}', [PeminjamanController::class, 'destroy'])->name('peminjaman.destroy');
+
     Route::get('/pengembalian', [Pengembalian::class, 'pengembalian']);
     Route::get('/arsiptolak', [Arsiptolak::class, 'arsiptolak']);
 

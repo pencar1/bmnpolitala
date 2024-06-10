@@ -4,7 +4,7 @@
 <div class="page-inner">
     <div class="page-header">
         <h4 class="page-title">Menu Peminjaman</h4>
-      
+
     </div>
     <div class="page-body">
         <div class="row">
@@ -12,8 +12,8 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="d-flex align-items-center">
-                            <h4 class="card-title">User</h4>
-                            <a href="{{ route('admin.user.create') }}" class="btn btn-primary btn-round ml-auto">
+                            <h4 class="card-title">Peminjaman</h4>
+                            <a href="{{ route('admin.peminjaman.tambah') }}" class="btn btn-primary btn-round ml-auto">
                                 <i class="fa fa-plus"></i>
                                 Tambah
                             </a>

@@ -1,5 +1,5 @@
 <body>
-    
+
 
         <!-- Modal Konfirmasi Logout -->
         <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="logoutModalLabel" aria-hidden="true">
@@ -55,7 +55,7 @@
             </form>
         </div>
         <ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
-           
+
             <li class="nav-item dropdown hidden-caret">
                 <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false">
                     <div class="avatar-sm">
