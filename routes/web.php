@@ -90,6 +90,8 @@ Route::group(['prefix' => 'staf', 'middleware' => ['auth', 'role:staf'], 'as' =>
 // Route group for peminjam
 Route::group(['prefix' => 'peminjam', 'middleware' => ['auth', 'role:peminjam'], 'as' => 'peminjam.'], function () {
         Route::get('/dashboard', [HomepController::class, 'dashboard'])->name('dashboard');
+        Route::get('/profilp', [HomepController::class, 'profil'])->name('profil');
+        Route::put('/profilp/update', [HomepController::class, 'updateProfil'])->name('profil.update');
 
         Route::get('/barang', [BarangpController::class, 'index'])->name('barang');
         Route::get('/barang/search', [BarangpController::class, 'search'])->name('barang.search');
