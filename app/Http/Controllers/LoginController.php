@@ -33,8 +33,6 @@ class LoginController extends Controller
                     return redirect()->route('admin.dashboard');
                 case 'peminjam':
                     return redirect()->route('peminjam.dashboard');
-                case 'wadir':
-                    return redirect()->route('wadir.dashboard');
                 case 'staf':
                     return redirect()->route('staf.dashboard');
                 default:

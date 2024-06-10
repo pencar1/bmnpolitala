@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('peminjamans', function (Blueprint $table) {
             $table->increments('idpeminjaman');
-            $table->unsignedInteger('iduser');
+            $table->unsignedBigInteger('iduser');
             $table->unsignedInteger('idbarang')->nullable();
             $table->unsignedInteger('idtransportasi')->nullable();
             $table->unsignedInteger('idruangan')->nullable();
@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('status');
 
             // Define foreign key constraints
-            $table->foreign('iduser')->references('iduser')->on('users')->onDelete('cascade');
+            $table->foreign('iduser')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('idbarang')->references('idbarang')->on('barangs')->onDelete('cascade');
             $table->foreign('idtransportasi')->references('idtransportasi')->on('transportasis')->onDelete('cascade');
             $table->foreign('idruangan')->references('idruangan')->on('ruangans')->onDelete('cascade');
