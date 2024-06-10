@@ -17,7 +17,7 @@
     <div class="page-body">
         <div class="row">
             <div class="col-md-12">
-                <div class="row row-projects">
+                <div class="row row-projects" id="search-results">
                     @foreach ($data as $d)
                     <div class="col-sm-6 col-lg-3">
                         <div class="card">

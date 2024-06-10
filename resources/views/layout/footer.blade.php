@@ -97,10 +97,33 @@
     });
 </script>
 
-
 <script>
     $('#logoutModal').on('shown.bs.modal', function () {
         $('#logoutConfirmBtn').focus(); // Fokus pada tombol "Logout" saat modal ditampilkan
+    });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchInput = document.getElementById('search-input');
+
+        searchInput.addEventListener('input', function() {
+            const keyword = searchInput.value.trim().toLowerCase();
+            const searchResults = document.getElementById('search-results');
+            const cards = searchResults.getElementsByClassName('col-sm-6 col-lg-3');
+
+            for (let i = 0; i < cards.length; i++) {
+                const card = cards[i];
+                const cardBody = card.getElementsByClassName('card-body')[0];
+                const cardText = cardBody.innerText.toLowerCase();
+
+                if (cardText.includes(keyword)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            }
+        });
     });
 </script>
 
