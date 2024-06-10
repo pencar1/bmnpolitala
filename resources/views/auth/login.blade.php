@@ -17,7 +17,7 @@
 			}
 		});
 	</script>
-	
+
 	<!-- CSS Files -->
 	<link rel="stylesheet" href="{{ asset ('azzara/assets/css/bootstrap.min.css')}}">
 	<link rel="stylesheet" href="{{ asset ('azzara/assets/css/azzara.min.css')}}">
@@ -36,7 +36,7 @@
                 <small>{{ $message }}</small>
                 @enderror
 				</div>
-                
+
 				<div class="form-group form-floating-label">
 					<input id="password" name="password" type="password" class="form-control input-border-bottom" required>
 					<label for="password" class="placeholder">Password</label>
@@ -47,13 +47,13 @@
                     <small>{{ $message }}</small>
                     @enderror
 				</div>
-              
+            
 				<div class="row form-sub m-0">
 					<div class="custom-control custom-checkbox">
 						<input type="checkbox" class="custom-control-input" id="rememberme">
 						<label class="custom-control-label" for="rememberme">Remember Me</label>
 					</div>
-					
+
 					<a href="#" class="link float-right">Forget Password ?</a>
 				</div>
                 <div class="form-action mb-3">
@@ -66,7 +66,7 @@
 			</div>
 		</div>
 
-		
+
 	</div>
 	<script src="{{ asset ('azzara/assets/js/core/jquery.3.2.1.min.js')}}"></script>
 	<script src="{{ asset ('azzara/assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js')}}"></script>

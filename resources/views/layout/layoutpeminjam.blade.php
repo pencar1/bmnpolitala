@@ -1,4 +1,4 @@
 @include('layout.head')
-@include('layout.nav')
+@include('layout.navp')
 @include('layout.sidep')
 @include('layout.footer')

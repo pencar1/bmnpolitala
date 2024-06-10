@@ -23,7 +23,7 @@
                         <div class="card">
                             <div class="p-2">
                                 @if ($d->foto)
-                                <img class="card-img-top rounded" src="{{ asset('images/transportasi/' . $d->foto) }}" alt="Foto Transportasi" style="width: 100%; height: 200px; object-fit: cover; border: 2px solid #ccc;">
+                                <img class="card-img-top rounded" src="{{ asset('images/transportasi/' . $d->foto) }}" alt="Foto Transportasi" style="width: 100%; height: 200px; object-fit: cover; border: 2px solid #ccc; border-radius: 0.375rem;">
                                 @else
                                 Tidak ada foto
                                 @endif

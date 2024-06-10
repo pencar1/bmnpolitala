@@ -39,7 +39,7 @@ class Peminjaman extends Model
     // Relationship ke model User
     public function user()
     {
-        return $this->belongsTo(User::class, 'iduser', 'iduser');
+        return $this->belongsTo(User::class, 'id');
     }
 
     // Relationship ke model Barang
