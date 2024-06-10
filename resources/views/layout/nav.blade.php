@@ -1,5 +1,5 @@
 <body>
-    
+
 
         <!-- Modal Konfirmasi Logout -->
         <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="logoutModalLabel" aria-hidden="true">
@@ -55,7 +55,7 @@
             </form>
         </div>
         <ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
-           
+
             <li class="nav-item dropdown hidden-caret">
                 <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false">
                     <div class="avatar-sm">
@@ -67,15 +67,14 @@
                         <div class="user-box">
                             <div class="avatar-lg"><img src="{{ asset ('azzara/assets/img/profile.jpg')}}" alt="image profile" class="avatar-img rounded"></div>
                             <div class="u-text">
-                                <h4>Hizrian</h4>
-                                <p class="text-muted">hello@example.com</p>
+                                <h4>{{ $user->nama }}</h4>
+                                <p class="text-muted">{{ $user->email }}</p>
                             </div>
                         </div>
                     </li>
                     <li>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">My Profile</a>
-                        <a class="dropdown-item" href="#">My Balance</a>
+                        <a class="dropdown-item" href="/admin/profil">My Profile</a>
                         <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Logout</a>
                     </li>
                 </ul>
