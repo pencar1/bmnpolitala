@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="page-inner">
-    <h4 class="page-title">User Profile</h4>
+    <h4 class="page-title">User Profil</h4>
     <div class="row">
         <div class="col-md-8">
             <div class="card card-with-nav">
@@ -11,7 +11,7 @@
                         <ul class="nav nav-tabs nav-line nav-color-secondary" role="tablist">
                           
                             <li class="nav-item">
-                                <a class="nav-link" data-toggle="tab" href="#profile" role="tab" aria-selected="false">Profile</a>
+                                <a class="nav-link" data-toggle="tab" href="#profile" role="tab" aria-selected="false">Profil</a>
                             </li>
                            
                         </ul>
@@ -24,7 +24,7 @@
                         <div class="row mt-3">
                             <div class="col-md-6">
                                 <div class="form-group form-group-default">
-                                    <label for="nama">Name</label>
+                                    <label for="nama">Nama</label>
                                     <input type="text" class="form-control" id="nama" name="nama" value="{{ $user->nama }}" placeholder="Enter Name">
                                     @error('nama')
                                     <small>{{ $message }}</small>
@@ -44,7 +44,7 @@
                         <div class="row mt-3">
                             <div class="col-md-6">
                                 <div class="form-group form-group-default">
-                                    <label for="nohp">Phone</label>
+                                    <label for="nohp">No Hp</label>
                                     <input type="text" class="form-control" id="nohp" name="nohp" value="{{ $user->nohp }}" placeholder="Enter Phone Number">
                                     @error('nohp')
                                     <small>{{ $message }}</small>
@@ -53,8 +53,8 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group form-group-default">
-                                    <label for="password">Password</label>
-                                    <input type="password" class="form-control" id="password" name="password" placeholder="Enter Password">
+                                    <label for="password">Ubah Password</label>
+                                    <input type="password" class="form-control" id="password" name="password" placeholder="Kosongkan Jika Tidak Mengganti">
                                     @error('password')
                                     <small>{{ $message }}</small>
                                     @enderror
@@ -69,29 +69,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="card card-profile card-secondary">
-                <div class="card-header" style="background-image: url('../assets/img/blogpost.jpg')">
-                    <div class="profile-picture">
-                        <div class="avatar avatar-xl">
-                            <img src="../assets/img/profile.jpg" alt="..." class="avatar-img rounded-circle">
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="user-profile text-center">
-                        <div class="name">{{ $user->nama }}</div>
-                        <div class="job">{{ $user->job_title }}</div>
-                        <div class="desc">{{ $user->about_me }}</div>
-                        
-                        <div class="view-profile">
-                            <a href="#" class="btn btn-secondary btn-block">View Full Profile</a>
-                        </div>
-                    </div>
-                </div>
-               
-            </div>
-        </div>
+      
     </div>
 </div>
 

@@ -13,8 +13,7 @@ use Illuminate\Support\Facades\Auth;
 class HomeController extends Controller
 {
     public function dashboard(){
-        $user = Auth::user();
-    return view('dashboard', compact('user'));
+        return view('dashboard');
     }
 
     public function index(){
