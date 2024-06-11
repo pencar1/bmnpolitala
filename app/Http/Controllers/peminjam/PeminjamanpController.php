@@ -16,15 +16,15 @@ use Illuminate\Validation\Rule;
 
 class PeminjamanpController extends Controller
 {
-    public function index(){
-        return view('peminjam.peminjaman');
+    public function index()
+    {
+        $data = Peminjaman::with(['user', 'barang'])->whereNotNull('idbarang')->get();
+        return view('peminjam.peminjaman', compact('data'));
     }
 
     public function tambahpeminjamanbarang($idbarang = null)
     {
         $barangs = Barang::all();
-
-        // Kirim semua barang dan idbarang yang dipilih ke view
         return view('peminjam.peminjamanp.pinjambarang', compact('barangs', 'idbarang'));
     }
 
@@ -33,8 +33,8 @@ class PeminjamanpController extends Controller
         $validator = Validator::make($request->all(), [
             'tanggalpeminjaman' => 'required|date',
             'lampiran'          => 'nullable|mimes:jpeg,png,jpg,gif,pdf,docx|max:2048',
-            'jenisaset'         => 'required|in:barang,transportasi,ruangan',
             'aset'              => 'required',
+            'jumlahaset'        => 'required|integer|min:1',
         ]);
 
         if ($validator->fails()) {
@@ -46,16 +46,14 @@ class PeminjamanpController extends Controller
         $peminjaman->iduser = $user->id;
         $peminjaman->tanggalpeminjaman = $request->input('tanggalpeminjaman');
         $peminjaman->status = 'Dipinjam';
-
-        $jenisaset = $request->input('jenisaset');
         $asetId = $request->input('aset');
+        $jumlah = $request->input('jumlahaset');
 
-        if ($jenisaset === 'barang') {
+        $barang = Barang::find($asetId);
+        if ($barang && $barang->kurangiStokb($jumlah)) {
             $peminjaman->idbarang = $asetId;
-        } elseif ($jenisaset === 'transportasi') {
-            $peminjaman->idtransportasi = $asetId;
-        } elseif ($jenisaset === 'ruangan') {
-            $peminjaman->idruangan = $asetId;
+        } else {
+            return redirect()->back()->withInput()->withErrors(['jumlahaset' => 'Stok barang tidak mencukupi.']);
         }
 
         if ($request->hasFile('lampiran')) {
@@ -65,8 +63,9 @@ class PeminjamanpController extends Controller
             $peminjaman->lampiran = $filename;
         }
 
+        $peminjaman->jumlahaset = $jumlah;
         $peminjaman->save();
 
-        return redirect()->route('admin.peminjaman');
+        return redirect()->route('peminjam.peminjaman');
     }
 }
