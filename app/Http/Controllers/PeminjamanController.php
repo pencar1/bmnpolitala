@@ -19,7 +19,6 @@ class PeminjamanController extends Controller
         $data = Peminjaman::with(['user', 'barang', 'transportasi', 'ruangan'])->get();
         return view('admin.peminjaman', compact('data'));
     }
-
     public function tambahpeminjaman(Request $request)
     {
         $barangs = Barang::all();

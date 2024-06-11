@@ -39,7 +39,7 @@ class Peminjaman extends Model
     // Relationship ke model User
     public function user()
     {
-        return $this->belongsTo(User::class, 'id');
+        return $this->belongsTo(User::class, 'iduser', 'id');
     }
 
     // Relationship ke model Barang
@@ -58,5 +58,22 @@ class Peminjaman extends Model
     public function ruangan()
     {
         return $this->belongsTo(Ruangan::class, 'idruangan', 'idruangan');
+    }
+
+    public function getNama()
+    {
+        return $this->user ? $this->user->nama : 'Nama tidak ditemukan';
+    }
+
+    public function getAsetName()
+    {
+        if ($this->idbarang) {
+            return $this->barang ? $this->barang->namabarang : 'Barang tidak ditemukan';
+        } elseif ($this->idtransportasi) {
+            return $this->transportasi ? $this->transportasi->namatransportasi : 'Transportasi tidak ditemukan';
+        } elseif ($this->idruangan) {
+            return $this->ruangan ? $this->ruangan->namaruangan : 'Ruangan tidak ditemukan';
+        }
+        return 'Aset tidak ditemukan';
     }
 }

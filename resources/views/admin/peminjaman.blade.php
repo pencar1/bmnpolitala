@@ -4,7 +4,6 @@
 <div class="page-inner">
     <div class="page-header">
         <h4 class="page-title">Menu Peminjaman</h4>
-
     </div>
     <div class="page-body">
         <div class="row">
@@ -21,7 +20,7 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table id="add-row" class="display table table-striped table-hover" >
+                            <table id="add-row" class="display table table-striped table-hover">
                                 <thead>
                                     <tr>
                                         <th>No</th>
@@ -35,8 +34,8 @@
                                     @foreach ($data as $d)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $d->user ? $d->user->nama : 'User tidak ditemukan' }}</td>
-                                        <td>{{ $d->jenisaset}}</td>
+                                        <td>{{ $d->getNama()}}</td>
+                                        <td>{{ $d->getAsetName()}}</td>
                                         <td>{{ $d->tanggalpeminjaman }}</td>
                                         <td>
                                             <div class="form-button-action">
@@ -49,7 +48,7 @@
                                             </div>
                                         </td>
                                     </tr>
-                                    <!--   Modal   -->
+                                    <!-- Modal -->
                                     <div class="modal" id="deleteModal-{{ $d->id }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
@@ -60,10 +59,10 @@
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    Apakah Anda yakin ingin menghapus pengguna {{ $d->aset }}?
+                                                    Apakah Anda yakin ingin menghapus {{ $d->getAsetName() }}?
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <form action="{{ route('admin.peminjaman.destroy',['id' => $d->idpeminjaman])}}" method="POST">
+                                                    <form action="{{ route('admin.peminjaman.destroy', ['id' => $d->idpeminjaman]) }}" method="POST">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
