@@ -32,4 +32,23 @@ class Barang extends Model
         'deskripsibarang',
         'foto',
     ];
+
+    public function kurangiStokb($jumlah)
+    {
+        if ($this->stokbarang >= $jumlah) {
+            $this->stokbarang -= $jumlah;
+            $this->save();
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function tambahStokb($jumlah)
+    {
+        $this->stokbarang += $jumlah;
+        $this->save();
+        return true;
+
+    }
 }

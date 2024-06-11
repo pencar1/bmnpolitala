@@ -18,6 +18,7 @@ return new class extends Migration
             $table->unsignedInteger('idtransportasi')->nullable();
             $table->unsignedInteger('idruangan')->nullable();
             $table->date('tanggalpeminjaman');
+            $table->integer('jumlahaset')->default(0);
             $table->string('lampiran')->nullable();
             $table->string('alasanpenolakan')->nullable();
             $table->string('status')->nullable();

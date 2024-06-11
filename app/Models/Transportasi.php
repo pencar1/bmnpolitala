@@ -32,4 +32,23 @@ class Transportasi extends Model
         'deskripsitransportasi',
         'foto',
     ];
+
+    public function kurangiStokt($jumlah)
+    {
+        if ($this->stoktransportasi >= $jumlah) {
+            $this->stoktransportasi -= $jumlah;
+            $this->save();
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function tambahStokt($jumlah)
+    {
+        $this->stoktransportasi += $jumlah;
+        $this->save();
+        return true;
+    }
+
 }
