@@ -22,7 +22,7 @@ class Peminjaman extends Model
     protected $keyType = 'int';
 
     // Menentukan apakah timestamps digunakan atau tidak
-    public $timestamps = true;
+    public $timestamps = false;
 
     // Kolom-kolom yang dapat diisi secara massal
     protected $fillable = [

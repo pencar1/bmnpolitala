@@ -3,33 +3,40 @@
 namespace App\Http\Controllers;
 
 use App\Models\Peminjaman;
+use App\Models\User;
+use Carbon\Carbon;
+use App\Models\Barang;
+use App\Models\Transportasi;
+use App\Models\Ruangan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class PeminjamanController extends Controller
 {
-    public function peminjaman(){
-        return view('admin/peminjaman');
-    }
-
     public function index()
     {
-        $data = Peminjaman::get();
+        $data = Peminjaman::with(['user', 'barang', 'transportasi', 'ruangan'])->get();
         return view('admin.peminjaman', compact('data'));
     }
 
-    public function tambahpeminjaman()
+    public function tambahpeminjaman(Request $request)
     {
-        return view('admin.peminjaman.tambahp');
+        $barangs = Barang::all();
+        $transportasis = Transportasi::all();
+        $ruangans = Ruangan::all();
+
+        // Kirim semua aset ke view
+        return view('admin.peminjaman.tambahp', compact('barangs', 'transportasis', 'ruangans'));
     }
 
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'tanggalpeminjaman' => 'required|date',
-            'alasanpenolakan'   => 'required|string',
-            'status'            => 'required|string',
-            'lampiran'          => 'required|lamiran|mimes:jpeg,png,jpg,gif,pdf,docx|max:2048',
+            'lampiran'          => 'nullable|mimes:jpeg,png,jpg,gif,pdf,docx|max:2048',
+            'jenisaset'         => 'required|in:barang,transportasi,ruangan',
+            'aset'              => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -37,9 +44,21 @@ class PeminjamanController extends Controller
         }
 
         $peminjaman = new Peminjaman();
-        $peminjaman->tanggalpeminjaman  = $request->input('tanggalpeminjaman');
-        $peminjaman->alasanpenolakan    = $request->input('alasanpenolakan');
-        $peminjaman->status             = $request->input('status');
+        $user = Auth::user();
+        $peminjaman->iduser = $user->id;
+        $peminjaman->tanggalpeminjaman = $request->input('tanggalpeminjaman');
+        $peminjaman->status = 'Dipinjam';
+
+        $jenisaset = $request->input('jenisaset');
+        $asetId = $request->input('aset');
+
+        if ($jenisaset === 'barang') {
+            $peminjaman->idbarang = $asetId;
+        } elseif ($jenisaset === 'transportasi') {
+            $peminjaman->idtransportasi = $asetId;
+        } elseif ($jenisaset === 'ruangan') {
+            $peminjaman->idruangan = $asetId;
+        }
 
         if ($request->hasFile('lampiran')) {
             $file = $request->file('lampiran');
@@ -66,11 +85,8 @@ class PeminjamanController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'tanggalpeminjaman' => 'required|string|max:255',
-            'alasanpenolakan' => 'required|string|max:255',
-            'status' => 'required|integer',
-            'deskripsipeminjaman' => 'required|string',
-            'lampiran' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'tanggalpeminjaman' => 'required|date',
+            'lampiran'          => 'nullable|mimes:jpeg,png,jpg,gif,pdf,docx|max:2048',
         ]);
 
         if ($validator->fails()) {
@@ -82,13 +98,23 @@ class PeminjamanController extends Controller
             return redirect()->route('admin.peminjaman')->withErrors('Data tidak ditemukan.');
         }
 
+        $user = Auth::user();
+        $peminjaman->iduser = $user->id;
         $peminjaman->tanggalpeminjaman = $request->input('tanggalpeminjaman');
-        $peminjaman->alasanpenolakan = $request->input('alasanpenolakan');
-        $peminjaman->status = $request->input('status');
-        $peminjaman->deskripsipeminjaman = $request->input('deskripsipeminjaman');
+        $peminjaman->status = 'Dipinjam';
+
+        $jenisaset = $request->input('jenisaset');
+        $asetId = $request->input('aset');
+
+        if ($jenisaset === 'barang') {
+            $peminjaman->idbarang = $asetId;
+        } elseif ($jenisaset === 'transportasi') {
+            $peminjaman->idtransportasi = $asetId;
+        } elseif ($jenisaset === 'ruangan') {
+            $peminjaman->idruangan = $asetId;
+        }
 
         if ($request->hasFile('lampiran')) {
-            // Delete the old photo if it exists
             if ($peminjaman->lampiran) {
                 $old_file_path = public_path('lampiran/' . $peminjaman->lampiran);
                 if (file_exists($old_file_path)) {
@@ -96,7 +122,6 @@ class PeminjamanController extends Controller
                 }
             }
 
-            // Save the new photo
             $file = $request->file('lampiran');
             $filename = time() . '_' . $file->getClientOriginalName();
             $file->move(public_path('lampiran'), $filename);
@@ -108,12 +133,12 @@ class PeminjamanController extends Controller
         return redirect()->route('admin.peminjaman')->with('success', 'Data berhasil diperbarui.');
     }
 
+
     public function destroy($id)
     {
         $peminjaman = Peminjaman::find($id);
         if ($peminjaman) {
             if ($peminjaman->lampiran) {
-                // Delete the associated photo file
                 $file_path = public_path('lampiran/' . $peminjaman->lampiran);
                 if (file_exists($file_path)) {
                     unlink($file_path);

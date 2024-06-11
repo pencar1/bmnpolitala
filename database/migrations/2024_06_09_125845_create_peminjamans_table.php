@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('peminjamans', function (Blueprint $table) {
             $table->increments('idpeminjaman');
-            $table->unsignedBigInteger('iduser');
+            $table->unsignedBigInteger('iduser')->nullable();
             $table->unsignedInteger('idbarang')->nullable();
             $table->unsignedInteger('idtransportasi')->nullable();
             $table->unsignedInteger('idruangan')->nullable();
             $table->date('tanggalpeminjaman');
             $table->string('lampiran')->nullable();
             $table->string('alasanpenolakan')->nullable();
-            $table->string('status');
+            $table->string('status')->nullable();
 
             // Define foreign key constraints
             $table->foreign('iduser')->references('id')->on('users')->onDelete('cascade');

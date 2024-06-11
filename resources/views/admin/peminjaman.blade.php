@@ -26,22 +26,24 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Nama</th>
-                                        <th>Email</th>
+                                        <th>Aset</th>
+                                        <th>Tanggal Peminjaman</th>
                                         <th style="width: 10%">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {{-- @foreach ($data as $d)
+                                    @foreach ($data as $d)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $d->name }}</td>
-                                        <td>{{ $d->email }}</td>
+                                        <td>{{ $d->user ? $d->user->nama : 'User tidak ditemukan' }}</td>
+                                        <td>{{ $d->jenisaset}}</td>
+                                        <td>{{ $d->tanggalpeminjaman }}</td>
                                         <td>
                                             <div class="form-button-action">
-                                                <a href="{{ route('user.edit', ['id' => $d->id]) }}" data-toggle="tooltip" title="Ubah User" class="btn btn-link btn-primary btn-lg">
+                                                <a href="{{ route('admin.peminjaman.edit', ['id' => $d->idpeminjaman]) }}" data-toggle="tooltip" title="Ubah User" class="btn btn-link btn-primary btn-lg">
                                                     <i class="fa fa-edit"></i>
                                                 </a>
-                                                <button type="button" data-id="{{ $d->id }}" data-name="{{ $d->name }}" data-toggle="modal" data-target="#deleteModal-{{ $d->id }}" title="Hapus User" class="btn btn-link btn-danger deleteButton">
+                                                <button type="button" data-id="{{ $d->id }}" data-name="{{ $d->aset }}" data-toggle="modal" data-target="#deleteModal-{{ $d->id }}" title="Hapus User" class="btn btn-link btn-danger deleteButton">
                                                     <i class="fa fa-times"></i>
                                                 </button>
                                             </div>
@@ -58,10 +60,10 @@
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    Apakah Anda yakin ingin menghapus pengguna {{ $d->name }}?
+                                                    Apakah Anda yakin ingin menghapus pengguna {{ $d->aset }}?
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <form action="{{ route('user.delete',['id' => $d->id])}}" method="POST">
+                                                    <form action="{{ route('admin.peminjaman.destroy',['id' => $d->idpeminjaman])}}" method="POST">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
@@ -71,7 +73,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    @endforeach --}}
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
