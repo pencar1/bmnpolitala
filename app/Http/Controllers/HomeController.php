@@ -30,7 +30,7 @@ class HomeController extends Controller
 
     public function updateProfil(Request $request){
         $user = Auth::user(); // Mendapatkan pengguna yang sedang login
-
+        
         // Aturan validasi dengan pengecualian email pengguna saat ini
         $validator = Validator::make($request->all(), [
             'nama'          => '|string|max:50',

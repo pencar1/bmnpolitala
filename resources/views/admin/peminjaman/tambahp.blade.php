@@ -54,6 +54,13 @@
                             @enderror
                         </div>
                         <div class="form-group">
+                            <label for="jumlahaset">Jumlah Aset</label>
+                            <input type="number" name="jumlahaset" class="form-control" id="jumlahaset" min="1" oninput="this.value = this.value.replace(/[^0-9]/g, '')" value="{{ old('jumlahaset') }}" placeholder="Masukkan Jumlah Aset">
+                            @error('jumlahaset')
+                                <small>{{ $message }}</small>
+                            @enderror
+                        </div>
+                        <div class="form-group">
                             <label for="lampiran">Lampiran</label>
                             <input type="file" name="lampiran" class="form-control" id="lampiran">
                             @error('lampiran')

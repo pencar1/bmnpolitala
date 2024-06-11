@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Peminjaman;
 use App\Models\User;
-use Carbon\Carbon;
 use App\Models\Barang;
 use App\Models\Transportasi;
 use App\Models\Ruangan;
@@ -36,6 +35,7 @@ class PeminjamanController extends Controller
             'lampiran'          => 'nullable|mimes:jpeg,png,jpg,gif,pdf,docx|max:2048',
             'jenisaset'         => 'required|in:barang,transportasi,ruangan',
             'aset'              => 'required',
+            'jumlahaset'        => 'required|integer|min:1',
         ]);
 
         if ($validator->fails()) {
@@ -50,13 +50,31 @@ class PeminjamanController extends Controller
 
         $jenisaset = $request->input('jenisaset');
         $asetId = $request->input('aset');
+        $jumlah = $request->input('jumlahaset');
 
         if ($jenisaset === 'barang') {
-            $peminjaman->idbarang = $asetId;
+            $barang = Barang::find($asetId);
+            if ($barang && $barang->kurangiStokb($jumlah)) {
+                $peminjaman->idbarang = $asetId;
+            } else {
+                return redirect()->back()->withInput()->withErrors(['jumlahaset' => 'Stok barang tidak mencukupi.']);
+            }
         } elseif ($jenisaset === 'transportasi') {
-            $peminjaman->idtransportasi = $asetId;
+            $transportasi = Transportasi::find($asetId);
+            if ($transportasi && $transportasi->kurangiStokt($jumlah)) {
+                $peminjaman->idtransportasi = $asetId;
+            } else {
+                return redirect()->back()->withInput()->withErrors(['jumlahaset' => 'Stok transportasi tidak mencukupi.']);
+            }
         } elseif ($jenisaset === 'ruangan') {
-            $peminjaman->idruangan = $asetId;
+            $ruangan = Ruangan::find($asetId);
+            if ($ruangan && $ruangan->stok >= $jumlah) {
+                $ruangan->stokruangan -= $jumlah;
+                $ruangan->save();
+                $peminjaman->idruangan = $asetId;
+            } else {
+                return redirect()->back()->withInput()->withErrors(['jumlahaset' => 'Stok ruangan tidak mencukupi.']);
+            }
         }
 
         if ($request->hasFile('lampiran')) {
@@ -65,6 +83,8 @@ class PeminjamanController extends Controller
             $file->move(public_path('lampiran'), $filename);
             $peminjaman->lampiran = $filename;
         }
+
+        $peminjaman->jumlahaset = $jumlah;
 
         $peminjaman->save();
 
@@ -137,6 +157,38 @@ class PeminjamanController extends Controller
     {
         $peminjaman = Peminjaman::find($id);
         if ($peminjaman) {
+            // Mendapatkan jenis aset yang terkait dengan peminjaman
+            $jenisaset = null;
+            if ($peminjaman->idbarang) {
+                $jenisaset = 'barang';
+            } elseif ($peminjaman->idtransportasi) {
+                $jenisaset = 'transportasi';
+            } elseif ($peminjaman->idruangan) {
+                $jenisaset = 'ruangan';
+            }
+
+            // Mengembalikan stok aset yang terkait dengan peminjaman yang akan dihapus
+            if ($jenisaset === 'barang') {
+                $barang = Barang::find($peminjaman->idbarang);
+                if ($barang) {
+                    $barang->tambahStokb($peminjaman->jumlahaset);
+                    $barang->save();
+                }
+            } elseif ($jenisaset === 'transportasi') {
+                $transportasi = Transportasi::find($peminjaman->idtransportasi);
+                if ($transportasi) {
+                    $transportasi->tambahStokt($peminjaman->jumlahaset);
+                    $transportasi->save();
+                }
+            } elseif ($jenisaset === 'ruangan') {
+                $ruangan = Ruangan::find($peminjaman->idruangan);
+                if ($ruangan) {
+                    $ruangan->stokruangan += $peminjaman->jumlahaset;
+                    $ruangan->save();
+                }
+            }
+
+            // Hapus peminjaman
             if ($peminjaman->lampiran) {
                 $file_path = public_path('lampiran/' . $peminjaman->lampiran);
                 if (file_exists($file_path)) {

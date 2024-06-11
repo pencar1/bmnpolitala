@@ -24,9 +24,10 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Nama</th>
-                                        <th>Aset</th>
+                                        <th>Nama Peminjam</th>
+                                        <th>Aset Yang Dipinjam</th>
                                         <th>Tanggal Peminjaman</th>
+                                        <th>Jumlah Dipinjam</th>
                                         <th style="width: 10%">Action</th>
                                     </tr>
                                 </thead>
@@ -37,29 +38,30 @@
                                         <td>{{ $d->getNama()}}</td>
                                         <td>{{ $d->getAsetName()}}</td>
                                         <td>{{ $d->tanggalpeminjaman }}</td>
+                                        <td>{{ $d->jumlahaset }}</td>
                                         <td>
                                             <div class="form-button-action">
-                                                <a href="{{ route('admin.peminjaman.edit', ['id' => $d->idpeminjaman]) }}" data-toggle="tooltip" title="Ubah User" class="btn btn-link btn-primary btn-lg">
+                                                <a href="{{ route('admin.peminjaman.edit', ['id' => $d->idpeminjaman]) }}" data-toggle="tooltip" title="Ubah Peminjaman" class="btn btn-link btn-primary btn-lg">
                                                     <i class="fa fa-edit"></i>
                                                 </a>
-                                                <button type="button" data-id="{{ $d->id }}" data-name="{{ $d->aset }}" data-toggle="modal" data-target="#deleteModal-{{ $d->id }}" title="Hapus User" class="btn btn-link btn-danger deleteButton">
+                                                <button type="button" data-id="{{ $d->idpeminjaman }}" data-name="{{ $d->aset }}" data-toggle="modal" data-target="#deleteModal-{{ $d->idpeminjaman }}" title="Hapus Peminjaman" class="btn btn-link btn-danger deleteButton">
                                                     <i class="fa fa-times"></i>
                                                 </button>
                                             </div>
                                         </td>
                                     </tr>
                                     <!-- Modal -->
-                                    <div class="modal" id="deleteModal-{{ $d->id }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                    <div class="modal" id="deleteModal-{{ $d->idpeminjaman }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel-{{ $d->idpeminjaman }}" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" id="deleteModalLabel">Konfirmasi Hapus</h5>
+                                                    <h5 class="modal-title" id="deleteModalLabel-{{ $d->idpeminjaman }}">Konfirmasi Hapus</h5>
                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    Apakah Anda yakin ingin menghapus {{ $d->getAsetName() }}?
+                                                    Apakah Anda yakin ingin menghapus <strong>{{ $d->getAsetName() }}?</strong>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <form action="{{ route('admin.peminjaman.destroy', ['id' => $d->idpeminjaman]) }}" method="POST">
