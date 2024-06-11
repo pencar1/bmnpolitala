@@ -1,4 +1,4 @@
-<!-- pinjambarang.blade.php -->
+<!-- pinjamtransportasi.blade.php -->
 @extends('layout.layoutpeminjam')
 
 @section('content')
@@ -6,19 +6,19 @@
 <div class="page-inner">
     <div class="page-header">
         <div class="col-md-12">
-            <form action="{{ route('peminjam.peminjaman.store') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('peminjam.peminjamantrans.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="card">
                     <div class="card-header">
-                        <div class="card-title">Form Tambah Peminjaman Barang</div>
+                        <div class="card-title">Form Tambah Peminjaman Transportasi</div>
                     </div>
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="asetSelect">Aset Barang</label>
+                            <label for="asetSelect">Aset Transportasi</label>
                             <select class="form-control" id="asetSelect" name="aset">
-                                <option selected disabled hidden>Pilih Barang</option>
-                                @foreach($barangs as $barang)
-                                    <option value="{{ $barang->idbarang }}" {{ old('aset') == $barang->idbarang ? 'selected' : '' }}>{{ $barang->namabarang }}</option>
+                                <option selected disabled hidden>Pilih Transportasi</option>
+                                @foreach($transportasis as $transportasi)
+                                    <option value="{{ $transportasi->idtransportasi }}" {{ old('aset') == $transportasi->idtransportasi ? 'selected' : '' }}>{{ $transportasi->namatransportasi }}</option>
                                 @endforeach
                             </select>
                             @error('aset')
@@ -59,7 +59,5 @@
         </div>
     </div>
 </div>
-
-
 
 @endsection

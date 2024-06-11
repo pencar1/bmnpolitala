@@ -94,10 +94,16 @@ Route::group(['prefix' => 'peminjam', 'middleware' => ['auth', 'role:peminjam'],
         Route::put('/profilp/update', [HomepController::class, 'updateProfil'])->name('profil.update');
 
         Route::get('/peminjaman', [PeminjamanpController::class, 'index'])->name('peminjaman');
+
         Route::get('/tambahpeminjaman', [PeminjamanpController::class, 'tambahpeminjamanbarang'])->name('peminjaman.tambah');
         Route::get('/peminjaman/tambah/{idbarang?}', [PeminjamanpController::class, 'tambahpeminjamanbarang'])->name('peminjam.peminjaman.tambah');
-        
         Route::post('/peminjaman', [PeminjamanpController::class, 'store'])->name('peminjaman.store');
+
+         // Tambahkan router untuk transportasi di sini
+    Route::get('/tambahpeminjamantrans', [PeminjamanpController::class, 'tambahPeminjamanTransportasi'])->name('peminjamantrans.tambah');
+    Route::post('/peminjamantrans/store', [PeminjamanpController::class, 'storetrans'])->name('peminjamantrans.store');
+         
+
         Route::get('/peminjaman/{id}/edit', [PeminjamanpController::class, 'edit'])->name('peminjaman.edit');
         Route::put('/peminjaman/{id}', [PeminjamanpController::class, 'update'])->name('peminjaman.update');
         Route::delete('/peminjaman/{id}', [PeminjamanpController::class, 'destroy'])->name('peminjaman.destroy');

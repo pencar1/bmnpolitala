@@ -1,3 +1,4 @@
+<!-- peminjaman.blade.php -->
 @extends('layout.layoutpeminjam')
 
 @section('content')
