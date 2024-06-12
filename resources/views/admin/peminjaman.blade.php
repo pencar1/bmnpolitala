@@ -28,6 +28,7 @@
                                         <th>Aset Yang Dipinjam</th>
                                         <th>Tanggal Peminjaman</th>
                                         <th>Jumlah Dipinjam</th>
+                                        <th>Statuss</th>
                                         <th style="width: 10%">Action</th>
                                     </tr>
                                 </thead>
@@ -39,6 +40,7 @@
                                         <td>{{ $d->getAsetName()}}</td>
                                         <td>{{ $d->tanggalpeminjaman }}</td>
                                         <td>{{ $d->jumlahaset }}</td>
+                                        <td>{{ $d->status }}</td>
                                         <td>
                                             <div class="form-button-action">
                                                 <a href="{{ route('admin.peminjaman.edit', ['id' => $d->idpeminjaman]) }}" data-toggle="tooltip" title="Ubah Peminjaman" class="btn btn-link btn-primary btn-lg">
