@@ -93,6 +93,20 @@ Route::group(['prefix' => 'peminjam', 'middleware' => ['auth', 'role:peminjam'],
         Route::get('/profilp', [HomepController::class, 'profil'])->name('profil');
         Route::put('/profilp/update', [HomepController::class, 'updateProfil'])->name('profil.update');
 
+        Route::get('/peminjaman', [PeminjamanpController::class, 'index'])->name('peminjaman');
+
+        Route::get('/tambahpeminjaman', [PeminjamanpController::class, 'tambahpeminjamanbarang'])->name('peminjaman.tambah');
+        Route::get('/peminjaman/tambah/{idbarang?}', [PeminjamanpController::class, 'tambahpeminjamanbarang'])->name('peminjam.peminjaman.tambah');
+        Route::post('/peminjaman', [PeminjamanpController::class, 'storebar'])->name('peminjaman.storebar');
+
+         // Tambahkan router untuk transportasi di sini
+         Route::get('/tambahpeminjamantrans', [PeminjamanpController::class, 'tambahPeminjamanTransportasi'])->name('peminjamantrans.tambah');
+         Route::post('/peminjamantrans/store', [PeminjamanpController::class, 'storetrans'])->name('peminjamantrans.store');
+
+        Route::get('/peminjaman/{id}/edit', [PeminjamanpController::class, 'edit'])->name('peminjaman.edit');
+        Route::put('/peminjaman/{id}', [PeminjamanpController::class, 'update'])->name('peminjaman.update');
+        Route::delete('/peminjaman/{id}', [PeminjamanpController::class, 'destroy'])->name('peminjaman.destroy');
+
         Route::get('/barang', [BarangpController::class, 'index'])->name('barang');
         Route::get('/barang/search', [BarangpController::class, 'search'])->name('barang.search');
 
@@ -102,7 +116,6 @@ Route::group(['prefix' => 'peminjam', 'middleware' => ['auth', 'role:peminjam'],
         Route::get('/ruangan', [RuanganpController::class, 'index'])->name('ruangan');
         Route::get('/ruangan/search', [RuanganpController::class, 'search'])->name('ruangan.search');
 
-        Route::get('/peminjaman', [PeminjamanpController::class, 'index'])->name('peminjaman');
         Route::get('/arsipditolak', [ArsipditolakpController::class, 'index'])->name('arsipditolak');
 
         // Tambahkan rute khusus peminjam lainnya di sini...

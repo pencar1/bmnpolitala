@@ -1,3 +1,4 @@
+<!-- daftar_barang.blade.php -->
 @extends('layout.layoutpeminjam')
 
 @section('content')
@@ -5,14 +6,15 @@
     <div class="page-header d-flex justify-content-between align-items-center">
         <h4 class="page-title">Menu Barang</h4>
         <form action="{{ route('peminjam.barang.search') }}" method="GET" class="col-sm-6 col-lg-3">
-        <div class="input-group">
-			<input type="text" name="query" id="search-input" placeholder="Search ..." class="form-control">
-			<div class="input-group-append">
-                <button type="submit" class="btn">
-                    <i class="fa fa-search search-icon"></i>
-                </button>
+            <div class="input-group">
+                <input type="text" name="query" id="search-input" placeholder="Search ..." class="form-control">
+                <div class="input-group-append">
+                    <button type="submit" class="btn">
+                        <i class="fa fa-search search-icon"></i>
+                    </button>
+                </div>
             </div>
-		</div>
+        </form>
     </div>
     <div class="page-body">
         <div class="row">
@@ -31,7 +33,9 @@
                             <div class="card-body pt-2">
                                 <h4 class="mb-1 fw-bold">{{ $d->namabarang }}</h4>
                                 <p class="text-muted small mb-2">{{ $d->deskripsibarang }}</p>
-                                <button type="submit" class="btn btn-success">Pinjam</button>
+                                <a href="{{ route('peminjam.peminjaman.tambah', ['idbarang' => $d->idbarang]) }}" class="btn btn-success">
+                                    Pinjam
+                                </a>
                                 <button type="submit" class="btn btn-primary">Lihat</button>
                             </div>
                         </div>
@@ -40,8 +44,6 @@
                 </div>
             </div>
         </div>
-        </div>
+    </div>
 </div>
 @endsection
-
-
