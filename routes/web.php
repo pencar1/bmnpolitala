@@ -102,6 +102,8 @@ Route::group(['prefix' => 'peminjam', 'middleware' => ['auth', 'role:peminjam'],
          // Tambahkan router untuk transportasi di sini
          Route::get('/tambahpeminjamantrans', [PeminjamanpController::class, 'tambahPeminjamanTransportasi'])->name('peminjamantrans.tambah');
          Route::post('/peminjamantrans/store', [PeminjamanpController::class, 'storetrans'])->name('peminjamantrans.store');
+         Route::post('/peminjaman/updatestatus', [PeminjamanpController::class, 'updatestatus'])->name('peminjaman.updatestatus'); // Tambahkan rute ini
+         Route::put('/peminjaman/{id}', [PeminjamanpController::class, 'update'])->name('peminjaman.update'); // Tambahkan rute ini
 
         Route::get('/peminjaman/{id}/edit', [PeminjamanpController::class, 'edit'])->name('peminjaman.edit');
         Route::put('/peminjaman/{id}', [PeminjamanpController::class, 'update'])->name('peminjaman.update');
