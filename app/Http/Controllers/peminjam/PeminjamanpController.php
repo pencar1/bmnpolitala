@@ -22,15 +22,15 @@ class PeminjamanpController extends Controller
         $userId = Auth::id(); // Mengambil ID user yang sedang masuk
         $transportasis = Transportasi::all(); // Mengambil semua data transportasi
         $data = Peminjaman::with(['user', 'barang', 'transportasi'])
-                          ->where('iduser', $userId) // Hanya mengambil peminjaman milik user yang sedang masuk
-                          ->where(function ($query) {
-                              $query->whereNotNull('idbarang')
-                                    ->orWhereNotNull('idtransportasi');
-                          })
-                          ->get();
+            ->where('iduser', $userId) // Hanya mengambil peminjaman milik user yang sedang masuk
+            ->where(function ($query) {
+            $query->whereNotNull('idbarang')
+            ->orWhereNotNull('idtransportasi');
+        })
+        ->get();
         return view('peminjam.peminjaman', compact('data', 'transportasis')); // Mengirimkan data transportasi ke view
     }
-    
+
     public function tambahpeminjamanbarang(Request $request)
     {
         $idbarang = $request->query('idbarang');
@@ -41,7 +41,7 @@ class PeminjamanpController extends Controller
         return view('peminjam.peminjamanp.pinjambarang', compact('barang'));
     }
 
-    
+
     public function tambahPeminjamanTransportasi(Request $request)
     {
         // Mengambil ID transportasi dari query string
@@ -71,7 +71,7 @@ class PeminjamanpController extends Controller
         $user = Auth::user();
         $peminjaman->iduser = $user->id;
         $peminjaman->tanggalpeminjaman = $request->input('tanggalpeminjaman');
-        $peminjaman->status = 'Dipinjam';
+        $peminjaman->status = 'Diproses';
         $asetId = $request->input('idbarang');
         $jumlah = $request->input('jumlahaset');
 
@@ -103,43 +103,43 @@ class PeminjamanpController extends Controller
             'aset'              => 'required',
             'jumlahaset'        => 'required|integer|min:1',
         ]);
-    
+
         if ($validator->fails()) {
             return redirect()->back()->withInput()->withErrors($validator);
         }
-    
+
         $peminjaman = new Peminjaman();
         $user = Auth::user();
         $peminjaman->iduser = $user->id;
         $peminjaman->tanggalpeminjaman = $request->input('tanggalpeminjaman');
-        $peminjaman->status = 'Dipinjam';
+        $peminjaman->status = 'Diproses';
         $asetId = $request->input('idtransportasi');
         $jumlah = $request->input('jumlahaset');
-    
+
         $transportasi = Transportasi::find($asetId);
         if ($transportasi && $transportasi->kurangiStokt($jumlah)) {
             $peminjaman->idtransportasi = $asetId;
         } else {
             return redirect()->back()->withInput()->withErrors(['jumlahaset' => 'Stok transportasi tidak mencukupi.']);
         }
-    
+
         if ($request->hasFile('lampiran')) {
             $file = $request->file('lampiran');
             $filename = time() . '_' . $file->getClientOriginalName();
             $file->move(public_path('lampiran'), $filename);
             $peminjaman->lampiran = $filename;
         }
-    
+
         $peminjaman->jumlahaset = $jumlah;
         $peminjaman->save();
-    
+
         return redirect()->route('peminjam.peminjaman');
     }
 
     public function updatestatus(Request $request)
 {
     $peminjaman = Peminjaman::findOrFail($request->id);
-    $peminjaman->status = 'Batal'; // Mengubah status menjadi "Batal"
+    $peminjaman->status = 'Dibatalkan'; // Mengubah status menjadi "Batal"
     $peminjaman->save();
 
     return redirect()->route('peminjam.peminjaman');
@@ -149,11 +149,11 @@ public function update(Request $request, $id)
 {
     // Find the peminjaman by its ID
     $peminjaman = Peminjaman::findOrFail($id);
-    
+
     // Perform any necessary validation here
-    
+
     // Update the peminjaman status
-    $peminjaman->status = 'Batal';
+    $peminjaman->status = 'Dibatalkan';
     $peminjaman->save();
 
     // Redirect back to the peminjaman index page

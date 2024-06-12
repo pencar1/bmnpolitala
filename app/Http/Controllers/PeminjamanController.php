@@ -129,9 +129,18 @@ class PeminjamanController extends Controller
         $peminjaman->status = 'Dipinjam';
 
         $jenisaset = $request->input('jenisaset');
-        $asetId = $request->input('aset');
         $jumlahBaru = $request->input('jumlahaset');
         $jumlahLama = $peminjaman->jumlahaset;
+        $jenisaset = $request->input('jenisaset');
+        $asetId = null;
+
+        if ($jenisaset === 'barang') {
+            $asetId = $peminjaman->idbarang;
+        } elseif ($jenisaset === 'transportasi') {
+            $asetId = $peminjaman->idtransportasi;
+        } elseif ($jenisaset === 'ruangan') {
+            $asetId = $peminjaman->idruangan;
+        }
 
         if ($jenisaset === 'barang') {
             $barang = Barang::find($asetId);
@@ -149,13 +158,17 @@ class PeminjamanController extends Controller
             }
         } elseif ($jenisaset === 'transportasi') {
             $transportasi = Transportasi::find($asetId);
-            $stokTersedia = $transportasi->stoktransportasi + $jumlahLama;
-            if ($transportasi && $stokTersedia >= $jumlahBaru) {
-                $transportasi->tambahStokt($jumlahLama);
-                $transportasi->kurangiStokt($jumlahBaru);
-                $peminjaman->idtransportasi = $asetId;
+            if ($transportasi) {
+                $stokTersedia = $transportasi->stoktransportasi + $jumlahLama;
+                if ($stokTersedia >= $jumlahBaru) {
+                    $transportasi->tambahStokt($jumlahLama);
+                    $transportasi->kurangiStokt($jumlahBaru);
+                    $peminjaman->idtransportasi = $asetId;
+                } else {
+                    return redirect()->back()->withInput()->withErrors(['jumlahaset' => 'Stok transportasi tidak mencukupi.']);
+                }
             } else {
-                return redirect()->back()->withInput()->withErrors(['jumlahaset' => 'Stok barang tidak mencukupi.']);
+                return redirect()->back()->withInput()->withErrors(['jumlahaset' => 'Transportasi tidak ditemukan.']);
             }
         } elseif ($jenisaset === 'ruangan') {
             $ruangan = Ruangan::find($asetId);
