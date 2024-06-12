@@ -49,6 +49,5 @@ class Barang extends Model
         $this->stokbarang += $jumlah;
         $this->save();
         return true;
-
     }
 }

@@ -65,6 +65,18 @@ class Peminjaman extends Model
         return $this->user ? $this->user->nama : 'Nama tidak ditemukan';
     }
 
+    public function getJenisAset()
+    {
+        if ($this->idbarang) {
+            return 'barang';
+        } elseif ($this->idtransportasi) {
+            return 'transportasi';
+        } elseif ($this->idruangan) {
+            return 'ruangan';
+        }
+        return 'Aset tidak ditemukan';
+    }
+
     public function getAsetName()
     {
         if ($this->idbarang) {
