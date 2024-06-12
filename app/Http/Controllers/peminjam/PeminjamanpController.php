@@ -135,4 +135,29 @@ class PeminjamanpController extends Controller
     
         return redirect()->route('peminjam.peminjaman');
     }
+
+    public function updatestatus(Request $request)
+{
+    $peminjaman = Peminjaman::findOrFail($request->id);
+    $peminjaman->status = 'Batal'; // Mengubah status menjadi "Batal"
+    $peminjaman->save();
+
+    return redirect()->route('peminjam.peminjaman');
+}
+
+public function update(Request $request, $id)
+{
+    // Find the peminjaman by its ID
+    $peminjaman = Peminjaman::findOrFail($id);
+    
+    // Perform any necessary validation here
+    
+    // Update the peminjaman status
+    $peminjaman->status = 'Batal';
+    $peminjaman->save();
+
+    // Redirect back to the peminjaman index page
+    return redirect()->route('peminjam.peminjaman');
+}
+
 }
