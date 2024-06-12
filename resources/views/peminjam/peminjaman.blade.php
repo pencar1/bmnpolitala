@@ -46,33 +46,29 @@
                                         </td>
                                     </tr>
                                     <!-- Modal -->
-                                         <!-- Modal -->
-<!-- Modal -->
-<div class="modal" id="deleteModal-{{ $d->idpeminjaman }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel-{{ $d->idpeminjaman }}" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="deleteModalLabel-{{ $d->idpeminjaman }}">Konfirmasi Ubah Status</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                Apakah Anda yakin ingin membatalkan peminjaman <strong>{{ $d->getAsetName() }}</strong>?
-            </div>
-            <div class="modal-footer">
-                <form action="{{ route('peminjam.peminjaman.update', ['id' => $d->idpeminjaman]) }}" method="POST"> <!-- Mengarahkan ke fungsi update -->
-                    @csrf
-                    @method('PUT') <!-- Gunakan method PUT karena route-nya menggunakan PUT -->
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
-                    <button type="submit" class="btn btn-danger">Batalkan Peminjaman</button> <!-- Mengubah teks tombol menjadi "Batalkan Peminjaman" -->
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-
+                                    <div class="modal" id="deleteModal-{{ $d->idpeminjaman }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel-{{ $d->idpeminjaman }}" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="deleteModalLabel-{{ $d->idpeminjaman }}">Konfirmasi Ubah Status</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Apakah Anda yakin ingin membatalkan peminjaman <strong>{{ $d->getAsetName() }}</strong>?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <form action="{{ route('peminjam.peminjaman.update', ['id' => $d->idpeminjaman]) }}" method="POST"> <!-- Mengarahkan ke fungsi update -->
+                                                        @csrf
+                                                        @method('PUT') <!-- Gunakan method PUT karena route-nya menggunakan PUT -->
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
+                                                        <button type="submit" class="btn btn-danger">Batalkan Peminjaman</button> <!-- Mengubah teks tombol menjadi "Batalkan Peminjaman" -->
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     @endforeach
                                 </tbody>
                             </table>
