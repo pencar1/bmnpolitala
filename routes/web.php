@@ -97,12 +97,11 @@ Route::group(['prefix' => 'peminjam', 'middleware' => ['auth', 'role:peminjam'],
 
         Route::get('/tambahpeminjaman', [PeminjamanpController::class, 'tambahpeminjamanbarang'])->name('peminjaman.tambah');
         Route::get('/peminjaman/tambah/{idbarang?}', [PeminjamanpController::class, 'tambahpeminjamanbarang'])->name('peminjam.peminjaman.tambah');
-        Route::post('/peminjaman', [PeminjamanpController::class, 'store'])->name('peminjaman.store');
+        Route::post('/peminjaman', [PeminjamanpController::class, 'storebar'])->name('peminjaman.storebar');
 
          // Tambahkan router untuk transportasi di sini
-    Route::get('/tambahpeminjamantrans', [PeminjamanpController::class, 'tambahPeminjamanTransportasi'])->name('peminjamantrans.tambah');
-    Route::post('/peminjamantrans/store', [PeminjamanpController::class, 'storetrans'])->name('peminjamantrans.store');
-         
+         Route::get('/tambahpeminjamantrans', [PeminjamanpController::class, 'tambahPeminjamanTransportasi'])->name('peminjamantrans.tambah');
+         Route::post('/peminjamantrans/store', [PeminjamanpController::class, 'storetrans'])->name('peminjamantrans.store');
 
         Route::get('/peminjaman/{id}/edit', [PeminjamanpController::class, 'edit'])->name('peminjaman.edit');
         Route::put('/peminjaman/{id}', [PeminjamanpController::class, 'update'])->name('peminjaman.update');

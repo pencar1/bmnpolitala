@@ -1,4 +1,3 @@
-{{-- transportasi.blade.php --}}
 @extends('layout.layoutpeminjam')
 
 @section('content')
@@ -33,7 +32,8 @@
                             <div class="card-body pt-2">
                                 <h4 class="mb-1 fw-bold">{{ $d->namatransportasi }}</h4>
                                 <p class="text-muted small mb-2">{{ $d->deskripsitransportasi }}</p>
-                                <a href="{{ route('peminjam.peminjamantrans.tambah', ['idtransportasi' => $d->idtransportasi]) }}" class="btn btn-success">Pinjam</a>
+                                <!-- Perbarui link untuk menambah peminjaman transportasi -->
+                                <a href="{{ route('peminjam.peminjamantrans.tambah', ['idTransportasi' => $d->idtransportasi]) }}" class="btn btn-success">Pinjam</a>
                                 <!-- Hapus tombol Lihat jika tidak digunakan -->
                                 <button type="button" class="btn btn-primary">Lihat</button>
                             </div>

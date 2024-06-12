@@ -1,4 +1,4 @@
-<!-- pinjamtransportasi.blade.php -->
+{{-- pinjamtransportasi.blade.php --}}
 @extends('layout.layoutpeminjam')
 
 @section('content')
@@ -15,17 +15,13 @@
                     <div class="card-body">
                         <div class="form-group">
                             <label for="asetSelect">Aset Transportasi</label>
-                            <select class="form-control" id="asetSelect" name="aset">
-                                <option selected disabled hidden>Pilih Transportasi</option>
-                                @foreach($transportasis as $transportasi)
-                                    <option value="{{ $transportasi->idtransportasi }}" {{ old('aset') == $transportasi->idtransportasi ? 'selected' : '' }}>{{ $transportasi->namatransportasi }}</option>
-                                @endforeach
-                            </select>
+                            <input type="text" name="aset" class="form-control" id="aset" value="{{ isset($transportasi) ? $transportasi->namatransportasi : 'Transportasi tidak ditemukan' }}" readonly>
+                            <input type="hidden" name="idtransportasi" value="{{ isset($transportasi) ? $transportasi->idtransportasi : '' }}">
                             @error('aset')
                                 <small>{{ $message }}</small>
                             @enderror
                         </div>
-
+                        
                         <div class="form-group">
                             <label for="tanggalpeminjaman">Tanggal Peminjaman</label>
                             <input type="date" name="tanggalpeminjaman" class="form-control" id="tanggalpeminjaman" value="{{ old('tanggalpeminjaman') }}" placeholder="Masukkan Tanggal Peminjaman">

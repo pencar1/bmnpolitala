@@ -20,6 +20,7 @@ class PeminjamanpController extends Controller
     public function index()
     {
         $userId = Auth::id(); // Mengambil ID user yang sedang masuk
+        $transportasis = Transportasi::all(); // Mengambil semua data transportasi
         $data = Peminjaman::with(['user', 'barang', 'transportasi'])
                           ->where('iduser', $userId) // Hanya mengambil peminjaman milik user yang sedang masuk
                           ->where(function ($query) {
@@ -27,23 +28,33 @@ class PeminjamanpController extends Controller
                                     ->orWhereNotNull('idtransportasi');
                           })
                           ->get();
-        return view('peminjam.peminjaman', compact('data'));
+        return view('peminjam.peminjaman', compact('data', 'transportasis')); // Mengirimkan data transportasi ke view
     }
     
-
-    public function tambahpeminjamanbarang($idbarang = null)
+    public function tambahpeminjamanbarang(Request $request)
     {
-        $barangs = Barang::all();
-        return view('peminjam.peminjamanp.pinjambarang', compact('barangs', 'idbarang'));
+        $idbarang = $request->query('idbarang');
+        $barang = Barang::find($idbarang);
+        if (!$barang) {
+            return redirect()->route('peminjam.barang')->withErrors(['barang' => 'Barang tidak ditemukan.']);
+        }
+        return view('peminjam.peminjamanp.pinjambarang', compact('barang'));
     }
+
     
-    public function tambahPeminjamanTransportasi($idTransportasi = null)
+    public function tambahPeminjamanTransportasi(Request $request)
     {
-        $transportasis = Transportasi::all();
-        return view('peminjam.peminjamanp.pinjamtransportasi', compact('transportasis', 'idTransportasi'));
+        // Mengambil ID transportasi dari query string
+        $idTransportasi = $request->query('idTransportasi');
+        $transportasi = Transportasi::find($idTransportasi);
+        // Jika transportasi tidak ditemukan, kembalikan redirect ke route peminjam.transportasi
+        if (!$transportasi) {
+            return redirect()->route('peminjam.transportasi')->withErrors(['transportasi' => 'Transportasi tidak ditemukan.']);
+        }
+        // Jika transportasi ditemukan, kirimkan data transportasi ke view
+        return view('peminjam.peminjamanp.pinjamtransportasi', compact('transportasi'));
     }
-
-    public function store(Request $request)
+    public function storebar(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'tanggalpeminjaman' => 'required|date',
@@ -61,7 +72,7 @@ class PeminjamanpController extends Controller
         $peminjaman->iduser = $user->id;
         $peminjaman->tanggalpeminjaman = $request->input('tanggalpeminjaman');
         $peminjaman->status = 'Dipinjam';
-        $asetId = $request->input('aset');
+        $asetId = $request->input('idbarang');
         $jumlah = $request->input('jumlahaset');
 
         $barang = Barang::find($asetId);
@@ -92,37 +103,36 @@ class PeminjamanpController extends Controller
             'aset'              => 'required',
             'jumlahaset'        => 'required|integer|min:1',
         ]);
-
+    
         if ($validator->fails()) {
             return redirect()->back()->withInput()->withErrors($validator);
         }
-
+    
         $peminjaman = new Peminjaman();
         $user = Auth::user();
         $peminjaman->iduser = $user->id;
         $peminjaman->tanggalpeminjaman = $request->input('tanggalpeminjaman');
         $peminjaman->status = 'Dipinjam';
-        $asetId = $request->input('aset');
+        $asetId = $request->input('idtransportasi');
         $jumlah = $request->input('jumlahaset');
-
-        // Sesuaikan dengan model dan atribut transportasi Anda
+    
         $transportasi = Transportasi::find($asetId);
         if ($transportasi && $transportasi->kurangiStokt($jumlah)) {
             $peminjaman->idtransportasi = $asetId;
         } else {
             return redirect()->back()->withInput()->withErrors(['jumlahaset' => 'Stok transportasi tidak mencukupi.']);
         }
-
+    
         if ($request->hasFile('lampiran')) {
             $file = $request->file('lampiran');
             $filename = time() . '_' . $file->getClientOriginalName();
             $file->move(public_path('lampiran'), $filename);
             $peminjaman->lampiran = $filename;
         }
-
+    
         $peminjaman->jumlahaset = $jumlah;
         $peminjaman->save();
-
+    
         return redirect()->route('peminjam.peminjaman');
     }
 }

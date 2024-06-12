@@ -14,6 +14,7 @@ class Transportasi extends Model
 
     // Primary key dari tabel
     protected $primaryKey = 'idtransportasi';
+    
 
     // Menentukan apakah primary key menggunakan auto-increment atau tidak
     public $incrementing = true;

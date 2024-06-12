@@ -6,14 +6,15 @@
     <div class="page-header d-flex justify-content-between align-items-center">
         <h4 class="page-title">Menu Barang</h4>
         <form action="{{ route('peminjam.barang.search') }}" method="GET" class="col-sm-6 col-lg-3">
-        <div class="input-group">
-            <input type="text" name="query" id="search-input" placeholder="Search ..." class="form-control">
-            <div class="input-group-append">
-                <button type="submit" class="btn">
-                    <i class="fa fa-search search-icon"></i>
-                </button>
+            <div class="input-group">
+                <input type="text" name="query" id="search-input" placeholder="Search ..." class="form-control">
+                <div class="input-group-append">
+                    <button type="submit" class="btn">
+                        <i class="fa fa-search search-icon"></i>
+                    </button>
+                </div>
             </div>
-        </div>
+        </form>
     </div>
     <div class="page-body">
         <div class="row">

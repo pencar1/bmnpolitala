@@ -1,4 +1,3 @@
-<!-- pinjambarang.blade.php -->
 @extends('layout.layoutpeminjam')
 
 @section('content')
@@ -6,7 +5,7 @@
 <div class="page-inner">
     <div class="page-header">
         <div class="col-md-12">
-            <form action="{{ route('peminjam.peminjaman.store') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('peminjam.peminjaman.storebar') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="card">
                     <div class="card-header">
@@ -14,18 +13,17 @@
                     </div>
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="asetSelect">Aset Barang</label>
-                            <select class="form-control" id="asetSelect" name="aset">
-                                <option selected disabled hidden>Pilih Barang</option>
-                                @foreach($barangs as $barang)
-                                    <option value="{{ $barang->idbarang }}" {{ old('aset') == $barang->idbarang ? 'selected' : '' }}>{{ $barang->namabarang }}</option>
-                                @endforeach
-                            </select>
+                            <label for="aset">Aset Barang</label>
+                            @if(isset($barang))
+                                <input type="text" name="aset" class="form-control" id="aset" value="{{ old('aset', $barang->namabarang) }}" readonly>
+                                <input type="hidden" name="idbarang" value="{{ $barang->idbarang }}">
+                            @else
+                                <input type="text" name="aset" class="form-control" id="aset" value="Barang tidak ditemukan" readonly>
+                            @endif
                             @error('aset')
                                 <small>{{ $message }}</small>
                             @enderror
                         </div>
-
                         <div class="form-group">
                             <label for="tanggalpeminjaman">Tanggal Peminjaman</label>
                             <input type="date" name="tanggalpeminjaman" class="form-control" id="tanggalpeminjaman" value="{{ old('tanggalpeminjaman') }}" placeholder="Masukkan Tanggal Peminjaman">
@@ -59,7 +57,5 @@
         </div>
     </div>
 </div>
-
-
 
 @endsection
