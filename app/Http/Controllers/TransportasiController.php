@@ -22,6 +22,7 @@ class TransportasiController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'namatransportasi' => 'required|string|max:255',
+            'merktransportasi' => 'required|string|max:255',
             'stoktransportasi' => 'required|integer',
             'deskripsitransportasi' => 'required|string',
             'foto' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
@@ -33,6 +34,7 @@ class TransportasiController extends Controller
 
         $transportasi = new Transportasi();
         $transportasi->namatransportasi = $request->input('namatransportasi');
+        $transportasi->merktransportasi = $request->input('merktransportasi');
         $transportasi->stoktransportasi = $request->input('stoktransportasi');
         $transportasi->deskripsitransportasi = $request->input('deskripsitransportasi');
 
@@ -45,7 +47,7 @@ class TransportasiController extends Controller
 
         $transportasi->save();
 
-        return redirect()->route('admin.transportasi');
+        return redirect()->route('admin.transportasi')->with('success', 'Data berhasil ditambahkan.');
     }
 
 
@@ -62,24 +64,26 @@ class TransportasiController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'namatransportasi' => 'required|string|max:255',
+            'merktransportasi' => 'required|string|max:255',
             'stoktransportasi' => 'required|integer',
             'deskripsitransportasi' => 'required|string',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
-    
+
         if ($validator->fails()) {
             return redirect()->back()->withInput()->withErrors($validator);
         }
-    
+
         $transportasi = Transportasi::find($id);
         if (!$transportasi) {
             return redirect()->route('admin.transportasi')->withErrors('Data tidak ditemukan.');
         }
-    
+
         $transportasi->namatransportasi = $request->input('namatransportasi');
+        $transportasi->merktransportasi = $request->input('merktransportasi');
         $transportasi->stoktransportasi = $request->input('stoktransportasi');
         $transportasi->deskripsitransportasi = $request->input('deskripsitransportasi');
-    
+
         if ($request->hasFile('foto')) {
             // Delete the old photo if it exists
             if ($transportasi->foto) {
@@ -88,16 +92,16 @@ class TransportasiController extends Controller
                     unlink($old_file_path);
                 }
             }
-    
+
             // Save the new photo
             $file = $request->file('foto');
             $filename = time() . '_' . $file->getClientOriginalName();
             $file->move(public_path('images/transportasi'), $filename);
             $transportasi->foto = $filename;
         }
-    
+
         $transportasi->save();
-    
+
         return redirect()->route('admin.transportasi')->with('success', 'Data berhasil diperbarui.');
     }
 

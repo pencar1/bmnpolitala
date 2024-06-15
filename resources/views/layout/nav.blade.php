@@ -28,8 +28,9 @@
 		-->
 		<div class="main-header" data-background-color="purple">
 			<!-- Logo Header -->
-            <div class="logo-header">
-                {{-- <img src="{{ asset ('azzara/assets/img/logo.png')}}" alt="Logo" class="navbar-brand"> --}}
+            <div class="logo-header" style="display: flex; justify-content: center; align-items: center; position: relative;">
+                {{-- <img src="{{ asset ('azzara/assets/img/logoazzara.svg')}}" alt="navbar brand" class="navbar-brand"> --}}
+                <img src="{{ asset ('images/logo/logo-bmn.png')}}" alt="navbar brand" class="navbar-brand" style="width: 50px; height: auto;">
                 <button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon">
                         <i class="fa fa-bars"></i>
@@ -63,7 +64,7 @@
                     </div>
                 </a>
                 <ul class="dropdown-menu dropdown-user animated fadeIn">
-          
+
                     <li>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="/admin/profil">Profil Ku</a>

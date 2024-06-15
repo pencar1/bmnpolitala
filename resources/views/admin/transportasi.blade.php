@@ -8,6 +8,11 @@
     <div class="page-body">
         <div class="row">
             <div class="col-md-12">
+                @if (session('success'))
+                    <div class="alert alert-success" role="alert">
+                        {{ session('success') }}
+                    </div>
+                @endif
                 <div class="card">
                     <div class="card-header">
                         <div class="d-flex align-items-center">
@@ -50,13 +55,20 @@
                                                 <a href="{{ route('admin.transportasi.edit', ['id' => $d->idtransportasi]) }}" data-toggle="tooltip" title="Ubah Transportasi" class="btn btn-link btn-primary btn-lg">
                                                     <i class="fa fa-edit"></i>
                                                 </a>
-                                                <button type="button" data-toggle="modal" data-target="#deleteModal-{{ $d->idtransportasi }}" title="Hapus Transportasi" class="btn btn-link btn-danger deleteButton">
+                                                <form action="{{ route('admin.transportasi.destroy', ['id' => $d->idtransportasi]) }}" method="POST" class="d-inline">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="button" title="Hapus Transportasi" class="btn btn-link btn-danger deleteButton">
+                                                        <i class="fa fa-times"></i>
+                                                    </button>
+                                                </form>
+                                                {{-- <button type="button" data-toggle="modal" data-target="#deleteModal-{{ $d->idtransportasi }}" title="Hapus Transportasi" class="btn btn-link btn-danger deleteButton">
                                                     <i class="fa fa-times"></i>
-                                                </button>
+                                                </button> --}}
                                             </div>
                                         </td>
                                     </tr>
-                                    <!-- Delete Modal -->
+                                    {{-- <!-- Delete Modal -->
                                     <div class="modal fade" id="deleteModal-{{ $d->idtransportasi }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel-{{ $d->idtransportasi }}" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
@@ -80,7 +92,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- End Delete Modal -->
+                                    <!-- End Delete Modal --> --}}
                                     @endforeach
                                 </tbody>
                             </table>

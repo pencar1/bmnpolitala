@@ -48,6 +48,7 @@
 <script src="{{ asset ('azzara/assets/js/setting-demo.js')}}"></script>
 <script src="{{ asset ('azzara/assets/js/demo.js')}}"></script>
 
+<!-- datatables -->
 <script >
     $(document).ready(function() {
         $('#basic-datatables').DataTable({
@@ -103,6 +104,7 @@
     });
 </script>
 
+<!-- Search box -->
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const searchInput = document.getElementById('search-input');
@@ -127,8 +129,59 @@
     });
 </script>
 
+<!-- Sweet Alert -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const deleteButtons = document.querySelectorAll('.deleteButton');
 
+        deleteButtons.forEach(button => {
+            button.addEventListener('click', function (event) {
+                event.preventDefault();
+                const form = button.closest('form');
+                const itemName = button.closest('tr').querySelector('td:nth-child(2)').textContent;
 
+                swal({
+                    title: 'Apakah Anda yakin?',
+                    text: `Anda tidak akan bisa mengembalikan data ini!`,
+                    icon: 'warning',
+                    buttons: {
+                        cancel: {
+                            text: 'Tidak, batalkan!',
+                            visible: true,
+                            className: 'btn btn-success'
+                        },
+                        confirm: {
+                            text: 'Ya, hapus!',
+                            className: 'btn btn-danger'
+                        }
+                    }
+                }).then((willDelete) => {
+                    if (willDelete) {
+                        swal("Data Berhasil Dihapus!", {
+                            icon: "success",
+                            buttons : {
+                                confirm : {
+                                    className: 'btn btn-success'
+                                }
+                            }
+                        }).then(() => {
+                            form.submit();
+                        });
+                    } else {
+                        swal("Data Anda aman!", {
+                            icon: "info",
+                            buttons: {
+                                confirm: {
+                                    className: 'btn btn-success'
+                                }
+                            }
+                        });
+                    }
+                });
+            });
+        });
+    });
+    </script>
 
 </body>
 </html>

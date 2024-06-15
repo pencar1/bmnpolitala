@@ -44,7 +44,7 @@ class RuanganController extends Controller
 
         $ruangan->save();
 
-        return redirect()->route('admin.ruangan');
+        return redirect()->route('admin.ruangan')->with('success', 'Data berhasil ditambahkan.');
     }
 
 

@@ -30,7 +30,7 @@ class HomeController extends Controller
 
     public function updateProfil(Request $request){
         $user = Auth::user(); // Mendapatkan pengguna yang sedang login
-        
+
         // Aturan validasi dengan pengecualian email pengguna saat ini
         $validator = Validator::make($request->all(), [
             'nama'          => '|string|max:50',
@@ -97,7 +97,7 @@ class HomeController extends Controller
 
         User::create($data);
 
-        return redirect()->route('admin.index');
+        return redirect()->route('admin.index')->with('success', 'Data berhasil ditambahkan.');
     }
 
     public function edit(Request $request,$id){
@@ -144,7 +144,7 @@ class HomeController extends Controller
 
         User::whereId($id)->update($data);
 
-        return redirect()->route('admin.index');
+        return redirect()->route('admin.index')->with('success', 'Data berhasil diperbarui.');
     }
 
     public function delete(Request $request,$id){
@@ -154,7 +154,7 @@ class HomeController extends Controller
             $data->delete();
         }
 
-        return redirect()->route('admin.index');
+        return redirect()->route('admin.index')->with('success', 'Data berhasil dihapus.');
     }
 
 }

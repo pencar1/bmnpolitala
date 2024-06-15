@@ -20,6 +20,13 @@
                             @enderror
                         </div>
                         <div class="form-group">
+                            <label for="merktransportasi">Merk Transportasi</label>
+                            <input type="text" name="merktransportasi" class="form-control" id="merktransportasi" placeholder="Masukkan Merk">
+                            @error('merktransportasi')
+                                <small>{{ $message }}</small>
+                            @enderror
+                        </div>
+                        <div class="form-group">
                             <label for="stoktransportasi">Stok Transportasi</label>
                             <input type="text" name="stoktransportasi" class="form-control" id="stoktransportasi" placeholder="Masukkan Stok">
                             @error('stoktransportasi')

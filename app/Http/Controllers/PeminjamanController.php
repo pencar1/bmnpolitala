@@ -88,7 +88,7 @@ class PeminjamanController extends Controller
 
         $peminjaman->save();
 
-        return redirect()->route('admin.peminjaman');
+        return redirect()->route('admin.peminjaman')->with('success', 'Data berhasil ditambahkan.');
     }
 
 
