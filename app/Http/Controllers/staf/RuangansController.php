@@ -1,0 +1,118 @@
+<?php
+
+namespace App\Http\Controllers\staf;
+
+use App\Http\Controllers\Controller;
+use App\Models\Ruangan;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+
+class RuangansController extends Controller
+{
+    public function index()
+    {
+        $data = Ruangan::get();
+        return view('staf.ruangan', compact('data'));
+    }
+
+    public function tambahruangan()
+    {
+        return view('staf.ruangan.tambahr');
+    }
+
+    public function store(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'namaruangan' => 'required|string|max:255',
+            'deskripsiruangan' => 'required|string',
+            'foto' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withInput()->withErrors($validator);
+        }
+
+        $ruangan = new Ruangan();
+        $ruangan->namaruangan = $request->input('namaruangan');
+        $ruangan->deskripsiruangan = $request->input('deskripsiruangan');
+
+        if ($request->hasFile('foto')) {
+            $file = $request->file('foto');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('images/ruangan'), $filename);
+            $ruangan->foto = $filename;
+        }
+
+        $ruangan->save();
+
+        return redirect()->route('staf.ruangan')->with('success', 'Data berhasil ditambahkan.');
+    }
+
+
+    public function edit($id)
+    {
+        $data = Ruangan::find($id);
+        if (!$data) {
+            return redirect()->route('staf.ruangan')->withErrors('Data tidak ditemukan.');
+        }
+        return view('staf.ruangan.editr', compact('data'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'namaruangan' => 'required|string|max:255',
+            'deskripsiruangan' => 'required|string',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withInput()->withErrors($validator);
+        }
+
+        $ruangan = Ruangan::find($id);
+        if (!$ruangan) {
+            return redirect()->route('staf.ruangan')->withErrors('Data tidak ditemukan.');
+        }
+
+        $ruangan->namaruangan = $request->input('namaruangan');
+        $ruangan->deskripsiruangan = $request->input('deskripsiruangan');
+
+        if ($request->hasFile('foto')) {
+            // Delete the old photo if it exists
+            if ($ruangan->foto) {
+                $old_file_path = public_path('images/ruangan/' . $ruangan->foto);
+                if (file_exists($old_file_path)) {
+                    unlink($old_file_path);
+                }
+            }
+
+            // Save the new photo
+            $file = $request->file('foto');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('images/ruangan'), $filename);
+            $ruangan->foto = $filename;
+        }
+
+        $ruangan->save();
+
+        return redirect()->route('staf.ruangan')->with('success', 'Data berhasil diperbarui.');
+    }
+
+    public function destroy($id)
+    {
+        $ruangan = Ruangan::find($id);
+        if ($ruangan) {
+            if ($ruangan->foto) {
+                // Delete the associated photo file
+                $file_path = public_path('images/ruangan/' . $ruangan->foto);
+                if (file_exists($file_path)) {
+                    unlink($file_path);
+                }
+            }
+            $ruangan->delete();
+        }
+
+        return redirect()->route('staf.ruangan')->with('success', 'Data berhasil dihapus.');
+    }
+}
