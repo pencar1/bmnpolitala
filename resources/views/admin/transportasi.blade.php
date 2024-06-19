@@ -58,7 +58,7 @@
                                                 <form action="{{ route('admin.transportasi.destroy', ['id' => $d->idtransportasi]) }}" method="POST" class="d-inline">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="button" title="Hapus Transportasi" class="btn btn-link btn-danger deleteButton">
+                                                    <button type="button" data-toggle="tooltip" title="Hapus Transportasi" class="btn btn-link btn-danger deleteButton">
                                                         <i class="fa fa-times"></i>
                                                     </button>
                                                 </form>

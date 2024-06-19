@@ -1,4 +1,4 @@
-@extends('layout.layoutadmin')
+@extends('layout.layoutstaf')
 
 @section('content')
 <div class="page-inner">
@@ -17,7 +17,7 @@
                     <div class="card-header">
                         <div class="d-flex align-items-center">
                             <h4 class="card-title">Peminjaman</h4>
-                            <a href="{{ route('admin.peminjaman.tambah') }}" class="btn btn-primary btn-round ml-auto">
+                            <a href="{{ route('staf.peminjaman.tambah') }}" class="btn btn-primary btn-round ml-auto">
                                 <i class="fa fa-plus"></i>
                                 Tambah
                             </a>
@@ -33,7 +33,7 @@
                                         <th>Aset Yang Dipinjam</th>
                                         <th>Tanggal Peminjaman</th>
                                         <th>Jumlah Dipinjam</th>
-                                        <th>Status</th>
+                                        <th>Statuss</th>
                                         <th style="width: 10%">Action</th>
                                     </tr>
                                 </thead>
@@ -48,10 +48,10 @@
                                         <td>{{ $d->status }}</td>
                                         <td>
                                             <div class="form-button-action">
-                                                <a href="{{ route('admin.peminjaman.edit', ['id' => $d->idpeminjaman]) }}" data-toggle="tooltip" title="Ubah Peminjaman" class="btn btn-link btn-primary btn-lg">
+                                                <a href="{{ route('staf.peminjaman.edit', ['id' => $d->idpeminjaman]) }}" data-toggle="tooltip" title="Ubah Peminjaman" class="btn btn-link btn-primary btn-lg">
                                                     <i class="fa fa-edit"></i>
                                                 </a>
-                                                <form action="{{ route('admin.peminjaman.destroy', ['id' => $d->idpeminjaman]) }}" method="POST" class="d-inline">
+                                                <form action="{{ route('staf.peminjaman.destroy', ['id' => $d->idpeminjaman]) }}" method="POST" class="d-inline">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="button" data-toggle="tooltip" title="Hapus Peminjaman" class="btn btn-link btn-danger deleteButton">
@@ -78,7 +78,7 @@
                                                     Apakah Anda yakin ingin menghapus <strong>{{ $d->getAsetName() }}?</strong>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <form action="{{ route('admin.peminjaman.destroy', ['id' => $d->idpeminjaman]) }}" method="POST">
+                                                    <form action="{{ route('staf.peminjaman.destroy', ['id' => $d->idpeminjaman]) }}" method="POST">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>

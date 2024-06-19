@@ -1,11 +1,11 @@
-@extends('layout.layoutadmin')
+@extends('layout.layoutstaf')
 
 @section('content')
 
 <div class="page-inner">
     <div class="page-header">
         <div class="col-md-12">
-            <form action="{{ route('admin.peminjaman.update', ['id' => $data->idpeminjaman]) }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('staf.peminjaman.update', ['id' => $data->idpeminjaman]) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="card">
@@ -48,21 +48,10 @@
                                 <small>{{ $message }}</small>
                             @enderror
                         </div>
-                        <div class="form-group">
-                            <label for="exampleFormControlSelect1">Status</label>
-                            <select class="form-control" id="exampleFormControlSelect1" name="status">
-                                <option value="dipinjam" {{ $data->status == 'dipinjam' ? 'selected' : '' }}>Dipinjam</option>
-                                <option value="dibatalkan" {{ $data->status == 'dibatalkan' ? 'selected' : '' }}>Dibatalkan</option>
-                                <option value="dikembalikan" {{ $data->status == 'dikembalikan' ? 'selected' : '' }}>Dikembalikan</option>
-                            </select>
-                            @error('status')
-                                <small>{{ $message }}</small>
-                            @enderror
-                        </div>
                     </div>
                     <div class="card-action">
                         <button type="submit" class="btn btn-success">Simpan</button>
-                        <button type="button" class="btn btn-danger" onclick="window.location.href='{{ route('admin.peminjaman') }}'">Batal</button>
+                        <button type="button" class="btn btn-danger" onclick="window.location.href='{{ route('staf.peminjaman') }}'">Batal</button>
                     </div>
                 </div>
             </form>

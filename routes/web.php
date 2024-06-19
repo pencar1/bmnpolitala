@@ -16,6 +16,15 @@ use App\Http\Controllers\peminjam\BarangpController;
 use App\Http\Controllers\peminjam\RuanganpController;
 use App\Http\Controllers\peminjam\PeminjamanpController;
 use App\Http\Controllers\peminjam\ArsipditolakpController;
+
+use App\Http\Controllers\staf\HomesController;
+use App\Http\Controllers\staf\TransportasisController;
+use App\Http\Controllers\staf\BarangsController;
+use App\Http\Controllers\staf\RuangansController;
+use App\Http\Controllers\staf\PeminjamansController;
+use App\Http\Controllers\staf\ArsipditolaksController;
+use App\Http\Controllers\staf\PengembaliansController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -85,8 +94,43 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:admin'], 'as' 
 
 // Route group for staf
 Route::group(['prefix' => 'staf', 'middleware' => ['auth', 'role:staf'], 'as' => 'staf.'], function () {
-    Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
-    // Tambahkan rute khusus staf lainnya di sini...
+    Route::get('/dashboard', [HomesController::class, 'dashboard'])->name('dashboard');
+    Route::get('/profil', [HomesController::class, 'profil'])->name('profil');
+    Route::put('/profil/update', [HomesController::class, 'updateProfil'])->name('profil.update');
+
+    Route::get('/peminjaman', [PeminjamansController::class, 'index'])->name('peminjaman');
+    Route::get('/tambahpeminjaman', [PeminjamansController::class, 'tambahpeminjaman'])->name('peminjaman.tambah');
+    Route::post('/peminjaman', [PeminjamansController::class, 'store'])->name('peminjaman.store');
+    Route::get('/peminjaman/{id}/edit', [PeminjamansController::class, 'edit'])->name('peminjaman.edit');
+    Route::put('/peminjaman/{id}', [PeminjamansController::class, 'update'])->name('peminjaman.update');
+    Route::delete('/peminjaman/{id}', [PeminjamansController::class, 'destroy'])->name('peminjaman.destroy');
+
+    Route::get('/barang', [BarangsController::class, 'index'])->name('barang');
+    Route::get('/tambahbarang', [BarangsController::class, 'tambahbarang'])->name('barang.tambah');
+    Route::post('/barang', [BarangsController::class, 'store'])->name('barang.store');
+    Route::get('/barang/{id}/edit', [BarangsController::class, 'edit'])->name('barang.edit');
+    Route::put('/barang/{id}', [BarangsController::class, 'update'])->name('barang.update');
+    Route::delete('/barang/{id}', [BarangsController::class, 'destroy'])->name('barang.destroy');
+
+    Route::get('/transportasi', [TransportasisController::class, 'index'])->name('transportasi');
+    Route::get('/tambahtransportasi', [TransportasisController::class, 'tambahtransportasi'])->name('transportasi.tambah');
+    Route::post('/transportasi', [TransportasisController::class, 'store'])->name('transportasi.store');
+    Route::get('/transportasi/{id}/edit', [TransportasisController::class, 'edit'])->name('transportasi.edit');
+    Route::put('/transportasi/{id}', [TransportasisController::class, 'update'])->name('transportasi.update');
+    Route::delete('/transportasi/{id}', [TransportasisController::class, 'destroy'])->name('transportasi.destroy');
+
+    Route::get('/ruangan', [RuangansController::class, 'index'])->name('ruangan');
+    Route::get('/tambahruangan', [RuangansController::class, 'tambahruangan'])->name('ruangan.tambah');
+    Route::post('/ruangan', [RuangansController::class, 'store'])->name('ruangan.store');
+    Route::get('/ruangan/{id}/edit', [RuangansController::class, 'edit'])->name('ruangan.edit');
+    Route::put('/ruangan/{id}', [RuangansController::class, 'update'])->name('ruangan.update');
+    Route::delete('/ruangan/{id}', [RuangansController::class, 'destroy'])->name('ruangan.destroy');
+    Route::delete('/ruangan/{id}', [RuangansController::class, 'destroy'])->name('ruangan.delete');
+
+    Route::get('/arsiptolak', [ArsipditolaksController::class, 'index'])->name('arsipditolak');
+    Route::get('/pengembalian', [PengembaliansController::class, 'index'])->name('pengembalian');
+
+
 });
 
 
