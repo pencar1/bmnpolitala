@@ -33,7 +33,7 @@
                                         <th>Aset Yang Dipinjam</th>
                                         <th>Tanggal Peminjaman</th>
                                         <th>Jumlah Dipinjam</th>
-                                        <th>Statuss</th>
+                                        <th>Status</th>
                                         <th style="width: 10%">Action</th>
                                     </tr>
                                 </thead>
@@ -51,13 +51,20 @@
                                                 <a href="{{ route('admin.peminjaman.edit', ['id' => $d->idpeminjaman]) }}" data-toggle="tooltip" title="Ubah Peminjaman" class="btn btn-link btn-primary btn-lg">
                                                     <i class="fa fa-edit"></i>
                                                 </a>
-                                                <button type="button" data-id="{{ $d->idpeminjaman }}" data-name="{{ $d->aset }}" data-toggle="modal" data-target="#deleteModal-{{ $d->idpeminjaman }}" title="Hapus Peminjaman" class="btn btn-link btn-danger deleteButton">
+                                                <form action="{{ route('admin.peminjaman.destroy', ['id' => $d->idpeminjaman]) }}" method="POST" class="d-inline">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="button" data-toggle="tooltip" title="Hapus Peminjaman" class="btn btn-link btn-danger deleteButton">
+                                                        <i class="fa fa-times"></i>
+                                                    </button>
+                                                </form>
+                                                {{-- <button type="button" data-id="{{ $d->idpeminjaman }}" data-name="{{ $d->aset }}" data-toggle="modal" data-target="#deleteModal-{{ $d->idpeminjaman }}" title="Hapus Peminjaman" class="btn btn-link btn-danger deleteButton">
                                                     <i class="fa fa-times"></i>
-                                                </button>
+                                                </button> --}}
                                             </div>
                                         </td>
                                     </tr>
-                                    <!-- Modal -->
+                                    {{-- <!-- Modal -->
                                     <div class="modal" id="deleteModal-{{ $d->idpeminjaman }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel-{{ $d->idpeminjaman }}" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
@@ -80,7 +87,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                     @endforeach
                                 </tbody>
                             </table>

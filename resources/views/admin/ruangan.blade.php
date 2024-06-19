@@ -57,7 +57,7 @@
                                                 <form action="{{ route('admin.ruangan.delete',['id' => $d->idruangan])}}" method="POST" class="d-inline">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="button" title="Hapus Ruangan" class="btn btn-link btn-danger deleteButton">
+                                                    <button type="button" data-toggle="tooltip" title="Hapus Ruangan" class="btn btn-link btn-danger deleteButton">
                                                         <i class="fa fa-times"></i>
                                                     </button>
                                                 </form>

@@ -48,6 +48,17 @@
                                 <small>{{ $message }}</small>
                             @enderror
                         </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">Status</label>
+                            <select class="form-control" id="exampleFormControlSelect1" name="status">
+                                <option value="dipinjam" {{ $data->status == 'dipinjam' ? 'selected' : '' }}>Dipinjam</option>
+                                <option value="dibatalkan" {{ $data->status == 'dibatalkan' ? 'selected' : '' }}>Dibatalkan</option>
+                                <option value="dikembalikan" {{ $data->status == 'dikembalikan' ? 'selected' : '' }}>Dikembalikan</option>
+                            </select>
+                            @error('status')
+                                <small>{{ $message }}</small>
+                            @enderror
+                        </div>
                     </div>
                     <div class="card-action">
                         <button type="submit" class="btn btn-success">Simpan</button>

@@ -60,7 +60,7 @@
                                                 <form action="{{ route('staf.barang.destroy', ['id' => $d->idbarang]) }}" method="POST" class="d-inline">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="button" title="Hapus Barang" class="btn btn-link btn-danger deleteButton">
+                                                    <button type="button" data-toggle="tooltip" title="Hapus Barang" class="btn btn-link btn-danger deleteButton">
                                                         <i class="fa fa-times"></i>
                                                     </button>
                                                 </form>
