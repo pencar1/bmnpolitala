@@ -25,7 +25,7 @@
 <body class="login">
 	<div class="wrapper wrapper-login">
 		<div class="container container-login animated fadeIn">
-			<h3 class="text-center">Sign In To Admin</h3>
+			<h3 class="text-center">Sign In</h3>
 			<div class="login-form">
                 <form method="post" action="{{ route('login_proses') }}">
                     @csrf <!-- CSRF token -->
@@ -53,16 +53,10 @@
 						<input type="checkbox" class="custom-control-input" id="rememberme">
 						<label class="custom-control-label" for="rememberme">Remember Me</label>
 					</div>
-
-					<a href="#" class="link float-right">Forget Password ?</a>
 				</div>
                 <div class="form-action mb-3">
                     <button type="submit" class="btn btn-primary btn-rounded btn-login">Sign In</button>
                 </div>
-				<div class="login-account">
-					<span class="msg">Don't have an account yet ?</span>
-					<a href="#" id="show-signup" class="link">Sign Up</a>
-				</div>
 			</div>
 		</div>
 

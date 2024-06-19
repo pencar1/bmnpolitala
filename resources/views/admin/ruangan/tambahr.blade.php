@@ -16,21 +16,21 @@
                             <label for="namaruangan">Nama Ruangan</label>
                             <input type="text" name="namaruangan" class="form-control" id="namaruangan" placeholder="Masukkan Nama">
                             @error('namaruangan')
-                                <small>{{ $message }}</small>
+                                <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="form-group">
                             <label for="deskripsiruangan">Deskripsi Ruangan</label>
                             <input type="text" name="deskripsiruangan" class="form-control" id="deskripsiruangan" placeholder="Masukkan Deskripsi">
                             @error('deskripsiruangan')
-                                <small>{{ $message }}</small>
+                                <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="form-group">
                             <label for="foto">Gambar</label>
                             <input type="file" name="foto" class="form-control" id="foto">
                             @error('foto')
-                                <small>{{ $message }}</small>
+                                <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
                     </div>

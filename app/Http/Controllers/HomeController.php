@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Barang;
+use App\Models\Ruangan;
+use App\Models\Transportasi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -13,7 +16,11 @@ use Illuminate\Support\Facades\Auth;
 class HomeController extends Controller
 {
     public function dashboard(){
-        return view('dashboard');
+        $userCount = User::count();
+        $barangCount = Barang::count();
+        $ruanganCount = Ruangan::count();
+        $transportasiCount = Transportasi::count();
+        return view('dashboard', compact('userCount','barangCount','ruanganCount','transportasiCount'));
     }
 
     public function index(){

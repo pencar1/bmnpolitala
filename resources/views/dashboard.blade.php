@@ -20,7 +20,7 @@
                         <div class="col col-stats ml-3 ml-sm-0">
                             <div class="numbers">
                                 <p class="card-category">User</p>
-                                <h4 class="card-title">24</h4>
+                                <h4 class="card-title">{{ $userCount }}</h4>
                             </div>
                         </div>
                     </div>
@@ -39,7 +39,7 @@
                         <div class="col col-stats ml-3 ml-sm-0">
                             <div class="numbers">
                                 <p class="card-category">Barang</p>
-                                <h4 class="card-title">1103</h4>
+                                <h4 class="card-title">{{ $barangCount }}</h4>
                             </div>
                         </div>
                     </div>
@@ -58,7 +58,7 @@
                         <div class="col col-stats ml-3 ml-sm-0">
                             <div class="numbers">
                                 <p class="card-category">Transportasi</p>
-                                <h4 class="card-title">5</h4>
+                                <h4 class="card-title">{{ $transportasiCount }}</h4>
                             </div>
                         </div>
                     </div>
@@ -77,7 +77,7 @@
                         <div class="col col-stats ml-3 ml-sm-0">
                             <div class="numbers">
                                 <p class="card-category">Ruangan</p>
-                                <h4 class="card-title">56</h4>
+                                <h4 class="card-title">{{ $ruanganCount }}</h4>
                             </div>
                         </div>
                     </div>

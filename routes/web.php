@@ -6,6 +6,7 @@ use App\Http\Controllers\PeminjamanController;
 use App\Http\Controllers\Pengembalian;
 use App\Http\Controllers\Arsiptolak;
 use App\Http\Controllers\BarangController;
+use App\Http\Controllers\BerandaController;
 use App\Http\Controllers\RuanganController;
 use App\Http\Controllers\TransportasiController;
 
@@ -27,6 +28,8 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+Route::get('/', [BerandaController::class, 'index']);
 
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/login_proses', [LoginController::class, 'login_proses'])->name('login_proses');

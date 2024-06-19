@@ -19,7 +19,7 @@
                         </div>
                         <div class="col col-stats ml-3 ml-sm-0">
                             <div class="numbers">
-                                <p class="card-category">User</p>
+                                <p class="card-category">Peminjaman</p>
                                 <h4 class="card-title">24</h4>
                             </div>
                         </div>
