@@ -4,6 +4,9 @@ namespace App\Http\Controllers\staf;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Barang;
+use App\Models\Ruangan;
+use App\Models\Transportasi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -14,7 +17,11 @@ class HomesController extends Controller
 {
     
         public function dashboard(){
-            return view('dashboards');
+            $userCount = User::count();
+            $barangCount = Barang::count();
+            $ruanganCount = Ruangan::count();
+            $transportasiCount = Transportasi::count();
+            return view('dashboards', compact('userCount','barangCount','ruanganCount','transportasiCount'));
         }
     
         public function index(){
