@@ -21,7 +21,8 @@ class HomepController extends Controller
         $barangCount = Barang::count();
         $ruanganCount = Ruangan::count();
         $transportasiCount = Transportasi::count();
-        $peminjamanCount = Peminjaman::count();
+        $userId = Auth::id(); // Mendapatkan ID user yang sedang login
+        $peminjamanCount = Peminjaman::where('iduser', $userId)->count(); // Menghitung peminjaman berdasarkan ID user
         return view('dashboardp', compact('userCount','barangCount','ruanganCount','transportasiCount','peminjamanCount'));
     }
 
