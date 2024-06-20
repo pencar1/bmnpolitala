@@ -10,7 +10,8 @@ class BarangController extends Controller
 {
     public function index()
     {
-        $data = Barang::get();
+        $data = Barang::orderBy('idbarang', 'desc')->get();
+
         return view('admin.barang', compact('data'));
     }
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Peminjaman;
 use App\Models\User;
 use App\Models\Barang;
 use App\Models\Ruangan;
@@ -16,11 +17,13 @@ use Illuminate\Support\Facades\Auth;
 class HomeController extends Controller
 {
     public function dashboard(){
+        $dataPeminjaman = Peminjaman::where('status', 'diproses')->with(['user', 'barang', 'transportasi', 'ruangan'])->get();
+
         $userCount = User::count();
         $barangCount = Barang::count();
         $ruanganCount = Ruangan::count();
         $transportasiCount = Transportasi::count();
-        return view('dashboard', compact('userCount','barangCount','ruanganCount','transportasiCount'));
+        return view('dashboard', compact('dataPeminjaman', 'userCount','barangCount','ruanganCount','transportasiCount'));
     }
 
     public function index(){

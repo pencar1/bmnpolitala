@@ -9,7 +9,8 @@ class TransportasiController extends Controller
 {
     public function index()
     {
-        $data = Transportasi::get();
+        $data = Transportasi::orderBy('idtransportasi', 'desc')->get();
+
         return view('admin.transportasi', compact('data'));
     }
 

@@ -10,7 +10,8 @@ class RuanganController extends Controller
 {
     public function index()
     {
-        $data = Ruangan::get();
+        $data = Ruangan::orderBy('idruangan', 'desc')->get();
+
         return view('admin.ruangan', compact('data'));
     }
 
