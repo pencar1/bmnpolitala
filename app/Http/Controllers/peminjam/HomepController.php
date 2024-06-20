@@ -4,6 +4,10 @@ namespace App\Http\Controllers\peminjam;
 
 use App\Http\Controllers\Controller; // Tambahkan ini
 use App\Models\User;
+use App\Models\Barang;
+use App\Models\Ruangan;
+use App\Models\Transportasi;
+use App\Models\Peminjaman;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -13,8 +17,16 @@ use Illuminate\Support\Facades\Auth;
 class HomepController extends Controller
 {
     public function dashboard(){
-        return view('dashboardp');
+        $userCount = User::count();
+        $barangCount = Barang::count();
+        $ruanganCount = Ruangan::count();
+        $transportasiCount = Transportasi::count();
+        $userId = Auth::id(); // Mendapatkan ID user yang sedang login
+        $peminjamanCount = Peminjaman::where('iduser', $userId)->count(); // Menghitung peminjaman berdasarkan ID user
+        return view('dashboardp', compact('userCount','barangCount','ruanganCount','transportasiCount','peminjamanCount'));
     }
+
+
 
     public function profil(){
         $user = Auth::user(); // Mendapatkan pengguna yang sedang login
