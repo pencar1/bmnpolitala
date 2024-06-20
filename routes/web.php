@@ -50,6 +50,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:admin'], 'as' 
     Route::get('/profil', [HomeController::class, 'profil'])->name('profil');
     Route::put('/profil/update', [HomeController::class, 'updateProfil'])->name('profil.update');
 
+    Route::get('/editstp/{id}', [HomeController::class, 'editstp'])->name('peminjaman.editstp');
+    Route::put('/updatestp/{id}', [HomeController::class, 'updatestp'])->name('peminjaman.updatestp');
+
 
     Route::get('/peminjaman', [PeminjamanController::class, 'index'])->name('peminjaman');
     Route::get('/tambahpeminjaman', [PeminjamanController::class, 'tambahpeminjaman'])->name('peminjaman.tambah');
@@ -147,8 +150,8 @@ Route::group(['prefix' => 'peminjam', 'middleware' => ['auth', 'role:peminjam'],
         Route::post('/peminjaman', [PeminjamanpController::class, 'storebar'])->name('peminjaman.storebar');
 
          // Tambahkan router untuk transportasi di sini
-         Route::get('/tambahpeminjamantrans', [PeminjamanpController::class, 'tambahPeminjamanTransportasi'])->name('peminjamantrans.tambah');
-         Route::post('/peminjamantrans/store', [PeminjamanpController::class, 'storetrans'])->name('peminjamantrans.store');
+        Route::get('/tambahpeminjamantrans', [PeminjamanpController::class, 'tambahPeminjamanTransportasi'])->name('peminjamantrans.tambah');
+        Route::post('/peminjamantrans/store', [PeminjamanpController::class, 'storetrans'])->name('peminjamantrans.store');
          Route::post('/peminjaman/updatestatus', [PeminjamanpController::class, 'updatestatus'])->name('peminjaman.updatestatus'); // Tambahkan rute ini
          Route::put('/peminjaman/{id}', [PeminjamanpController::class, 'update'])->name('peminjaman.update'); // Tambahkan rute ini
 

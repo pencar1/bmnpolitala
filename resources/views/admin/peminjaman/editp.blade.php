@@ -29,7 +29,7 @@
                         </div>
                         <div class="form-group">
                             <label for="tanggalpeminjaman">Tanggal Peminjaman</label>
-                            <input type="date" name="tanggalpeminjaman" class="form-control" id="tanggalpeminjaman" value="{{ old('tanggalpeminjaman', $data->tanggalpeminjaman) }}" placeholder="Masukkan Tanggal Peminjaman">
+                            <input type="date" name="tanggalpeminjaman" class="form-control" id="tanggalpeminjaman" value="{{ old('tanggalpeminjaman', $data->tanggalpeminjaman) }}" placeholder="Masukkan Tanggal Peminjaman" min="{{ date('Y-m-d') }}">
                             @error('tanggalpeminjaman')
                                 <small>{{ $message }}</small>
                             @enderror
@@ -63,7 +63,6 @@
                             <label for="exampleFormControlSelect1">Status</label>
                             <select class="form-control" id="exampleFormControlSelect1" name="status">
                                 <option value="dipinjam" {{ $data->status == 'dipinjam' ? 'selected' : '' }}>Dipinjam</option>
-                                <option value="dibatalkan" {{ $data->status == 'dibatalkan' ? 'selected' : '' }}>Dibatalkan</option>
                                 <option value="dikembalikan" {{ $data->status == 'dikembalikan' ? 'selected' : '' }}>Dikembalikan</option>
                             </select>
                             @error('status')

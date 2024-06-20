@@ -125,8 +125,6 @@ class PeminjamanController extends Controller
             return redirect()->route('admin.peminjaman')->withErrors('Data tidak ditemukan.');
         }
 
-        $user = Auth::user();
-        $peminjaman->iduser = $user->id;
         $peminjaman->tanggalpeminjaman = $request->input('tanggalpeminjaman');
         $peminjaman->status = 'Dipinjam';
 

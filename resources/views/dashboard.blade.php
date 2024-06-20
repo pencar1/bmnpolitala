@@ -119,7 +119,7 @@
                                         <td>{{ $d->status }}</td>
                                         <td>
                                             <div class="form-button-action">
-                                                <a href="{{ route('admin.peminjaman.edit', ['id' => $d->idpeminjaman]) }}" data-toggle="tooltip" title="Ubah Peminjaman" class="btn btn-link btn-primary btn-lg">
+                                                <a href="{{ route('admin.peminjaman.editstp', ['id' => $d->idpeminjaman]) }}" data-toggle="tooltip" title="Ubah Peminjaman" class="btn btn-link btn-primary btn-lg">
                                                     <i class="fa fa-edit"></i>
                                                 </a>
                                             </div>
