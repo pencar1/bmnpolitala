@@ -62,37 +62,9 @@
                                                         <i class="fa fa-times"></i>
                                                     </button>
                                                 </form>
-                                                {{-- <button type="button" data-toggle="modal" data-target="#deleteModal-{{ $d->idtransportasi }}" title="Hapus Transportasi" class="btn btn-link btn-danger deleteButton">
-                                                    <i class="fa fa-times"></i>
-                                                </button> --}}
                                             </div>
                                         </td>
                                     </tr>
-                                    {{-- <!-- Delete Modal -->
-                                    <div class="modal fade" id="deleteModal-{{ $d->idtransportasi }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel-{{ $d->idtransportasi }}" aria-hidden="true">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="deleteModalLabel-{{ $d->idtransportasi }}">Konfirmasi Hapus</h5>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    Apakah Anda yakin ingin menghapus transportasi <strong>{{ $d->namatransportasi }}</strong>?
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                                                    <form action="{{ route('staf.transportasi.destroy', ['id' => $d->idtransportasi]) }}" method="POST">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="btn btn-danger">Hapus</button>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Delete Modal --> --}}
                                     @endforeach
                                 </tbody>
                             </table>
