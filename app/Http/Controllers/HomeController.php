@@ -46,7 +46,7 @@ class HomeController extends Controller
             'tanggalpeminjaman' => 'required|date',
             'lampiran'          => 'nullable|mimes:jpeg,png,jpg,gif,pdf,docx|max:2048',
             'jumlahaset'        => 'required|integer|min:1',
-            'status'            => 'required|in:diproses,disetujui,dipinjam',
+            'status'            => 'required|in:diproses,ditolak,disetujui,dipinjam,',
         ]);
 
         if ($validator->fails()) {
