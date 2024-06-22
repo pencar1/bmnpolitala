@@ -31,7 +31,7 @@ class Pengembalian extends Model
     ];
 
     // Relationship ke model Barang
-    public function barang()
+    public function peminjaman()
     {
         return $this->belongsTo(Peminjaman::class, 'idpeminjaman', 'idpeminjaman');
     }

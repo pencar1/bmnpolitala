@@ -63,6 +63,7 @@
                             <label for="exampleFormControlSelect1">Status</label>
                             <select class="form-control" id="exampleFormControlSelect1" name="status">
                                 <option value="diproses" {{ $data->status == 'diproses' ? 'selected' : '' }}>Diproses</option>
+                                <option value="ditolak" {{ $data->status == 'ditolak' ? 'selected' : '' }}>Ditolak</option>
                                 <option value="disetujui" {{ $data->status == 'disetujui' ? 'selected' : '' }}>Disetujui</option>
                                 <option value="dipinjam" {{ $data->status == 'dipinjam' ? 'selected' : '' }}>Dipinjam</option>
                             </select>

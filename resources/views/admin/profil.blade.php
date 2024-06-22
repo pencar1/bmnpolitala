@@ -1,6 +1,11 @@
 @extends('layout.layoutadmin')
 
 @section('content')
+<style>
+    .error-message {
+        color: red;
+    }
+</style>
 <div class="page-inner">
     <h4 class="page-title">User Profil</h4>
     <div class="row">
@@ -27,7 +32,7 @@
                                     <label for="nama">Nama</label>
                                     <input type="text" class="form-control" id="nama" name="nama" value="{{ $user->nama }}" placeholder="Enter Name">
                                     @error('nama')
-                                    <small>{{ $message }}</small>
+                                    <small class="error-message">{{ $message }}</small>
                                     @enderror
                                 </div>
                             </div>
@@ -36,7 +41,7 @@
                                     <label for="email2">Email</label>
                                     <input type="email" class="form-control" id="email2" name="email" value="{{ $user->email }}" placeholder="Enter Email">
                                     @error('email')
-                                    <small>{{ $message }}</small>
+                                    <small class="error-message">{{ $message }}</small>
                                     @enderror
                                 </div>
                             </div>
@@ -45,18 +50,18 @@
                             <div class="col-md-6">
                                 <div class="form-group form-group-default">
                                     <label for="nohp">No Hp</label>
-                                    <input type="text" class="form-control" id="nohp" name="nohp" value="{{ $user->nohp }}" placeholder="Enter Phone Number">
+                                    <input type="text" class="form-control" id="nohp" name="nohp" value="{{ $user->nohp }}" placeholder="Enter Phone Number" value="{{ old('nohp') }}" pattern="[0-9]*" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
                                     @error('nohp')
-                                    <small>{{ $message }}</small>
+                                    <small class="error-message">{{ $message }}</small>
                                     @enderror
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group form-group-default">
-                                    <label for="password">Ubah Password</label>
+                                    <label for="password">Ubah Password(Huruf besar dan kecil)</label>
                                     <input type="password" class="form-control" id="password" name="password" placeholder="Kosongkan Jika Tidak Mengganti">
                                     @error('password')
-                                    <small>{{ $message }}</small>
+                                    <small class="error-message">{{ $message }}</small>
                                     @enderror
                                 </div>
                             </div>

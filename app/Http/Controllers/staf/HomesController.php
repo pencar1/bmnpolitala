@@ -52,7 +52,13 @@ class HomesController extends Controller
                     'max:255',
                     Rule::unique('users', 'email')->ignore($user->id),
                 ],
-                'password' => 'nullable|min:8',
+               'password' => [
+                'nullable',
+                'string',
+                'min:8',
+                'regex:/[a-z]/', // at least one lowercase letter
+                'regex:/[A-Z]/', // at least one uppercase letter
+        ],
             ]);
     
             if ($validator->fails()) {

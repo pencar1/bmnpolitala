@@ -12,7 +12,7 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="d-flex align-items-center">
-                            <h4 class="card-title">User</h4>
+                            <h4 class="card-title">Arsip Ditolak</h4>
                             <a href="{{ route('admin.user.create') }}" class="btn btn-primary btn-round ml-auto">
                                 <i class="fa fa-plus"></i>
                                 Tambah
