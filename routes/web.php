@@ -101,6 +101,9 @@ Route::group(['prefix' => 'staf', 'middleware' => ['auth', 'role:staf'], 'as' =>
     Route::get('/profil', [HomesController::class, 'profil'])->name('profil');
     Route::put('/profil/update', [HomesController::class, 'updateProfil'])->name('profil.update');
 
+    Route::get('/editstp/{id}', [HomesController::class, 'editstp'])->name('peminjaman.editstp');
+    Route::put('/updatestp/{id}', [HomesController::class, 'updatestp'])->name('peminjaman.updatestp');
+
     Route::get('/peminjaman', [PeminjamansController::class, 'index'])->name('peminjaman');
     Route::get('/tambahpeminjaman', [PeminjamansController::class, 'tambahpeminjaman'])->name('peminjaman.tambah');
     Route::post('/peminjaman', [PeminjamansController::class, 'store'])->name('peminjaman.store');

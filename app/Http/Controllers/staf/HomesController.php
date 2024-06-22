@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\staf;
 
 use App\Http\Controllers\Controller;
+use App\Models\Peminjaman;
 use App\Models\User;
 use App\Models\Barang;
 use App\Models\Ruangan;
@@ -17,11 +18,13 @@ class HomesController extends Controller
 {
     
         public function dashboard(){
+            $dataPeminjaman = Peminjaman::whereIn('status', ['diproses', 'disetujui'])->with(['user', 'barang', 'transportasi', 'ruangan'])->orderBy('idpeminjaman', 'desc')->get();
+
             $userCount = User::count();
             $barangCount = Barang::count();
             $ruanganCount = Ruangan::count();
             $transportasiCount = Transportasi::count();
-            return view('dashboards', compact('userCount','barangCount','ruanganCount','transportasiCount'));
+            return view('dashboards', compact('userCount','barangCount','ruanganCount','transportasiCount','dataPeminjaman'));
         }
     
         public function index(){
@@ -79,6 +82,115 @@ class HomesController extends Controller
             $user->save();
     
             return redirect()->route('staf.profil')->with('success', 'Profil berhasil diperbarui.');
+        }
+
+        public function editstp($id)
+        {
+            $data = Peminjaman::with(['barang', 'transportasi', 'ruangan'])->find($id);
+            if (!$data) {
+                return redirect()->route('staf.peminjaman')->withErrors('Data tidak ditemukan.');
+            }
+    
+            $jenisAset = $data->getJenisAset();
+            $namaAset = $data->getAsetName();
+    
+            return view('editstps', compact('data', 'jenisAset', 'namaAset'));
+        }
+    
+    
+        public function updatestp(Request $request, $id)
+        {
+            $validator = Validator::make($request->all(), [
+                'tanggalpeminjaman' => 'required|date',
+                'lampiran'          => 'nullable|mimes:jpeg,png,jpg,gif,pdf,docx|max:2048',
+                'jumlahaset'        => 'required|integer|min:1',
+                'status'            => 'required|in:diproses,disetujui,dipinjam',
+            ]);
+    
+            if ($validator->fails()) {
+                return redirect()->back()->withInput()->withErrors($validator);
+            }
+    
+            $peminjaman = Peminjaman::find($id);
+            if (!$peminjaman) {
+                return redirect()->route('staf.peminjaman')->withErrors('Data tidak ditemukan.');
+            }
+    
+            $peminjaman->tanggalpeminjaman = $request->input('tanggalpeminjaman');
+            $peminjaman->status = $request->input('status');
+    
+            $jenisaset = $request->input('jenisaset');
+            $jumlahBaru = $request->input('jumlahaset');
+            $jumlahLama = $peminjaman->jumlahaset;
+            $jenisaset = $request->input('jenisaset');
+            $asetId = null;
+    
+            if ($jenisaset === 'barang') {
+                $asetId = $peminjaman->idbarang;
+            } elseif ($jenisaset === 'transportasi') {
+                $asetId = $peminjaman->idtransportasi;
+            } elseif ($jenisaset === 'ruangan') {
+                $asetId = $peminjaman->idruangan;
+            }
+    
+            if ($jenisaset === 'barang') {
+                $barang = Barang::find($asetId);
+                if ($barang) {
+                    $stokTersedia = $barang->stokbarang + $jumlahLama;
+                    if ($stokTersedia >= $jumlahBaru) {
+                        $barang->tambahStokb($jumlahLama);
+                        $barang->kurangiStokb($jumlahBaru);
+                        $peminjaman->idbarang = $asetId;
+                    } else {
+                        return redirect()->back()->withInput()->withErrors(['jumlahaset' => 'Stok barang tidak mencukupi.']);
+                    }
+                } else {
+                    return redirect()->back()->withInput()->withErrors(['jumlahaset' => 'Barang tidak ditemukan.']);
+                }
+            } elseif ($jenisaset === 'transportasi') {
+                $transportasi = Transportasi::find($asetId);
+                if ($transportasi) {
+                    $stokTersedia = $transportasi->stoktransportasi + $jumlahLama;
+                    if ($stokTersedia >= $jumlahBaru) {
+                        $transportasi->tambahStokt($jumlahLama);
+                        $transportasi->kurangiStokt($jumlahBaru);
+                        $peminjaman->idtransportasi = $asetId;
+                    } else {
+                        return redirect()->back()->withInput()->withErrors(['jumlahaset' => 'Stok transportasi tidak mencukupi.']);
+                    }
+                } else {
+                    return redirect()->back()->withInput()->withErrors(['jumlahaset' => 'Transportasi tidak ditemukan.']);
+                }
+            } elseif ($jenisaset === 'ruangan') {
+                $ruangan = Ruangan::find($asetId);
+                $stokTersedia = $ruangan->stokruangan + $jumlahLama;
+                if ($ruangan && $stokTersedia >= $jumlahBaru) {
+                    $ruangan->tambahStokt($jumlahLama);
+                    $ruangan->kurangiStokt($jumlahBaru);
+                    $peminjaman->idruangan = $asetId;
+                } else {
+                    return redirect()->back()->withInput()->withErrors(['jumlahaset' => 'Stok barang tidak mencukupi.']);
+                }
+            }
+    
+            if ($request->hasFile('lampiran')) {
+                if ($peminjaman->lampiran) {
+                    $old_file_path = public_path('lampiran/' . $peminjaman->lampiran);
+                    if (file_exists($old_file_path)) {
+                        unlink($old_file_path);
+                    }
+                }
+    
+                $file = $request->file('lampiran');
+                $filename = time() . '_' . $file->getClientOriginalName();
+                $file->move(public_path('lampiran'), $filename);
+                $peminjaman->lampiran = $filename;
+            }
+    
+            $peminjaman->jumlahaset = $jumlahBaru;
+            $peminjaman->save();
+    
+            return redirect()->route('staf.dashboard')->with('success', 'Data berhasil diperbarui.');
         }
     
     }
