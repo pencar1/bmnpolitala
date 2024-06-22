@@ -27,6 +27,22 @@ class TransportasiController extends Controller
             'stoktransportasi' => 'required|integer',
             'deskripsitransportasi' => 'required|string',
             'foto' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ], [
+            'namatransportasi.required' => 'Nama transportasi harus diisi.',
+            'namatransportasi.string' => 'Nama transportasi harus berupa teks.',
+            'namatransportasi.max' => 'Nama transportasi maksimal 255 karakter.',
+            'merktransportasi.required' => 'Merk transportasi harus diisi.',
+            'merktransportasi.string' => 'Merk transportasi harus berupa teks.',
+            'merktransportasi.max' => 'Merk transportasi maksimal 255 karakter.',
+            'stoktransportasi.required' => 'Stok transportasi harus diisi.',
+            'stoktransportasi.string' => 'Stok transportasi harus berupa angka.',
+            'stoktransportasi.max' => 'Stok transportasi manimal 1.',
+            'deskripsitransportasi.required' => 'Deskripsi transportasi harus diisi.',
+            'deskripsitransportasi.string' => 'Deskripsi transportasi harus berupa teks.',
+            'foto.required' => 'Foto transportasi harus diunggah.',
+            'foto.image' => 'File harus berupa gambar.',
+            'foto.mimes' => 'Format gambar yang diperbolehkan: jpeg, png, jpg, gif.',
+            'foto.max' => 'Ukuran maksimal gambar adalah 2048 KB.',
         ]);
 
         if ($validator->fails()) {
@@ -69,6 +85,22 @@ class TransportasiController extends Controller
             'stoktransportasi' => 'required|integer',
             'deskripsitransportasi' => 'required|string',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ], [
+            'namatransportasi.required' => 'Nama transportasi harus diisi.',
+            'namatransportasi.string' => 'Nama transportasi harus berupa teks.',
+            'namatransportasi.max' => 'Nama transportasi maksimal 255 karakter.',
+            'merktransportasi.required' => 'Merk transportasi harus diisi.',
+            'merktransportasi.string' => 'Merk transportasi harus berupa teks.',
+            'merktransportasi.max' => 'Merk transportasi maksimal 255 karakter.',
+            'stoktransportasi.required' => 'Stok transportasi harus diisi.',
+            'stoktransportasi.string' => 'Stok transportasi harus berupa angka.',
+            'stoktransportasi.max' => 'Stok transportasi manimal 1.',
+            'deskripsitransportasi.required' => 'Deskripsi transportasi harus diisi.',
+            'deskripsitransportasi.string' => 'Deskripsi transportasi harus berupa teks.',
+            'foto.required' => 'Foto transportasi harus diunggah.',
+            'foto.image' => 'File harus berupa gambar.',
+            'foto.mimes' => 'Format gambar yang diperbolehkan: jpeg, png, jpg, gif.',
+            'foto.max' => 'Ukuran maksimal gambar adalah 2048 KB.',
         ]);
 
         if ($validator->fails()) {

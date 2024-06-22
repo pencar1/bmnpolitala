@@ -73,7 +73,7 @@
                         </div>
                     </div>
                     <div class="card-action">
-                        <button type="submit" class="btn btn-success">Simpan</button>
+                        <button type="button" class="btn btn-success saveButton">Simpan</button>
                         <button type="button" class="btn btn-danger" onclick="window.location.href='{{ route('admin.dashboard') }}'">Batal</button>
                     </div>
                 </div>

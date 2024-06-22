@@ -129,7 +129,43 @@
     });
 </script>
 
-<!-- Sweet Alert -->
+<!-- Sweet Alert simpan data -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const saveButtons = document.querySelectorAll('.saveButton');
+
+        saveButtons.forEach(button => {
+            button.addEventListener('click', function (event) {
+                event.preventDefault();
+                const form = button.closest('form');
+
+                swal({
+                    title: 'Apakah Anda yakin?',
+                    text: `Data akan disimpan!`,
+                    icon: 'warning',
+                    buttons: {
+                        cancel: {
+                            text: 'Tidak, batalkan!',
+                            visible: true,
+                            className: 'btn btn-danger'
+                        },
+                        confirm: {
+                            text: 'Ya, simpan!',
+                            className: 'btn btn-success'
+                        }
+                    }
+                }).then((willSave) => {
+                    if (willSave) {
+                        form.submit();
+                    }
+                });
+            });
+        });
+    });
+</script>
+
+
+<!-- Sweet Alert hapus -->
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const deleteButtons = document.querySelectorAll('.deleteButton');

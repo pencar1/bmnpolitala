@@ -14,11 +14,11 @@
                 <div class="card-header">
                     <div class="row row-nav-line">
                         <ul class="nav nav-tabs nav-line nav-color-secondary" role="tablist">
-                          
+
                             <li class="nav-item">
                                 <a class="nav-link" data-toggle="tab" href="#profile" role="tab" aria-selected="false">Profil</a>
                             </li>
-                           
+
                         </ul>
                     </div>
                 </div>
@@ -67,14 +67,14 @@
                             </div>
                         </div>
                         <div class="text-right mt-3 mb-3">
-                            <button type="submit" class="btn btn-success">Ganti</button>
+                            <button type="button" class="btn btn-success saveButton">Ganti</button>
                             <button type="button" class="btn btn-danger" onclick="window.location.href='{{ route('admin.dashboard') }}'">Kembali</button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
-      
+
     </div>
 </div>
 

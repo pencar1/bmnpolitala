@@ -16,40 +16,40 @@
                             <label for="namabarang">Nama Barang</label>
                             <input type="text" name="namabarang" class="form-control" id="namabarang" placeholder="Masukkan Nama">
                             @error('namabarang')
-                                <small>{{ $message }}</small>
+                                <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="form-group">
                             <label for="merkbarang">Merk Barang</label>
                             <input type="text" name="merkbarang" class="form-control" id="merkbarang" placeholder="Masukkan Merk">
                             @error('merkbarang')
-                                <small>{{ $message }}</small>
+                                <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="form-group">
                             <label for="stokbarang">Stok Barang</label>
                             <input type="text" name="stokbarang" class="form-control" id="stokbarang" placeholder="Masukkan Stok">
                             @error('stokbarang')
-                                <small>{{ $message }}</small>
+                                <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="form-group">
                             <label for="deskripsibarang">Deskripsi Barang</label>
-                            <input type="text" name="deskripsibarang" class="form-control" id="deskripsibarang" placeholder="Masukkan Deskripsi">
+                            <textarea name="deskripsibarang" class="form-control" id="deskripsibarang" placeholder="Masukkan Deskripsi" rows="5"></textarea>
                             @error('deskripsibarang')
-                                <small>{{ $message }}</small>
+                                <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="form-group">
                             <label for="foto">Gambar</label>
                             <input type="file" name="foto" class="form-control" id="foto">
                             @error('foto')
-                                <small>{{ $message }}</small>
+                                <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
                     </div>
                     <div class="card-action">
-                        <button type="submit" class="btn btn-success">Simpan</button>
+                        <button type="button" class="btn btn-success saveButton">Simpan</button>
                         <button type="button" class="btn btn-danger" onclick="window.location.href='{{ route('admin.barang') }}'">Batal</button>
                     </div>
                 </div>
@@ -59,3 +59,4 @@
 </div>
 
 @endsection
+
