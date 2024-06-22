@@ -163,7 +163,13 @@ class HomeController extends Controller
                 'max:255',
                 Rule::unique('users', 'email')->ignore($user->id),
             ],
-            'password' => 'nullable|min:8',
+            'password' => [
+            'nullable',
+            'string',
+            'min:8',
+            'regex:/[a-z]/', // at least one lowercase letter
+            'regex:/[A-Z]/', // at least one uppercase letter
+        ],
         ]);
 
         if ($validator->fails()) {
@@ -191,7 +197,7 @@ class HomeController extends Controller
         return view('create');
     }
 
-    public function store(Request $request){
+    public function store(Request $request) {
         $validator = Validator::make($request->all(), [
             'nama'          => 'required|string|max:50',
             'prodi'         => 'required|string|max:50',
@@ -199,13 +205,19 @@ class HomeController extends Controller
             'nohp'          => 'required|string|max:16',
             'organisasi'    => 'required|string|max:50',
             'email'         => 'required|email|max:255|unique:users,email',
-            'password'      => 'required|string|min:8',
+            'password'      => [
+                'required',
+                'string',
+                'min:8',
+                'regex:/[a-z]/', // at least one lowercase letter
+                'regex:/[A-Z]/', // at least one uppercase letter
+            ],
         ]);
-
+    
         if ($validator->fails()) {
             return redirect()->back()->withInput()->withErrors($validator);
         }
-
+    
         $data['nama']           = $request->input('nama');
         $data['prodi']          = $request->input('prodi');
         $data['nim']            = $request->input('nim');
@@ -213,11 +225,12 @@ class HomeController extends Controller
         $data['organisasi']     = $request->input('organisasi');
         $data['email']          = $request->input('email');
         $data['password']       = Hash::make($request->input('password'));
-
+    
         User::create($data);
-
+    
         return redirect()->route('admin.index')->with('success', 'Data berhasil ditambahkan.');
     }
+    
 
     public function edit(Request $request,$id){
         $data = User::find($id);
@@ -229,7 +242,7 @@ class HomeController extends Controller
     {
         // Ambil data pengguna yang ada berdasarkan ID
         $user = User::findOrFail($id);
-
+    
         // Aturan validasi dengan pengecualian email pengguna saat ini
         $validator = Validator::make($request->all(), [
             'nama'          => 'required|string|max:50',
@@ -243,28 +256,38 @@ class HomeController extends Controller
                 'max:255',
                 Rule::unique('users', 'email')->ignore($user->id),
             ],
-            'password' => 'nullable|min:8',
+            'password' => [
+                'nullable',
+                'string',
+                'min:8',
+                'regex:/[a-z]/', // setidaknya satu huruf kecil
+                'regex:/[A-Z]/', // setidaknya satu huruf besar
+            ],
+            'role' => 'required|string', // Menambahkan validasi untuk role
         ]);
-
+    
         if ($validator->fails()) {
             return redirect()->back()->withInput()->withErrors($validator);
         }
-
+    
         $data['nama']           = $request->input('nama');
         $data['prodi']          = $request->input('prodi');
         $data['nim']            = $request->input('nim');
         $data['nohp']           = $request->input('nohp');
         $data['organisasi']     = $request->input('organisasi');
         $data['email']          = $request->input('email');
-
+        $data['role']           = $request->input('role'); // Menambahkan update role
+    
         if ($request->password) {
             $data['password'] = Hash::make($request->input('password'));
         }
-
+    
         User::whereId($id)->update($data);
-
+    
         return redirect()->route('admin.index')->with('success', 'Data berhasil diperbarui.');
     }
+    
+    
 
     public function delete(Request $request,$id){
         $data = User::find($id);
