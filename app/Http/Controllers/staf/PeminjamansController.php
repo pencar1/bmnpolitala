@@ -17,7 +17,8 @@ class PeminjamansController extends Controller
 {
     public function index()
     {
-        $data = Peminjaman::with(['user', 'barang', 'transportasi', 'ruangan'])->get();
+        $data = Peminjaman::where('status', 'dipinjam')->with(['user', 'barang', 'transportasi', 'ruangan'])->orderBy('idpeminjaman', 'desc')->get();
+
         return view('staf.peminjaman', compact('data'));
     }
     public function tambahpeminjaman(Request $request)
