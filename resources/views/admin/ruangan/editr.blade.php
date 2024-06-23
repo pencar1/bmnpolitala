@@ -10,16 +10,16 @@
                 @method('PUT')
                 <div class="card">
                     <div class="card-header">
-                        <div class="card-title">Form Edit ruangan</div>
+                        <div class="card-title">Form Edit Ruangan</div>
                     </div>
                     <div class="card-body">
-                        <div class="form-group">
-                            <div class="form-group text-center">
+                        <div class="form-group text-center">
                             @if ($data->foto)
-                                <img src="{{ asset('images/ruangan/' . $data->foto) }}" alt="Foto ruangan" style="display: block; max-width: 300px; margin: 10px auto; border: 2px solid #ccc;"">
+                                <img src="{{ asset('images/ruangan/' . $data->foto) }}" alt="Foto ruangan" style="display: block; max-width: 300px; margin: 10px auto; border: 2px solid #ccc;">
                                 <br>
                             @endif
-                            </div>
+                        </div>
+                        <div class="form-group">
                             <label for="foto">Gambar</label>
                             <input type="file" name="foto" class="form-control" id="foto">
                             @error('foto')

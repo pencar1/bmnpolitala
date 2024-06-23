@@ -152,6 +152,9 @@ Route::group(['prefix' => 'peminjam', 'middleware' => ['auth', 'role:peminjam'],
          Route::post('/peminjaman/updatestatus', [PeminjamanpController::class, 'updatestatus'])->name('peminjaman.updatestatus'); // Tambahkan rute ini
          Route::put('/peminjaman/{id}', [PeminjamanpController::class, 'update'])->name('peminjaman.update'); // Tambahkan rute ini
 
+        Route::get('/tambahpeminjamanruangan', [PeminjamanpController::class, 'tambahPeminjamanRuangan'])->name('peminjamanruangan.tambah');
+        Route::post('/peminjamanruangan/store', [PeminjamanpController::class, 'storeruangan'])->name('peminjamanruangan.store');
+
         Route::get('/peminjaman/{id}/edit', [PeminjamanpController::class, 'edit'])->name('peminjaman.edit');
         Route::put('/peminjaman/{id}', [PeminjamanpController::class, 'update'])->name('peminjaman.update');
         Route::delete('/peminjaman/{id}', [PeminjamanpController::class, 'destroy'])->name('peminjaman.destroy');

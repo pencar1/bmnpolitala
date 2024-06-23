@@ -98,4 +98,17 @@
         </div>
     </div>
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Ambil elemen pesan
+        var messageElement = document.querySelector('.alert');
+
+        // Tunggu 3 detik, lalu sembunyikan pesan
+        setTimeout(function() {
+            if (messageElement) {
+                messageElement.style.display = 'none';
+            }
+        }, 4000); // Waktu dalam milidetik (di sini 3000 milidetik = 3 detik)
+    });
+</script>
 @endsection

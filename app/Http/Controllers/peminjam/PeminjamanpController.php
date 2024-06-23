@@ -41,7 +41,6 @@ class PeminjamanpController extends Controller
         return view('peminjam.peminjamanp.pinjambarang', compact('barang'));
     }
 
-
     public function tambahPeminjamanTransportasi(Request $request)
     {
         // Mengambil ID transportasi dari query string
@@ -54,6 +53,17 @@ class PeminjamanpController extends Controller
         // Jika transportasi ditemukan, kirimkan data transportasi ke view
         return view('peminjam.peminjamanp.pinjamtransportasi', compact('transportasi'));
     }
+
+    public function tambahPeminjamanRuangan(Request $request)
+    {
+        $idRuangan = $request->query('idRuangan');
+        $ruangan = Ruangan::find($idRuangan);
+        if (!$ruangan) {
+            return redirect()->route('peminjam.ruangan')->withErrors(['ruangan' => 'Ruangan tidak ditemukan.']);
+        }
+        return view('peminjam.peminjamanp.pinjamruangan', compact('ruangan'));
+    }
+
     public function storebar(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -135,6 +145,50 @@ class PeminjamanpController extends Controller
 
         return redirect()->route('peminjam.peminjaman');
     }
+
+    public function storeruangan(Request $request)
+    {
+        // Validasi data yang diterima
+        $validator = Validator::make($request->all(), [
+            'tanggalpeminjaman' => 'required|date',
+            'lampiran'          => 'nullable|mimes:jpeg,png,jpg,gif,pdf,docx|max:2048',
+            'idruangan'         => 'required|integer' // Menambahkan validasi untuk idruangan
+        ],[
+            'tanggalpeminjaman.required' => 'Nama ruangan harus diisi.',
+            'lampiran.required' => 'Foto ruangan harus diunggah.',
+            'lampiran.image' => 'File harus berupa gambar.',
+            'lampiran.mimes' => 'Format gambar yang diperbolehkan: jpeg, png, jpg, gif.',
+            'lampiran.max' => 'Ukuran maksimal gambar adalah 2048 KB.',
+        ]);
+
+        // Jika validasi gagal, kembalikan ke halaman sebelumnya dengan pesan error
+        if ($validator->fails()) {
+            return redirect()->back()->withInput()->withErrors($validator);
+        }
+
+        // Buat instance baru dari model Peminjaman
+        $peminjaman = new Peminjaman();
+        $user = Auth::user();
+        $peminjaman->iduser = $user->id;
+        $peminjaman->tanggalpeminjaman = $request->input('tanggalpeminjaman');
+        $peminjaman->idruangan = $request->input('idruangan'); // Menambahkan penyimpanan idruangan
+        $peminjaman->status = 'Diproses';
+
+        // Jika ada file yang di-upload, simpan file tersebut
+        if ($request->hasFile('lampiran')) {
+            $file = $request->file('lampiran');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('lampiran'), $filename);
+            $peminjaman->lampiran = $filename;
+        }
+
+        // Simpan data peminjaman ke database
+        $peminjaman->save();
+
+        // Redirect ke rute 'peminjam.peminjaman'
+        return redirect()->route('peminjam.peminjaman');
+    }
+
 
     public function updatestatus(Request $request)
 {

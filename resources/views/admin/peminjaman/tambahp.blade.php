@@ -18,7 +18,6 @@
                                 <option selected disabled hidden>Pilih Jenis Aset</option>
                                 <option value="barang" {{ old('jenisaset') == 'barang' ? 'selected' : '' }}>Barang</option>
                                 <option value="transportasi" {{ old('jenisaset') == 'transportasi' ? 'selected' : '' }}>Transportasi</option>
-                                <option value="ruangan" {{ old('jenisaset') == 'ruangan' ? 'selected' : '' }}>Ruangan</option>
                             </select>
                             @error('jenisaset')
                                 <small>{{ $message }}</small>
@@ -35,10 +34,6 @@
                                 @elseif(old('jenisaset') == 'transportasi')
                                     @foreach($transportasis as $transportasi)
                                         <option value="{{ $transportasi->idtransportasi }}" {{ old('aset') == $transportasi->idtransportasi ? 'selected' : '' }}>{{ $transportasi->namatransportasi }}</option>
-                                    @endforeach
-                                @elseif(old('jenisaset') == 'ruangan')
-                                    @foreach($ruangans as $ruangan)
-                                        <option value="{{ $ruangan->idruangan }}" {{ old('aset') == $ruangan->idruangan ? 'selected' : '' }}>{{ $ruangan->namaruangan }}</option>
                                     @endforeach
                                 @endif
                             </select>

@@ -31,7 +31,7 @@
                             <div class="card-body pt-2">
                                 <h4 class="mb-1 fw-bold">{{ $d->namaruangan }}</h4>
                                 <p class="text-muted small mb-2">{{ $d->deskripsiruangan }}</p>
-                                <button type="submit" class="btn btn-success">Pinjam</button>
+                                <a href="{{ route('peminjam.peminjamanruangan.tambah', ['idRuangan' => $d->idruangan]) }}" class="btn btn-success">Pinjam</a>
                                 <button type="submit" class="btn btn-primary">Lihat</button>
                             </div>
                         </div>
