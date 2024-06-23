@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\PeminjamanController;
 use App\Http\Controllers\Pengembalian;
 use App\Http\Controllers\Arsiptolak;
@@ -24,7 +25,7 @@ use App\Http\Controllers\staf\RuangansController;
 use App\Http\Controllers\staf\PeminjamansController;
 use App\Http\Controllers\staf\ArsipditolaksController;
 use App\Http\Controllers\staf\PengembaliansController;
-
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -47,8 +48,8 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 // Route group for admin
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:admin'], 'as' => 'admin.'], function () {
     Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
-    Route::get('/profil', [HomeController::class, 'profil'])->name('profil');
-    Route::put('/profil/update', [HomeController::class, 'updateProfil'])->name('profil.update');
+    Route::get('/profil', [UserController::class, 'profil'])->name('profil');
+    Route::put('/profil/update', [UserController::class, 'updateProfil'])->name('profil.update');
 
     Route::get('/editstp/{id}', [HomeController::class, 'editstp'])->name('peminjaman.editstp');
     Route::put('/updatestp/{id}', [HomeController::class, 'updatestp'])->name('peminjaman.updatestp');
@@ -87,12 +88,12 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:admin'], 'as' 
     Route::delete('/ruangan/{id}', [RuanganController::class, 'destroy'])->name('ruangan.delete');
 
 
-    Route::get('/user', [HomeController::class, 'index'])->name('index');
-    Route::get('/create', [HomeController::class, 'create'])->name('user.create');
-    Route::post('/store', [HomeController::class, 'store'])->name('user.store');
-    Route::get('/edit/{id}', [HomeController::class, 'edit'])->name('user.edit');
-    Route::put('/update/{id}', [HomeController::class, 'update'])->name('user.update');
-    Route::delete('/delete/{id}', [HomeController::class, 'delete'])->name('user.delete');
+    Route::get('/user', [UserController::class, 'index'])->name('user');
+    Route::get('/create', [UserController::class, 'create'])->name('user.create');
+    Route::post('/store', [UserController::class, 'store'])->name('user.store');
+    Route::get('/edit/{id}', [UserController::class, 'edit'])->name('user.edit');
+    Route::put('/update/{id}', [UserController::class, 'update'])->name('user.update');
+    Route::delete('/delete/{id}', [UserController::class, 'delete'])->name('user.delete');
 });
 
 // Route group for staf

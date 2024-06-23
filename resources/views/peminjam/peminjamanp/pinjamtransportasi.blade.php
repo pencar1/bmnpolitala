@@ -15,7 +15,7 @@
                     <div class="card-body">
                         <div class="form-group">
                             <label for="asetSelect">Aset Transportasi</label>
-                            <input type="text" name="aset" class="form-control" id="aset" value="{{ isset($transportasi) ? $transportasi->namatransportasi : 'Transportasi tidak ditemukan' }}" readonly>
+                            <input type="text" name="aset" class="form-control" id="aset" value="{{ isset($transportasi) ? $transportasi->namatransportasi : 'Transportasi tidak ditemukan' }}" readonly style="font-weight: bold; color: black;">
                             <input type="hidden" name="idtransportasi" value="{{ isset($transportasi) ? $transportasi->idtransportasi : '' }}">
                             @error('aset')
                                 <small>{{ $message }}</small>

@@ -15,10 +15,10 @@
                         <div class="form-group">
                             <label for="aset">Aset Barang</label>
                             @if(isset($barang))
-                                <input type="text" name="aset" class="form-control" id="aset" value="{{ old('aset', $barang->namabarang) }}" readonly>
+                                <input type="text" name="aset" class="form-control" id="aset" value="{{ old('aset', $barang->namabarang) }}" readonly style="font-weight: bold; color: black;">
                                 <input type="hidden" name="idbarang" value="{{ $barang->idbarang }}">
                             @else
-                                <input type="text" name="aset" class="form-control" id="aset" value="Barang tidak ditemukan" readonly>
+                                <input type="text" name="aset" class="form-control" id="aset" value="Barang tidak ditemukan" readonly style="font-weight: bold; color: black;">
                             @endif
                             @error('aset')
                                 <small>{{ $message }}</small>

@@ -11,7 +11,8 @@ class TransportasipController extends Controller
 {
     public function index()
     {
-        $data = Transportasi::get();
+        $data = Transportasi::where('stoktransportasi', '>', 0)->get();
+
         return view('peminjam.transportasi', compact('data'));
     }
 

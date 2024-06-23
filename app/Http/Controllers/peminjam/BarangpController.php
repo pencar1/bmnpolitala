@@ -9,10 +9,17 @@ use Illuminate\Support\Facades\Validator;
 
 class BarangpController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $data = Barang::get();
-        return view('peminjam.barang', compact('data'));
+        $data = Barang::where('stokbarang', '>', 0)->get();
+
+        $detailBarang = null;
+
+        if ($request->has('lihat')) {
+            $detailBarang = Barang::find($request->input('lihat'));
+        }
+
+        return view('peminjam.barang', compact('data', 'detailBarang'));
     }
 
     public function search(Request $request)

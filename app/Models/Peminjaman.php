@@ -65,6 +65,11 @@ class Peminjaman extends Model
         return $this->user ? $this->user->nama : 'Nama tidak ditemukan';
     }
 
+    public function getNIM()
+    {
+        return $this->user ? $this->user->nim : 'NIM tidak ditemukan';
+    }
+
     public function getJenisAset()
     {
         if ($this->idbarang) {
