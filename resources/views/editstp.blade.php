@@ -61,13 +61,21 @@
                         </div>
                         <div class="form-group">
                             <label for="exampleFormControlSelect1">Status</label>
-                            <select class="form-control" id="exampleFormControlSelect1" name="status">
+                            <select class="form-control" id="exampleFormControlSelect1" name="status" onchange="toggleAlasanPenolakan()">
                                 <option value="diproses" {{ $data->status == 'diproses' ? 'selected' : '' }}>Diproses</option>
                                 <option value="ditolak" {{ $data->status == 'ditolak' ? 'selected' : '' }}>Ditolak</option>
                                 <option value="disetujui" {{ $data->status == 'disetujui' ? 'selected' : '' }}>Disetujui</option>
                                 <option value="dipinjam" {{ $data->status == 'dipinjam' ? 'selected' : '' }}>Dipinjam</option>
                             </select>
                             @error('status')
+                                <small>{{ $message }}</small>
+                            @enderror
+                        </div>
+
+                        <div class="form-group" id="alasanPenolakanGroup" style="display: none;">
+                            <label for="alasan_penolakan">Alasan Penolakan</label>
+                            <textarea class="form-control" id="alasan_penolakan" name="alasan_penolakan">{{ old('alasan_penolakan', $data->alasan_penolakan ?? '') }}</textarea>
+                            @error('alasan_penolakan')
                                 <small>{{ $message }}</small>
                             @enderror
                         </div>
@@ -96,7 +104,7 @@
                 @if (in_array(pathinfo($data->lampiran, PATHINFO_EXTENSION), ['jpg', 'jpeg', 'png']))
                     <img src="{{ asset('lampiran/' . $data->lampiran) }}" alt="Lampiran" class="img-fluid">
                 @elseif (in_array(pathinfo($data->lampiran, PATHINFO_EXTENSION), ['pdf']))
-                    <iframe src="{{ asset('lampiran/' . $data->lampiran) }}" width="100%" height="500px"></iframe>
+                    <iframe src="{{ asset('lampiran/' . $data->lampiran) }}" width="100%" height="600px"></iframe>
                 @elseif (in_array(pathinfo($data->lampiran, PATHINFO_EXTENSION), ['doc', 'docx']))
                     <iframe src="https://view.officeapps.live.com/op/embed.aspx?src={{ urlencode(asset('lampiran/' . $data->lampiran)) }}" width="100%" height="500px"></iframe>
                 @else
@@ -106,5 +114,22 @@
         </div>
     </div>
 </div>
+
+<script>
+    function toggleAlasanPenolakan() {
+        var status = document.getElementById("exampleFormControlSelect1").value;
+        var alasanPenolakanGroup = document.getElementById("alasanPenolakanGroup");
+        if (status === "ditolak") {
+            alasanPenolakanGroup.style.display = "block";
+        } else {
+            alasanPenolakanGroup.style.display = "none";
+        }
+    }
+
+    // Panggil fungsi saat halaman dimuat untuk memeriksa status saat ini
+    window.onload = function() {
+        toggleAlasanPenolakan();
+    };
+</script>
 
 @endsection

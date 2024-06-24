@@ -150,11 +150,41 @@ class PeminjamanController extends Controller
                 'idpeminjaman' => $peminjaman->idpeminjaman,
                 'tanggalpengembalian' => now(),
             ]);
+
+            // Mendapatkan jenis aset yang terkait dengan peminjaman
+            $jenisaset = null;
+            if ($peminjaman->idbarang) {
+                $jenisaset = 'barang';
+            } elseif ($peminjaman->idtransportasi) {
+                $jenisaset = 'transportasi';
+            } elseif ($peminjaman->idruangan) {
+                $jenisaset = 'ruangan';
+            }
+
+            // Mengembalikan stok aset yang terkait dengan peminjaman yang dikembalikan
+            if ($jenisaset === 'barang') {
+                $barang = Barang::find($peminjaman->idbarang);
+                if ($barang) {
+                    $barang->tambahStokb($peminjaman->jumlahaset);
+                    $barang->save();
+                }
+            } elseif ($jenisaset === 'transportasi') {
+                $transportasi = Transportasi::find($peminjaman->idtransportasi);
+                if ($transportasi) {
+                    $transportasi->tambahStokt($peminjaman->jumlahaset);
+                    $transportasi->save();
+                }
+            } elseif ($jenisaset === 'ruangan') {
+                $ruangan = Ruangan::find($peminjaman->idruangan);
+                if ($ruangan) {
+                    $ruangan->stokruangan += $peminjaman->jumlahaset;
+                    $ruangan->save();
+                }
+            }
         }
 
         return redirect()->route('admin.peminjaman')->with('success', 'Data peminjaman berhasil diperbarui.');
     }
-
 
     public function destroy($id)
     {
