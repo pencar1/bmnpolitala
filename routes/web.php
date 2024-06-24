@@ -12,6 +12,7 @@ use App\Http\Controllers\RuanganController;
 use App\Http\Controllers\TransportasiController;
 
 use App\Http\Controllers\peminjam\HomepController;
+use App\Http\Controllers\peminjam\UserpController;
 use App\Http\Controllers\peminjam\TransportasipController;
 use App\Http\Controllers\peminjam\BarangpController;
 use App\Http\Controllers\peminjam\RuanganpController;
@@ -19,13 +20,13 @@ use App\Http\Controllers\peminjam\PeminjamanpController;
 use App\Http\Controllers\peminjam\ArsipditolakpController;
 
 use App\Http\Controllers\staf\HomesController;
+use App\Http\Controllers\staf\UsersController;
 use App\Http\Controllers\staf\TransportasisController;
 use App\Http\Controllers\staf\BarangsController;
 use App\Http\Controllers\staf\RuangansController;
 use App\Http\Controllers\staf\PeminjamansController;
 use App\Http\Controllers\staf\ArsipditolaksController;
 use App\Http\Controllers\staf\PengembaliansController;
-use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -99,8 +100,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:admin'], 'as' 
 // Route group for staf
 Route::group(['prefix' => 'staf', 'middleware' => ['auth', 'role:staf'], 'as' => 'staf.'], function () {
     Route::get('/dashboard', [HomesController::class, 'dashboard'])->name('dashboard');
-    Route::get('/profil', [HomesController::class, 'profil'])->name('profil');
-    Route::put('/profil/update', [HomesController::class, 'updateProfil'])->name('profil.update');
+    Route::get('/profil', [UsersController::class, 'profil'])->name('profil');
+    Route::put('/profil/update', [UsersController::class, 'updateProfil'])->name('profil.update');
 
     Route::get('/editstp/{id}', [HomesController::class, 'editstp'])->name('peminjaman.editstp');
     Route::put('/updatestp/{id}', [HomesController::class, 'updatestp'])->name('peminjaman.updatestp');
@@ -144,8 +145,8 @@ Route::group(['prefix' => 'staf', 'middleware' => ['auth', 'role:staf'], 'as' =>
 // Route group for peminjam
 Route::group(['prefix' => 'peminjam', 'middleware' => ['auth', 'role:peminjam'], 'as' => 'peminjam.'], function () {
         Route::get('/dashboard', [HomepController::class, 'dashboard'])->name('dashboard');
-        Route::get('/profilp', [HomepController::class, 'profil'])->name('profil');
-        Route::put('/profilp/update', [HomepController::class, 'updateProfil'])->name('profil.update');
+        Route::get('/profilp', [UserpController::class, 'profil'])->name('profil');
+        Route::put('/profilp/update', [UserpController::class, 'updateProfil'])->name('profil.update');
 
         Route::get('/peminjaman', [PeminjamanpController::class, 'index'])->name('peminjaman');
 

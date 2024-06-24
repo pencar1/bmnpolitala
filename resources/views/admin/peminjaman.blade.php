@@ -42,8 +42,8 @@
                                     @foreach ($data as $d)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $d->getNama()}}</td>
-                                        <td>{{ $d->getNIM()}}</td>
+                                        <td>{{ $d->nama}}</td>
+                                        <td>{{ $d->nim}}</td>
                                         <td>{{ $d->getAsetName()}}</td>
                                         <td>{{ $d->tanggalpeminjaman }}</td>
                                         <td>{{ $d->jumlahaset }}</td>

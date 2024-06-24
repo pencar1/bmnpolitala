@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Auth;
 
 class HomesController extends Controller
 {
-    
+
         public function dashboard(){
             $dataPeminjaman = Peminjaman::whereIn('status', ['diproses', 'disetujui'])->with(['user', 'barang', 'transportasi', 'ruangan'])->orderBy('idpeminjaman', 'desc')->get();
 
@@ -26,63 +26,63 @@ class HomesController extends Controller
             $transportasiCount = Transportasi::count();
             return view('dashboards', compact('userCount','barangCount','ruanganCount','transportasiCount','dataPeminjaman'));
         }
-    
-        public function index(){
-    
-            $data = User::get();
-    
-            return view('index', compact('data'));
-        }
-    
-        public function profil(){
-            $user = Auth::user(); // Mendapatkan pengguna yang sedang login
-            return view('staf.profil', compact('user'));
-        }
-    
-        public function updateProfil(Request $request){
-            $user = Auth::user(); // Mendapatkan pengguna yang sedang login
-    
-            // Aturan validasi dengan pengecualian email pengguna saat ini
-            $validator = Validator::make($request->all(), [
-                'nama'          => '|string|max:50',
-                'prodi'         => '|string|max:50',
-                'nim'           => '|string|max:16',
-                'nohp'          => '|string|max:16',
-                'organisasi'    => '|string|max:50',
-                'email' => [
-                    '',
-                    'email',
-                    'max:255',
-                    Rule::unique('users', 'email')->ignore($user->id),
-                ],
-               'password' => [
-                'nullable',
-                'string',
-                'min:8',
-                'regex:/[a-z]/', // at least one lowercase letter
-                'regex:/[A-Z]/', // at least one uppercase letter
-        ],
-            ]);
-    
-            if ($validator->fails()) {
-                return redirect()->back()->withInput()->withErrors($validator);
-            }
-    
-            $user->nama = $request->input('nama');
-            $user->prodi = $request->input('prodi');
-            $user->nim = $request->input('nim');
-            $user->nohp = $request->input('nohp');
-            $user->organisasi = $request->input('organisasi');
-            $user->email = $request->input('email');
-    
-            if ($request->password) {
-                $user->password = Hash::make($request->input('password'));
-            }
-    
-            $user->save();
-    
-            return redirect()->route('staf.profil')->with('success', 'Profil berhasil diperbarui.');
-        }
+
+        // public function index(){
+
+        //     $data = User::get();
+
+        //     return view('index', compact('data'));
+        // }
+
+        // public function profil(){
+        //     $user = Auth::user(); // Mendapatkan pengguna yang sedang login
+        //     return view('staf.profil', compact('user'));
+        // }
+
+        // public function updateProfil(Request $request){
+        //     $user = Auth::user(); // Mendapatkan pengguna yang sedang login
+
+        //     // Aturan validasi dengan pengecualian email pengguna saat ini
+        //     $validator = Validator::make($request->all(), [
+        //         'nama'          => '|string|max:50',
+        //         'prodi'         => '|string|max:50',
+        //         'nim'           => '|string|max:16',
+        //         'nohp'          => '|string|max:16',
+        //         'organisasi'    => '|string|max:50',
+        //         'email' => [
+        //             '',
+        //             'email',
+        //             'max:255',
+        //             Rule::unique('users', 'email')->ignore($user->id),
+        //         ],
+        //         'password' => [
+        //         'nullable',
+        //         'string',
+        //         'min:8',
+        //         'regex:/[a-z]/', // at least one lowercase letter
+        //         'regex:/[A-Z]/', // at least one uppercase letter
+        // ],
+        //     ]);
+
+        //     if ($validator->fails()) {
+        //         return redirect()->back()->withInput()->withErrors($validator);
+        //     }
+
+        //     $user->nama = $request->input('nama');
+        //     $user->prodi = $request->input('prodi');
+        //     $user->nim = $request->input('nim');
+        //     $user->nohp = $request->input('nohp');
+        //     $user->organisasi = $request->input('organisasi');
+        //     $user->email = $request->input('email');
+
+        //     if ($request->password) {
+        //         $user->password = Hash::make($request->input('password'));
+        //     }
+
+        //     $user->save();
+
+        //     return redirect()->route('staf.profil')->with('success', 'Profil berhasil diperbarui.');
+        // }
 
         public function editstp($id)
         {
@@ -90,14 +90,14 @@ class HomesController extends Controller
             if (!$data) {
                 return redirect()->route('staf.peminjaman')->withErrors('Data tidak ditemukan.');
             }
-    
+
             $jenisAset = $data->getJenisAset();
             $namaAset = $data->getAsetName();
-    
+
             return view('editstps', compact('data', 'jenisAset', 'namaAset'));
         }
-    
-    
+
+
         public function updatestp(Request $request, $id)
         {
             $validator = Validator::make($request->all(), [
@@ -106,25 +106,25 @@ class HomesController extends Controller
                 'jumlahaset'        => 'required|integer|min:1',
                 'status'            => 'required|in:diproses,disetujui,dipinjam',
             ]);
-    
+
             if ($validator->fails()) {
                 return redirect()->back()->withInput()->withErrors($validator);
             }
-    
+
             $peminjaman = Peminjaman::find($id);
             if (!$peminjaman) {
                 return redirect()->route('staf.peminjaman')->withErrors('Data tidak ditemukan.');
             }
-    
+
             $peminjaman->tanggalpeminjaman = $request->input('tanggalpeminjaman');
             $peminjaman->status = $request->input('status');
-    
+
             $jenisaset = $request->input('jenisaset');
             $jumlahBaru = $request->input('jumlahaset');
             $jumlahLama = $peminjaman->jumlahaset;
             $jenisaset = $request->input('jenisaset');
             $asetId = null;
-    
+
             if ($jenisaset === 'barang') {
                 $asetId = $peminjaman->idbarang;
             } elseif ($jenisaset === 'transportasi') {
@@ -132,7 +132,7 @@ class HomesController extends Controller
             } elseif ($jenisaset === 'ruangan') {
                 $asetId = $peminjaman->idruangan;
             }
-    
+
             if ($jenisaset === 'barang') {
                 $barang = Barang::find($asetId);
                 if ($barang) {
@@ -172,7 +172,7 @@ class HomesController extends Controller
                     return redirect()->back()->withInput()->withErrors(['jumlahaset' => 'Stok barang tidak mencukupi.']);
                 }
             }
-    
+
             if ($request->hasFile('lampiran')) {
                 if ($peminjaman->lampiran) {
                     $old_file_path = public_path('lampiran/' . $peminjaman->lampiran);
@@ -180,18 +180,18 @@ class HomesController extends Controller
                         unlink($old_file_path);
                     }
                 }
-    
+
                 $file = $request->file('lampiran');
                 $filename = time() . '_' . $file->getClientOriginalName();
                 $file->move(public_path('lampiran'), $filename);
                 $peminjaman->lampiran = $filename;
             }
-    
+
             $peminjaman->jumlahaset = $jumlahBaru;
             $peminjaman->save();
-    
+
             return redirect()->route('staf.dashboard')->with('success', 'Data berhasil diperbarui.');
         }
-    
+
     }
 

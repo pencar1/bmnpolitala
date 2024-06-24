@@ -8,6 +8,8 @@
         <div class="col-md-12">
             <form action="{{ route('peminjam.peminjamantrans.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
+                <input type="hidden" name="nama" value="{{ $user->nama }}">
+                <input type="hidden" name="nim" value="{{ $user->nim }}">
                 <div class="card">
                     <div class="card-header">
                         <div class="card-title">Form Tambah Peminjaman Transportasi</div>

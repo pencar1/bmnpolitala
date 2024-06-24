@@ -34,6 +34,8 @@ class PeminjamansController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
+            'nama'              => 'required|string|max:50',
+            'nama'              => 'required|string|max:16',
             'tanggalpeminjaman' => 'required|date',
             'lampiran'          => 'nullable|mimes:jpeg,png,jpg,gif,pdf,docx|max:2048',
             'jenisaset'         => 'required|in:barang,transportasi,ruangan',
@@ -48,6 +50,8 @@ class PeminjamansController extends Controller
         $peminjaman = new Peminjaman();
         $user = Auth::user();
         $peminjaman->iduser = $user->id;
+        $peminjaman->nama = $request->input('nama');
+        $peminjaman->nim = $request->input('nim');
         $peminjaman->tanggalpeminjaman = $request->input('tanggalpeminjaman');
         $peminjaman->status = 'Dipinjam';
 
@@ -112,6 +116,8 @@ class PeminjamansController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
+            'nama'              => 'required|string|max:50',
+            'nama'              => 'required|string|max:16',
             'tanggalpeminjaman' => 'required|date',
             'lampiran'          => 'nullable|mimes:jpeg,png,jpg,gif,pdf,docx|max:2048',
             'jumlahaset'        => 'required|integer|min:1',
@@ -123,11 +129,11 @@ class PeminjamansController extends Controller
 
         $peminjaman = Peminjaman::find($id);
         if (!$peminjaman) {
-            return redirect()->route('staf.peminjaman')->withErrors('Data tidak ditemukan.');
+            return redirect()->route('admin.peminjaman')->withErrors('Data tidak ditemukan.');
         }
 
-        $user = Auth::user();
-        $peminjaman->iduser = $user->id;
+        $peminjaman->nama = $request->input('nama');
+        $peminjaman->nim = $request->input('nim');
         $peminjaman->tanggalpeminjaman = $request->input('tanggalpeminjaman');
         $peminjaman->status = 'Dipinjam';
 

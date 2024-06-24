@@ -13,6 +13,20 @@
                     </div>
                     <div class="card-body">
                         <div class="form-group">
+                            <label for="nama">Nama</label>
+                            <input type="text" name="nama" class="form-control" id="nama" value="{{ old('nama') }}" placeholder="Masukkan Nama">
+                            @error('nama')
+                                <small>{{ $message }}</small>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="nim">NIM</label>
+                            <input type="text" name="nim" class="form-control" id="nim" value="{{ old('nim') }}" placeholder="Masukkan NIM">
+                            @error('nim')
+                                <small>{{ $message }}</small>
+                            @enderror
+                        </div>
+                        <div class="form-group">
                             <label for="jenisAsetSelect">Jenis Aset</label>
                             <select class="form-control" id="jenisAsetSelect" name="jenisaset">
                                 <option selected disabled hidden>Pilih Jenis Aset</option>

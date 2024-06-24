@@ -27,6 +27,8 @@ class Peminjaman extends Model
     // Kolom-kolom yang dapat diisi secara massal
     protected $fillable = [
         'iduser',
+        'nama',
+        'nim',
         'idbarang',
         'idtransportasi',
         'idruangan',

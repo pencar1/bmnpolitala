@@ -52,7 +52,7 @@ class RuanganSeeder extends Seeder
         Ruangan::create([
             'namaruangan'       => 'Ruang Aula GKT Lantai 1',
             'deskripsiruangan'   => 'Muat 250 kursi',
-            'foto'              => '1717839140_aula gkt lantai 1.jpg',
+            'foto'              => '1718447162_aula gkt lantai 1.jpg',
         ]);
     }
 }
