@@ -16,40 +16,40 @@
                             <label for="namatransportasi">Nama Transportasi</label>
                             <input type="text" name="namatransportasi" class="form-control" id="namatransportasi" placeholder="Masukkan Nama">
                             @error('namatransportasi')
-                                <small>{{ $message }}</small>
+                                <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="form-group">
                             <label for="merktransportasi">Merk Transportasi</label>
                             <input type="text" name="merktransportasi" class="form-control" id="merktransportasi" placeholder="Masukkan Merk">
                             @error('merktransportasi')
-                                <small>{{ $message }}</small>
+                                <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="form-group">
                             <label for="stoktransportasi">Stok Transportasi</label>
                             <input type="text" name="stoktransportasi" class="form-control" id="stoktransportasi" placeholder="Masukkan Stok">
                             @error('stoktransportasi')
-                                <small>{{ $message }}</small>
+                                <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="form-group">
                             <label for="deskripsitransportasi">Deskripsi Transportasi</label>
-                            <input type="text" name="deskripsitransportasi" class="form-control" id="deskripsitransportasi" placeholder="Masukkan Deskripsi">
+                            <textarea name="deskripsitransportasi" class="form-control" id="deskripsitransportasi" placeholder="Masukkan Deskripsi" rows="5"></textarea>
                             @error('deskripsitransportasi')
-                                <small>{{ $message }}</small>
+                                <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="form-group">
                             <label for="foto">Gambar</label>
                             <input type="file" name="foto" class="form-control" id="foto">
                             @error('foto')
-                                <small>{{ $message }}</small>
+                                <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
                     </div>
                     <div class="card-action">
-                        <button type="submit" class="btn btn-success">Simpan</button>
+                        <button type="button" class="btn btn-success saveButton">Simpan</button>
                         <button type="button" class="btn btn-danger" onclick="window.location.href='{{ route('staf.transportasi') }}'">Batal</button>
                     </div>
                 </div>

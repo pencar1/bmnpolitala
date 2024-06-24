@@ -61,37 +61,9 @@
                                                         <i class="fa fa-times"></i>
                                                     </button>
                                                 </form>
-                                                {{-- <button type="button" data-id="{{ $d->idruangan }}" data-name="{{ $d->name }}" data-toggle="modal" data-target="#deleteModal-{{ $d->id }}" title="Hapus Ruangan" class="btn btn-link btn-danger deleteButton">
-                                                    <i class="fa fa-times"></i>
-                                                </button> --}}
                                             </div>
                                         </td>
                                     </tr>
-                                    {{-- <!--   Modal   -->
-                                    <div class="modal" id="deleteModal-{{ $d->id }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="deleteModalLabel">Konfirmasi Hapus</h5>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    Apakah Anda yakin ingin menghapus ruangan {{ $d->name }}?
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <form action="{{ route('staf.ruangan.delete',['id' => $d->idruangan])}}" method="POST">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                                                        <button type="submit" class="btn btn-danger">Hapus</button>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Delete Modal --> --}}
                                     @endforeach
                                 </tbody>
                             </table>

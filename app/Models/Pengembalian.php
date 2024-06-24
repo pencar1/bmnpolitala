@@ -9,30 +9,70 @@ class Pengembalian extends Model
 {
     use HasFactory;
 
-    // Nama tabel yang akan digunakan oleh model ini
     protected $table = 'pengembalians';
-
-    // Primary key dari tabel
     protected $primaryKey = 'idpengembalian';
-
-    // Menentukan apakah primary key menggunakan auto-increment atau tidak
     public $incrementing = true;
-
-    // Tipe data dari primary key
     protected $keyType = 'int';
+    public $timestamps = false;
 
-    // Menentukan apakah timestamps digunakan atau tidak
-    public $timestamps = true;
-
-    // Kolom-kolom yang dapat diisi secara massal
     protected $fillable = [
         'idpeminjaman',
         'tanggalpengembalian',
+        'idbarang',
+        'idtransportasi',
+        'idruangan',
     ];
 
-    // Relationship ke model Barang
-    public function barang()
+    public function peminjaman()
     {
         return $this->belongsTo(Peminjaman::class, 'idpeminjaman', 'idpeminjaman');
     }
+    
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'iduser', 'id');
+    }
+
+    // Model Pengembalian
+    public function barang()
+    {
+        return $this->belongsTo(Barang::class, 'idbarang', 'idbarang');
+    }
+
+    public function transportasi()
+    {
+        return $this->belongsTo(Transportasi::class, 'idtransportasi', 'idtransportasi');
+    }
+
+    public function ruangan()
+    {
+        return $this->belongsTo(Ruangan::class, 'idruangan', 'idruangan');
+    }
+
+    // Model Pengembalian
+    public function getJenisAset()
+    {
+        if ($this->idbarang) {
+            return 'barang';
+        } elseif ($this->idtransportasi) {
+            return 'transportasi';
+        } elseif ($this->idruangan) {
+            return 'ruangan';
+        }
+        return 'Aset tidak ditemukan';
+    }
+
+    public function getAsetName()
+    {
+        if ($this->idbarang) {
+            return $this->barang ? $this->barang->namabarang : 'Barang tidak ditemukan';
+        } elseif ($this->idtransportasi) {
+            return $this->transportasi ? $this->transportasi->namatransportasi : 'Transportasi tidak ditemukan';
+        } elseif ($this->idruangan) {
+            return $this->ruangan ? $this->ruangan->namaruangan : 'Ruangan tidak ditemukan';
+        }
+        return 'Aset tidak ditemukan';
+    }
+
 }
+

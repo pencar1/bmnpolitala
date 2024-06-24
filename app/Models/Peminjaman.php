@@ -64,6 +64,11 @@ class Peminjaman extends Model
     {
         return $this->user ? $this->user->nama : 'Nama tidak ditemukan';
     }
+ 
+    public function getNamaPengembalian()
+    {
+        return $this->belongsTo(User::class,'id', 'id');
+    }
 
     public function getJenisAset()
     {

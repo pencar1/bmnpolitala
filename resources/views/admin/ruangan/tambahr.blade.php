@@ -21,7 +21,7 @@
                         </div>
                         <div class="form-group">
                             <label for="deskripsiruangan">Deskripsi Ruangan</label>
-                            <input type="text" name="deskripsiruangan" class="form-control" id="deskripsiruangan" placeholder="Masukkan Deskripsi">
+                            <textarea name="deskripsiruangan" class="form-control" id="deskripsiruangan" placeholder="Masukkan Deskripsi" rows="5"></textarea>
                             @error('deskripsiruangan')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
@@ -35,7 +35,7 @@
                         </div>
                     </div>
                     <div class="card-action">
-                        <button type="submit" class="btn btn-success">Simpan</button>
+                        <button type="button" class="btn btn-success saveButton">Simpan</button>
                         <button type="button" class="btn btn-danger" onclick="window.location.href='{{ route('admin.ruangan') }}'">Batal</button>
                     </div>
                 </div>

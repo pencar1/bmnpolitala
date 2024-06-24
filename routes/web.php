@@ -3,8 +3,8 @@
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PeminjamanController;
-use App\Http\Controllers\Pengembalian;
-use App\Http\Controllers\Arsiptolak;
+use App\Http\Controllers\PengembalianController;
+use App\Http\Controllers\ArsipTolakController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\BerandaController;
 use App\Http\Controllers\RuanganController;
@@ -50,6 +50,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:admin'], 'as' 
     Route::get('/profil', [HomeController::class, 'profil'])->name('profil');
     Route::put('/profil/update', [HomeController::class, 'updateProfil'])->name('profil.update');
 
+    Route::get('/editstp/{id}', [HomeController::class, 'editstp'])->name('peminjaman.editstp');
+    Route::put('/updatestp/{id}', [HomeController::class, 'updatestp'])->name('peminjaman.updatestp');
 
     Route::get('/peminjaman', [PeminjamanController::class, 'index'])->name('peminjaman');
     Route::get('/tambahpeminjaman', [PeminjamanController::class, 'tambahpeminjaman'])->name('peminjaman.tambah');
@@ -57,9 +59,13 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:admin'], 'as' 
     Route::get('/peminjaman/{id}/edit', [PeminjamanController::class, 'edit'])->name('peminjaman.edit');
     Route::put('/peminjaman/{id}', [PeminjamanController::class, 'update'])->name('peminjaman.update');
     Route::delete('/peminjaman/{id}', [PeminjamanController::class, 'destroy'])->name('peminjaman.destroy');
+    Route::put('/admin/peminjaman/{id}', [PeminjamanController::class, 'update'])->name('admin.peminjaman.update');
 
-    Route::get('/pengembalian', [Pengembalian::class, 'pengembalian']);
-    Route::get('/arsiptolak', [Arsiptolak::class, 'arsiptolak']);
+    Route::get('/pengembalian', [PengembalianController::class, 'index'])->name('pengembalian');
+    Route::get('/pengembalian/{id}/detail', [PengembalianController::class, 'detail'])->name('pengembalian.detail');
+
+    Route::get('/arsiptolak', [ArsipTolakController::class, 'index'])->name('arsiptolak');
+    Route::get('/arsiptolak/{id}/detail', [ArsipTolakController::class, 'detail'])->name('arsiptolak.detail');
 
     Route::get('/barang', [BarangController::class, 'index'])->name('barang');
     Route::get('/tambahbarang', [BarangController::class, 'tambahbarang'])->name('barang.tambah');
@@ -97,6 +103,9 @@ Route::group(['prefix' => 'staf', 'middleware' => ['auth', 'role:staf'], 'as' =>
     Route::get('/dashboard', [HomesController::class, 'dashboard'])->name('dashboard');
     Route::get('/profil', [HomesController::class, 'profil'])->name('profil');
     Route::put('/profil/update', [HomesController::class, 'updateProfil'])->name('profil.update');
+
+    Route::get('/editstp/{id}', [HomesController::class, 'editstp'])->name('peminjaman.editstp');
+    Route::put('/updatestp/{id}', [HomesController::class, 'updatestp'])->name('peminjaman.updatestp');
 
     Route::get('/peminjaman', [PeminjamansController::class, 'index'])->name('peminjaman');
     Route::get('/tambahpeminjaman', [PeminjamansController::class, 'tambahpeminjaman'])->name('peminjaman.tambah');
@@ -147,8 +156,8 @@ Route::group(['prefix' => 'peminjam', 'middleware' => ['auth', 'role:peminjam'],
         Route::post('/peminjaman', [PeminjamanpController::class, 'storebar'])->name('peminjaman.storebar');
 
          // Tambahkan router untuk transportasi di sini
-         Route::get('/tambahpeminjamantrans', [PeminjamanpController::class, 'tambahPeminjamanTransportasi'])->name('peminjamantrans.tambah');
-         Route::post('/peminjamantrans/store', [PeminjamanpController::class, 'storetrans'])->name('peminjamantrans.store');
+        Route::get('/tambahpeminjamantrans', [PeminjamanpController::class, 'tambahPeminjamanTransportasi'])->name('peminjamantrans.tambah');
+        Route::post('/peminjamantrans/store', [PeminjamanpController::class, 'storetrans'])->name('peminjamantrans.store');
          Route::post('/peminjaman/updatestatus', [PeminjamanpController::class, 'updatestatus'])->name('peminjaman.updatestatus'); // Tambahkan rute ini
          Route::put('/peminjaman/{id}', [PeminjamanpController::class, 'update'])->name('peminjaman.update'); // Tambahkan rute ini
 

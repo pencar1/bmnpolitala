@@ -20,7 +20,7 @@
                         <div class="col col-stats ml-3 ml-sm-0">
                             <div class="numbers">
                                 <p class="card-category">User</p>
-                                <h4 class="card-title">24</h4>
+                                <h4 class="card-title">{{ $userCount }}</h4>
                             </div>
                         </div>
                     </div>
@@ -39,7 +39,7 @@
                         <div class="col col-stats ml-3 ml-sm-0">
                             <div class="numbers">
                                 <p class="card-category">Barang</p>
-                                <h4 class="card-title">1103</h4>
+                                <h4 class="card-title">{{ $barangCount }}</h4>
                             </div>
                         </div>
                     </div>
@@ -58,7 +58,7 @@
                         <div class="col col-stats ml-3 ml-sm-0">
                             <div class="numbers">
                                 <p class="card-category">Transportasi</p>
-                                <h4 class="card-title">5</h4>
+                                <h4 class="card-title">{{ $transportasiCount }}</h4>
                             </div>
                         </div>
                     </div>
@@ -77,7 +77,7 @@
                         <div class="col col-stats ml-3 ml-sm-0">
                             <div class="numbers">
                                 <p class="card-category">Ruangan</p>
-                                <h4 class="card-title">56</h4>
+                                <h4 class="card-title">{{ $ruanganCount }}</h4>
                             </div>
                         </div>
                     </div>
@@ -95,10 +95,7 @@
                     <div class="card-header">
                         <div class="d-flex align-items-center">
                             <h4 class="card-title">Permintaan Barang</h4>
-                            {{-- <a href="{{ route('staf.user.create') }}" class="btn btn-primary btn-round ml-auto"> --}}
-                                <i class="fa fa-plus"></i>
-                                Tambah
-                            </a>
+                          
                         </div>
                     </div>
                     <div class="card-body">
@@ -107,53 +104,32 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Nama</th>
-                                        <th>Email</th>
+                                        <th>Nama Peminjam</th>
+                                        <th>Aset Yang Dipinjam</th>
+                                        <th>Tanggal Peminjaman</th>
+                                        <th>Jumlah Dipinjam</th>
+                                        <th>Status</th>
                                         <th style="width: 10%">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {{-- @foreach ($data as $d)
+                                    @foreach ($dataPeminjaman as $d)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $d->name }}</td>
-                                        <td>{{ $d->email }}</td>
+                                        <td>{{ $d->getNama() }}</td>
+                                        <td>{{ $d->getAsetName() }}</td>
+                                        <td>{{ $d->tanggalpeminjaman }}</td>
+                                        <td>{{ $d->jumlahaset }}</td>
+                                        <td>{{ $d->status }}</td>
                                         <td>
                                             <div class="form-button-action">
-                                                <a href="{{ route('user.edit', ['id' => $d->id]) }}" data-toggle="tooltip" title="Ubah User" class="btn btn-link btn-primary btn-lg">
+                                                <a href="{{ route('staf.peminjaman.editstp', ['id' => $d->idpeminjaman]) }}" data-toggle="tooltip" title="Ubah Peminjaman" class="btn btn-link btn-primary btn-lg">
                                                     <i class="fa fa-edit"></i>
                                                 </a>
-                                                <button type="button" data-id="{{ $d->id }}" data-name="{{ $d->name }}" data-toggle="modal" data-target="#deleteModal-{{ $d->id }}" title="Hapus User" class="btn btn-link btn-danger deleteButton">
-                                                    <i class="fa fa-times"></i>
-                                                </button>
                                             </div>
                                         </td>
                                     </tr>
-                                    <!--   Modal   -->
-                                    <div class="modal" id="deleteModal-{{ $d->id }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="deleteModalLabel">Konfirmasi Hapus</h5>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    Apakah Anda yakin ingin menghapus pengguna {{ $d->name }}?
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <form action="{{ route('user.delete',['id' => $d->id])}}" method="POST">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                                                        <button type="submit" class="btn btn-danger">Hapus</button>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    @endforeach --}}
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>

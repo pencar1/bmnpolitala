@@ -10,7 +10,8 @@ class RuanganController extends Controller
 {
     public function index()
     {
-        $data = Ruangan::get();
+        $data = Ruangan::orderBy('idruangan', 'desc')->get();
+
         return view('admin.ruangan', compact('data'));
     }
 
@@ -79,6 +80,7 @@ class RuanganController extends Controller
             'namaruangan.max' => 'Nama ruangan maksimal 255 karakter.',
             'deskripsiruangan.required' => 'Deskripsi ruangan harus diisi.',
             'deskripsiruangan.string' => 'Deskripsi ruangan harus berupa teks.',
+            'foto.required' => 'Foto ruangan harus diunggah.',
             'foto.image' => 'File harus berupa gambar.',
             'foto.mimes' => 'Format gambar yang diperbolehkan: jpeg, png, jpg, gif.',
             'foto.max' => 'Ukuran maksimal gambar adalah 2048 KB.',

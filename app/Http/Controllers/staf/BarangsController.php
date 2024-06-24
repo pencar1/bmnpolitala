@@ -27,6 +27,22 @@ class BarangsController extends Controller
             'stokbarang' => 'required|integer',
             'deskripsibarang' => 'required|string',
             'foto' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ], [
+            'namabarang.required' => 'Nama barang harus diisi.',
+            'namabarang.string' => 'Nama barang harus berupa teks.',
+            'namabarang.max' => 'Nama barang maksimal 255 karakter.',
+            'merkbarang.required' => 'Merk barang harus diisi.',
+            'merkbarang.string' => 'Merk barang harus berupa teks.',
+            'merkbarang.max' => 'Merk barang maksimal 255 karakter.',
+            'stokbarang.required' => 'Stok barang harus diisi.',
+            'stokbarang.string' => 'Stok barang harus berupa angka.',
+            'stokbarang.max' => 'Stok barang manimal 1.',
+            'deskripsibarang.required' => 'Deskripsi barang harus diisi.',
+            'deskripsibarang.string' => 'Deskripsi barang harus berupa teks.',
+            'foto.required' => 'Foto barang harus diunggah.',
+            'foto.image' => 'File harus berupa gambar.',
+            'foto.mimes' => 'Format gambar yang diperbolehkan: jpeg, png, jpg, gif.',
+            'foto.max' => 'Ukuran maksimal gambar adalah 2048 KB.',
         ]);
 
         if ($validator->fails()) {
@@ -69,6 +85,22 @@ class BarangsController extends Controller
             'stokbarang' => 'required|integer',
             'deskripsibarang' => 'required|string',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ], [
+            'namabarang.required' => 'Nama barang harus diisi.',
+            'namabarang.string' => 'Nama barang harus berupa teks.',
+            'namabarang.max' => 'Nama barang maksimal 255 karakter.',
+            'merkbarang.required' => 'Merk barang harus diisi.',
+            'merkbarang.string' => 'Merk barang harus berupa teks.',
+            'merkbarang.max' => 'Merk barang maksimal 255 karakter.',
+            'stokbarang.required' => 'Stok barang harus diisi.',
+            'stokbarang.string' => 'Stok barang harus berupa angka.',
+            'stokbarang.max' => 'Stok barang manimal 1.',
+            'deskripsibarang.required' => 'Deskripsi barang harus diisi.',
+            'deskripsibarang.string' => 'Deskripsi barang harus berupa teks.',
+            'foto.required' => 'Foto barang harus diunggah.',
+            'foto.image' => 'File harus berupa gambar.',
+            'foto.mimes' => 'Format gambar yang diperbolehkan: jpeg, png, jpg, gif.',
+            'foto.max' => 'Ukuran maksimal gambar adalah 2048 KB.',
         ]);
 
         if ($validator->fails()) {

@@ -29,7 +29,7 @@
                         </div>
                         <div class="form-group">
                             <label for="tanggalpeminjaman">Tanggal Peminjaman</label>
-                            <input type="date" name="tanggalpeminjaman" class="form-control" id="tanggalpeminjaman" value="{{ old('tanggalpeminjaman', $data->tanggalpeminjaman) }}" placeholder="Masukkan Tanggal Peminjaman">
+                            <input type="date" name="tanggalpeminjaman" class="form-control" id="tanggalpeminjaman" value="{{ old('tanggalpeminjaman', $data->tanggalpeminjaman) }}" placeholder="Masukkan Tanggal Peminjaman" min="{{ date('Y-m-d') }}">
                             @error('tanggalpeminjaman')
                                 <small>{{ $message }}</small>
                             @enderror
@@ -43,14 +43,35 @@
                         </div>
                         <div class="form-group">
                             <label for="lampiran">Lampiran</label>
+                            @if ($data->lampiran)
+                                <div class="mt-2">
+                                    @if (in_array(pathinfo($data->lampiran, PATHINFO_EXTENSION), ['jpg', 'jpeg', 'png']))
+                                        <img src="{{ asset('lampiran/' . $data->lampiran) }}" alt="Lampiran" style="max-width: 200px; cursor: pointer;" data-toggle="modal" data-target="#lampiranModal">
+                                    @elseif (in_array(pathinfo($data->lampiran, PATHINFO_EXTENSION), ['pdf', 'doc', 'docx']))
+                                        <a href="{{ asset('lampiran/' . $data->lampiran) }}" style="cursor: pointer;" data-toggle="modal" data-target="#lampiranModal">{{ $data->lampiran }}</a>
+                                    @else
+                                        <a href="{{ asset('lampiran/' . $data->lampiran) }}" target="_blank">{{ $data->lampiran }}</a>
+                                    @endif
+                                </div>
+                            @endif
                             <input type="file" name="lampiran" class="form-control" id="lampiran">
                             @error('lampiran')
                                 <small>{{ $message }}</small>
                             @enderror
                         </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">Status</label>
+                            <select class="form-control" id="exampleFormControlSelect1" name="status">
+                                <option value="dipinjam" {{ $data->status == 'dipinjam' ? 'selected' : '' }}>Dipinjam</option>
+                                <option value="dikembalikan" {{ $data->status == 'dikembalikan' ? 'selected' : '' }}>Dikembalikan</option>
+                            </select>
+                            @error('status')
+                                <small>{{ $message }}</small>
+                            @enderror
+                        </div>
                     </div>
                     <div class="card-action">
-                        <button type="submit" class="btn btn-success">Simpan</button>
+                        <button type="button" class="btn btn-success saveButton">Simpan</button>
                         <button type="button" class="btn btn-danger" onclick="window.location.href='{{ route('staf.peminjaman') }}'">Batal</button>
                     </div>
                 </div>
@@ -58,4 +79,30 @@
         </div>
     </div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="lampiranModal" tabindex="-1" role="dialog" aria-labelledby="lampiranModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="lampiranModalLabel">Lampiran</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-center">
+                @if (in_array(pathinfo($data->lampiran, PATHINFO_EXTENSION), ['jpg', 'jpeg', 'png']))
+                    <img src="{{ asset('lampiran/' . $data->lampiran) }}" alt="Lampiran" class="img-fluid">
+                @elseif (in_array(pathinfo($data->lampiran, PATHINFO_EXTENSION), ['pdf']))
+                    <iframe src="{{ asset('lampiran/' . $data->lampiran) }}" width="100%" height="500px"></iframe>
+                @elseif (in_array(pathinfo($data->lampiran, PATHINFO_EXTENSION), ['doc', 'docx']))
+                    <iframe src="https://view.officeapps.live.com/op/embed.aspx?src={{ urlencode(asset('lampiran/' . $data->lampiran)) }}" width="100%" height="500px"></iframe>
+                @else
+                    <p>File tidak dapat ditampilkan.</p>
+                @endif
+            </div>
+        </div>
+    </div>
+</div>
+
 @endsection

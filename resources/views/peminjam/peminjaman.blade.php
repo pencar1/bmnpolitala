@@ -35,7 +35,7 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $d->getNama()}}</td>
                                         <td>{{ $d->getAsetName()}}</td>
-                                        <td>{{ $d->tanggalpeminjaman }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($d->tanggalpeminjaman)->format('d-m-Y') }}</td>
                                         <td>{{ $d->jumlahaset }}</td>
                                         <td>{{ $d->status }}</td>
                                         <td>
