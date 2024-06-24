@@ -8,6 +8,8 @@
         <div class="col-md-12">
             <form action="{{ route('peminjam.peminjamantrans.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
+                <input type="hidden" name="nama" value="{{ $user->nama }}">
+                <input type="hidden" name="nim" value="{{ $user->nim }}">
                 <div class="card">
                     <div class="card-header">
                         <div class="card-title">Form Tambah Peminjaman Transportasi</div>
@@ -15,7 +17,7 @@
                     <div class="card-body">
                         <div class="form-group">
                             <label for="asetSelect">Aset Transportasi</label>
-                            <input type="text" name="aset" class="form-control" id="aset" value="{{ isset($transportasi) ? $transportasi->namatransportasi : 'Transportasi tidak ditemukan' }}" readonly>
+                            <input type="text" name="aset" class="form-control" id="aset" value="{{ isset($transportasi) ? $transportasi->namatransportasi : 'Transportasi tidak ditemukan' }}" readonly style="font-weight: bold; color: black;">
                             <input type="hidden" name="idtransportasi" value="{{ isset($transportasi) ? $transportasi->idtransportasi : '' }}">
                             @error('aset')
                                 <small>{{ $message }}</small>

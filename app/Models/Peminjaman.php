@@ -27,6 +27,8 @@ class Peminjaman extends Model
     // Kolom-kolom yang dapat diisi secara massal
     protected $fillable = [
         'iduser',
+        'nama',
+        'nim',
         'idbarang',
         'idtransportasi',
         'idruangan',
@@ -68,6 +70,11 @@ class Peminjaman extends Model
     public function getNamaPengembalian()
     {
         return $this->belongsTo(User::class,'id', 'id');
+    }
+
+    public function getNIM()
+    {
+        return $this->user ? $this->user->nim : 'NIM tidak ditemukan';
     }
 
     public function getJenisAset()

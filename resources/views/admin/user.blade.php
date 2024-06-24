@@ -1,4 +1,4 @@
-{{-- @extends('layout.layoutadmin')
+@extends('layout.layoutadmin')
 
 @section('content')
 <div class="page-inner">
@@ -57,7 +57,7 @@
                                                 </form>
                                                 {{-- <button type="button" data-id="{{ $d->id }}" data-name="{{ $d->nama }}" data-toggle="modal" data-target="#deleteModal-{{ $d->id }}" title="Hapus User" class="btn btn-link btn-danger deleteButton">
                                                     <i class="fa fa-times"></i>
-                                                </button>
+                                                </button> --}}
                                             </div>
                                         </td>
                                     </tr>
@@ -85,7 +85,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- End Delete Modal -->
+                                    <!-- End Delete Modal --> --}}
                                     @endforeach
                                 </tbody>
                             </table>
@@ -96,4 +96,4 @@
         </div>
     </div>
 </div>
-@endsection --}}
+@endsection

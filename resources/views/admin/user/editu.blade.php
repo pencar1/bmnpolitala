@@ -1,4 +1,4 @@
-{{-- @extends('layout.layoutadmin')
+@extends('layout.layoutadmin')
 
 @section('content')
 <style>
@@ -85,12 +85,11 @@
                     </div>
                     <div class="card-action">
                         <button type="button" class="btn btn-success saveButton">Simpan</button>
-                        <button type="button" class="btn btn-danger" onclick="window.location.href='{{ route('admin.index') }}'">Batal</button>
+                        <button type="button" class="btn btn-danger" onclick="window.location.href='{{ route('admin.user') }}'">Batal</button>
                     </div>
                 </div>
             </form>
         </div>
     </div>
 </div>
-
-@endsection --}}
+@endsection

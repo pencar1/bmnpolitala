@@ -95,7 +95,7 @@
                     <div class="card-header">
                         <div class="d-flex align-items-center">
                             <h4 class="card-title">Permintaan Barang</h4>
-                          
+
                         </div>
                     </div>
                     <div class="card-body">
@@ -105,6 +105,7 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Nama Peminjam</th>
+                                        <th>NIM Peminjam</th>
                                         <th>Aset Yang Dipinjam</th>
                                         <th>Tanggal Peminjaman</th>
                                         <th>Jumlah Dipinjam</th>
@@ -116,7 +117,8 @@
                                     @foreach ($dataPeminjaman as $d)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $d->getNama() }}</td>
+                                        <td>{{ $d->nama}}</td>
+                                        <td>{{ $d->nim}}</td>
                                         <td>{{ $d->getAsetName() }}</td>
                                         <td>{{ $d->tanggalpeminjaman }}</td>
                                         <td>{{ $d->jumlahaset }}</td>

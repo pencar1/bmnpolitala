@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('peminjamans', function (Blueprint $table) {
             $table->increments('idpeminjaman');
             $table->unsignedBigInteger('iduser')->nullable();
+            $table->string('nama')->nullable();
+            $table->string('nim')->nullable();
             $table->unsignedInteger('idbarang')->nullable();
             $table->unsignedInteger('idtransportasi')->nullable();
             $table->unsignedInteger('idruangan')->nullable();

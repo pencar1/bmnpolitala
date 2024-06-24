@@ -19,39 +19,42 @@ class PeminjamanpController extends Controller
 {
     public function index()
     {
-        $userId = Auth::id(); // Mengambil ID user yang sedang masuk
-        $transportasis = Transportasi::all(); // Mengambil semua data transportasi
+        $userId = Auth::id();
+        $transportasis = Transportasi::all();
         $data = Peminjaman::with(['user', 'barang', 'transportasi'])
-            ->where('iduser', $userId) // Hanya mengambil peminjaman milik user yang sedang masuk
+            ->where('iduser', $userId)
             ->where(function ($query) {
             $query->whereNotNull('idbarang')
             ->orWhereNotNull('idtransportasi');
         })
         ->get();
-        return view('peminjam.peminjaman', compact('data', 'transportasis')); // Mengirimkan data transportasi ke view
+        return view('peminjam.peminjaman', compact('data', 'transportasis'));
     }
 
     public function tambahpeminjamanbarang(Request $request)
     {
         $idbarang = $request->query('idbarang');
         $barang = Barang::find($idbarang);
+
         if (!$barang) {
             return redirect()->route('peminjam.barang')->withErrors(['barang' => 'Barang tidak ditemukan.']);
         }
-        return view('peminjam.peminjamanp.pinjambarang', compact('barang'));
+
+        $user = Auth::user();
+        return view('peminjam.peminjamanp.pinjambarang', compact('barang', 'user'));
     }
 
     public function tambahPeminjamanTransportasi(Request $request)
     {
-        // Mengambil ID transportasi dari query string
         $idTransportasi = $request->query('idTransportasi');
         $transportasi = Transportasi::find($idTransportasi);
-        // Jika transportasi tidak ditemukan, kembalikan redirect ke route peminjam.transportasi
+
         if (!$transportasi) {
             return redirect()->route('peminjam.transportasi')->withErrors(['transportasi' => 'Transportasi tidak ditemukan.']);
         }
-        // Jika transportasi ditemukan, kirimkan data transportasi ke view
-        return view('peminjam.peminjamanp.pinjamtransportasi', compact('transportasi'));
+
+        $user = Auth::user();
+        return view('peminjam.peminjamanp.pinjamtransportasi', compact('transportasi', 'user'));
     }
 
     public function tambahPeminjamanRuangan(Request $request)
@@ -80,6 +83,8 @@ class PeminjamanpController extends Controller
         $peminjaman = new Peminjaman();
         $user = Auth::user();
         $peminjaman->iduser = $user->id;
+        $peminjaman->nama = $request->input('nama');
+        $peminjaman->nim = $request->input('nim');
         $peminjaman->tanggalpeminjaman = $request->input('tanggalpeminjaman');
         $peminjaman->status = 'Diproses';
         $asetId = $request->input('idbarang');
@@ -121,6 +126,8 @@ class PeminjamanpController extends Controller
         $peminjaman = new Peminjaman();
         $user = Auth::user();
         $peminjaman->iduser = $user->id;
+        $peminjaman->nama = $request->input('nama');
+        $peminjaman->nim = $request->input('nim');
         $peminjaman->tanggalpeminjaman = $request->input('tanggalpeminjaman');
         $peminjaman->status = 'Diproses';
         $asetId = $request->input('idtransportasi');

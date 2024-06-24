@@ -7,6 +7,8 @@
         <div class="col-md-12">
             <form action="{{ route('peminjam.peminjaman.storebar') }}" method="POST" enctype="multipart/form-data">
                 @csrf
+                <input type="hidden" name="nama" value="{{ $user->nama }}">
+                <input type="hidden" name="nim" value="{{ $user->nim }}">
                 <div class="card">
                     <div class="card-header">
                         <div class="card-title">Form Tambah Peminjaman Barang</div>
@@ -15,10 +17,10 @@
                         <div class="form-group">
                             <label for="aset">Aset Barang</label>
                             @if(isset($barang))
-                                <input type="text" name="aset" class="form-control" id="aset" value="{{ old('aset', $barang->namabarang) }}" readonly>
+                                <input type="text" name="aset" class="form-control" id="aset" value="{{ old('aset', $barang->namabarang) }}" readonly style="font-weight: bold; color: black;">
                                 <input type="hidden" name="idbarang" value="{{ $barang->idbarang }}">
                             @else
-                                <input type="text" name="aset" class="form-control" id="aset" value="Barang tidak ditemukan" readonly>
+                                <input type="text" name="aset" class="form-control" id="aset" value="Barang tidak ditemukan" readonly style="font-weight: bold; color: black;">
                             @endif
                             @error('aset')
                                 <small>{{ $message }}</small>

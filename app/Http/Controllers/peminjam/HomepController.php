@@ -26,55 +26,53 @@ class HomepController extends Controller
         return view('dashboardp', compact('userCount','barangCount','ruanganCount','transportasiCount','peminjamanCount'));
     }
 
+    // public function profil(){
+    //     $user = Auth::user(); // Mendapatkan pengguna yang sedang login
+    //     return view('peminjam/profilp', compact('user'));
+    // }
 
+    // public function updateProfil(Request $request){
+    //     $user = Auth::user(); // Mendapatkan pengguna yang sedang login
 
-    public function profil(){
-        $user = Auth::user(); // Mendapatkan pengguna yang sedang login
-        return view('peminjam/profilp', compact('user'));
-    }
+    //     // Aturan validasi dengan pengecualian email pengguna saat ini
+    //     $validator = Validator::make($request->all(), [
+    //         'nama'          => '|string|max:50',
+    //         'prodi'         => '|string|max:50',
+    //         'nim'           => '|string|max:16',
+    //         'nohp'          => '|string|max:16',
+    //         'organisasi'    => '|string|max:50',
+    //         'email' => [
+    //             '',
+    //             'email',
+    //             'max:255',
+    //             Rule::unique('users', 'email')->ignore($user->id),
+    //         ],
+    //         'password' => [
+    //         'nullable',
+    //         'string',
+    //         'min:8',
+    //         'regex:/[a-z]/', // at least one lowercase letter
+    //         'regex:/[A-Z]/', // at least one uppercase letter
+    //     ],
+    //     ]);
 
-    public function updateProfil(Request $request){
-        $user = Auth::user(); // Mendapatkan pengguna yang sedang login
+    //     if ($validator->fails()) {
+    //         return redirect()->back()->withInput()->withErrors($validator);
+    //     }
 
-        // Aturan validasi dengan pengecualian email pengguna saat ini
-        $validator = Validator::make($request->all(), [
-            'nama'          => '|string|max:50',
-            'prodi'         => '|string|max:50',
-            'nim'           => '|string|max:16',
-            'nohp'          => '|string|max:16',
-            'organisasi'    => '|string|max:50',
-            'email' => [
-                '',
-                'email',
-                'max:255',
-                Rule::unique('users', 'email')->ignore($user->id),
-            ],
-            'password' => [
-            'nullable',
-            'string',
-            'min:8',
-            'regex:/[a-z]/', // at least one lowercase letter
-            'regex:/[A-Z]/', // at least one uppercase letter
-        ],
-        ]);
+    //     $user->nama = $request->input('nama');
+    //     $user->prodi = $request->input('prodi');
+    //     $user->nim = $request->input('nim');
+    //     $user->nohp = $request->input('nohp');
+    //     $user->organisasi = $request->input('organisasi');
+    //     $user->email = $request->input('email');
 
-        if ($validator->fails()) {
-            return redirect()->back()->withInput()->withErrors($validator);
-        }
+    //     if ($request->password) {
+    //         $user->password = Hash::make($request->input('password'));
+    //     }
 
-        $user->nama = $request->input('nama');
-        $user->prodi = $request->input('prodi');
-        $user->nim = $request->input('nim');
-        $user->nohp = $request->input('nohp');
-        $user->organisasi = $request->input('organisasi');
-        $user->email = $request->input('email');
+    //     $user->save();
 
-        if ($request->password) {
-            $user->password = Hash::make($request->input('password'));
-        }
-
-        $user->save();
-
-        return redirect()->route('peminjam.profil')->with('success', 'Profil berhasil diperbarui.');
-    }
+    //     return redirect()->route('peminjam.profil')->with('success', 'Profil berhasil diperbarui.');
+    // }
 }

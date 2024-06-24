@@ -36,7 +36,9 @@
                                 <a href="{{ route('peminjam.peminjaman.tambah', ['idbarang' => $d->idbarang]) }}" class="btn btn-success">
                                     Pinjam
                                 </a>
-                                <button type="submit" class="btn btn-primary">Lihat</button>
+                                <a href="{{ route('peminjam.barang', ['lihat' => $d->idbarang]) }}" class="btn btn-primary">
+                                    Lihat
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -46,4 +48,45 @@
         </div>
     </div>
 </div>
+
+<!-- Modal -->
+@if(request('lihat') && $detailBarang)
+<div class="modal fade show" id="lihatModal" tabindex="-1" role="dialog" aria-labelledby="lihatModalLabel" aria-hidden="true" style="display: block;">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="lihatModalLabel">Detail Barang</h5>
+                <a href="{{ url()->previous() }}" class="close" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </a>
+            </div>
+            <div class="modal-body" style="max-height: 600px; overflow-y: auto;">
+                <div class="form-group text-center">
+                    @if ($detailBarang->foto)
+                        <img src="{{ asset('images/barang/' . $detailBarang->foto) }}" alt="Foto barang" style="display: block; max-width: 300px; margin: 10px auto; border: 2px solid #ccc;">
+                    @else
+                        <p>Tidak ada foto</p>
+                    @endif
+                </div>
+                <div class="form-group">
+                    <label for="namabarang">Nama Barang</label>
+                    <input type="text" class="form-control" id="namabarang" value="{{ $detailBarang->namabarang }}" readonly style="font-weight: bold; color: black;">
+                </div>
+                <div class="form-group">
+                    <label for="merkbarang">Merk Barang</label>
+                    <input type="text" class="form-control" id="merkbarang" value="{{ $detailBarang->merkbarang }}" readonly style="font-weight: bold; color: black;">
+                </div>
+                <div class="form-group">
+                    <label for="stokbarang">Stok Barang</label>
+                    <input type="text" class="form-control" id="stokbarang" value="{{ $detailBarang->stokbarang }}" readonly style="font-weight: bold; color: black;">
+                </div>
+                <div class="form-group">
+                    <label for="deskripsibarang">Deskripsi Barang</label>
+                    <textarea class="form-control" id="deskripsibarang" rows="5" readonly style="font-weight: bold; color: black;">{{ $detailBarang->deskripsibarang }}</textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endif
 @endsection

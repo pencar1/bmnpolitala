@@ -101,6 +101,7 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Nama Peminjam</th>
+                                        <th>NIM Peminjam</th>
                                         <th>Aset Yang Dipinjam</th>
                                         <th>Tanggal Peminjaman</th>
                                         <th>Jumlah Dipinjam</th>
@@ -112,7 +113,8 @@
                                     @foreach ($dataPeminjaman as $d)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $d->getNama() }}</td>
+                                        <td>{{ $d->nama}}</td>
+                                        <td>{{ $d->nim}}</td>
                                         <td>{{ $d->getAsetName() }}</td>
                                         <td>{{ \Carbon\Carbon::parse($d->tanggalpeminjaman)->format('d-m-Y') }}</td>
                                         <td>{{ $d->jumlahaset }}</td>
