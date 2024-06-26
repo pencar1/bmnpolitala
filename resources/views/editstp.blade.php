@@ -73,9 +73,9 @@
                         </div>
 
                         <div class="form-group" id="alasanPenolakanGroup" style="display: none;">
-                            <label for="alasan_penolakan">Alasan Penolakan</label>
-                            <textarea class="form-control" id="alasan_penolakan" name="alasan_penolakan">{{ old('alasan_penolakan', $data->alasan_penolakan ?? '') }}</textarea>
-                            @error('alasan_penolakan')
+                            <label for="alasanpenolakan">Alasan Penolakan</label>
+                            <textarea class="form-control" id="alasanpenolakan" name="alasanpenolakan">{{ old('alasanpenolakan', $data->alasanpenolakan ?? '') }}</textarea>
+                            @error('alasanpenolakan')
                                 <small>{{ $message }}</small>
                             @enderror
                         </div>

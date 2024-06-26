@@ -120,9 +120,14 @@ class PeminjamanController extends Controller
             'nim'               => 'required|string|max:16',
             'tanggalpeminjaman' => 'required|date',
             'jumlahaset'        => 'required|integer|min:1',
-            'status'            => 'required|in:dipinjam,dikembalikan',
-            'lampiran'          => 'nullable|file|mimes:jpg,jpeg,png,pdf,doc,docx|max:2048'
+            'status'            => 'required|in:dipinjam,dikembalikan,ditolak',
+            'lampiran'          => 'nullable|file|mimes:jpg,jpeg,png,pdf,doc,docx|max:2048',
+            'alasanpenolakan'   => 'nullable|string|max:50',
         ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
 
         $peminjaman = Peminjaman::find($id);
         if (!$peminjaman) {
@@ -134,6 +139,13 @@ class PeminjamanController extends Controller
         $peminjaman->tanggalpeminjaman = $request->input('tanggalpeminjaman');
         $peminjaman->jumlahaset = $request->input('jumlahaset');
         $peminjaman->status = $request->input('status');
+
+        // Update alasanpenolakan only if the status is 'ditolak'
+        if ($request->input('status') == 'ditolak') {
+            $peminjaman->alasanpenolakan = $request->input('alasanpenolakan');
+        } else {
+            $peminjaman->alasanpenolakan = null;
+        }
 
         if ($request->hasFile('lampiran')) {
             $lampiran = $request->file('lampiran');
@@ -147,7 +159,7 @@ class PeminjamanController extends Controller
         // Jika status adalah 'dikembalikan', tambahkan data ke tabel pengembalian
         if ($request->input('status') == 'dikembalikan') {
             Pengembalian::create([
-                'idpeminjaman' => $peminjaman->idpeminjaman,
+                'idpeminjaman' => $peminjaman->id,
                 'tanggalpengembalian' => now(),
             ]);
 
@@ -185,6 +197,7 @@ class PeminjamanController extends Controller
 
         return redirect()->route('admin.peminjaman')->with('success', 'Data peminjaman berhasil diperbarui.');
     }
+
 
     public function destroy($id)
     {
