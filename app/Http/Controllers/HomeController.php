@@ -47,6 +47,7 @@ class HomeController extends Controller
             'lampiran'          => 'nullable|mimes:jpeg,png,jpg,gif,pdf,docx|max:2048',
             'jumlahaset'        => 'required|integer|min:1',
             'status'            => 'required|in:diproses,ditolak,disetujui,dipinjam,',
+            'alasanpenolakan'   => 'nullable|string|max:50',
         ]);
 
         if ($validator->fails()) {
@@ -60,6 +61,13 @@ class HomeController extends Controller
 
         $peminjaman->tanggalpeminjaman = $request->input('tanggalpeminjaman');
         $peminjaman->status = $request->input('status');
+
+        // Update alasanpenolakan only if the status is 'ditolak'
+        if ($request->input('status') == 'ditolak') {
+            $peminjaman->alasanpenolakan = $request->input('alasanpenolakan');
+        } else {
+            $peminjaman->alasanpenolakan = null;
+        }
 
         $jenisaset = $request->input('jenisaset');
         $jumlahBaru = $request->input('jumlahaset');
@@ -107,8 +115,8 @@ class HomeController extends Controller
             $ruangan = Ruangan::find($asetId);
             $stokTersedia = $ruangan->stokruangan + $jumlahLama;
             if ($ruangan && $stokTersedia >= $jumlahBaru) {
-                $ruangan->tambahStokt($jumlahLama);
-                $ruangan->kurangiStokt($jumlahBaru);
+                $ruangan->tambahStokr($jumlahLama);
+                $ruangan->kurangiStokr($jumlahBaru);
                 $peminjaman->idruangan = $asetId;
             } else {
                 return redirect()->back()->withInput()->withErrors(['jumlahaset' => 'Stok barang tidak mencukupi.']);

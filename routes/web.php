@@ -155,7 +155,7 @@ Route::group(['prefix' => 'peminjam', 'middleware' => ['auth', 'role:peminjam'],
 
         Route::get('/tambahpeminjaman', [PeminjamanpController::class, 'tambahpeminjamanbarang'])->name('peminjaman.tambah');
         Route::get('/peminjaman/tambah/{idbarang?}', [PeminjamanpController::class, 'tambahpeminjamanbarang'])->name('peminjam.peminjaman.tambah');
-        Route::post('/peminjaman', [PeminjamanpController::class, 'storebar'])->name('peminjaman.storebar');
+        Route::post('/peminjaman/storebar', [PeminjamanpController::class, 'storebar'])->name('peminjaman.storebar');
 
          // Tambahkan router untuk transportasi di sini
         Route::get('/tambahpeminjamantrans', [PeminjamanpController::class, 'tambahPeminjamanTransportasi'])->name('peminjamantrans.tambah');
@@ -164,7 +164,7 @@ Route::group(['prefix' => 'peminjam', 'middleware' => ['auth', 'role:peminjam'],
          Route::put('/peminjaman/{id}', [PeminjamanpController::class, 'update'])->name('peminjaman.update'); // Tambahkan rute ini
 
         Route::get('/tambahpeminjamanruangan', [PeminjamanpController::class, 'tambahPeminjamanRuangan'])->name('peminjamanruangan.tambah');
-        Route::post('/peminjamanruangan/store', [PeminjamanpController::class, 'storeruangan'])->name('peminjamanruangan.store');
+        Route::post('/peminjaman', [PeminjamanpController::class, 'storeruangan'])->name('peminjaman.storeruangan');
 
         Route::get('/peminjaman/{id}/edit', [PeminjamanpController::class, 'edit'])->name('peminjaman.edit');
         Route::put('/peminjaman/{id}', [PeminjamanpController::class, 'update'])->name('peminjaman.update');

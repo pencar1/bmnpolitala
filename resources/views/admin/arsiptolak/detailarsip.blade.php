@@ -28,6 +28,13 @@
                             @enderror
                         </div>
                         <div class="form-group">
+                            <label for="nohp">No HP</label>
+                            <input type="text" name="nohp" class="form-control" id="nohp" value="{{ old('nohp', $peminjaman->user->nohp ?? '') }}" readonly style="font-weight: bold; color: black;">
+                            @error('nohp')
+                                <small>{{ $message }}</small>
+                            @enderror
+                        </div>
+                        <div class="form-group">
                             <label for="jenisaset">Jenis Aset</label>
                             <input type="text" name="jenisaset" class="form-control" id="jenisaset" value="{{ old('jenisaset', $peminjaman->getJenisAset()) }}" readonly style="font-weight: bold; color: black;">
                             @error('jenisaset')
@@ -82,6 +89,13 @@
                                 <small>{{ $message }}</small>
                             @enderror
                         </div>
+                        <div class="form-group">
+                            <label for="alasanpenolakan">Alasan Penolakan</label>
+                            <input type="text" name="alasanpenolakan" class="form-control" id="alasanpenolakan" value="{{ old('alasanpenolakan', $peminjaman->alasanpenolakan) }}" readonly style="font-weight: bold; color: black;">
+                            @error('alasanpenolakan')
+                                <small>{{ $message }}</small>
+                            @enderror
+                        </div>
                         <div class="card-action">
                             <button type="button" class="btn btn-success" onclick="window.location.href='{{ route('admin.arsiptolak') }}'">Kembali</button>
                         </div>
@@ -92,4 +106,28 @@
     </div>
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="lampiranModal" tabindex="-1" role="dialog" aria-labelledby="lampiranModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="lampiranModalLabel">Lampiran</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-center">
+                @if (in_array(pathinfo($peminjaman->lampiran, PATHINFO_EXTENSION), ['jpg', 'jpeg', 'png']))
+                    <img src="{{ asset('lampiran/' . $peminjaman->lampiran) }}" alt="Lampiran" class="img-fluid">
+                @elseif (in_array(pathinfo($peminjaman->lampiran, PATHINFO_EXTENSION), ['pdf']))
+                    <iframe src="{{ asset('lampiran/' . $peminjaman->lampiran) }}" width="100%" height="500px"></iframe>
+                @elseif (in_array(pathinfo($peminjaman->lampiran, PATHINFO_EXTENSION), ['doc', 'docx']))
+                    <iframe src="https://view.officeapps.live.com/op/embed.aspx?src={{ urlencode(asset('lampiran/' . $peminjaman->lampiran)) }}" width="100%" height="500px"></iframe>
+                @else
+                    <p>File tidak dapat ditampilkan.</p>
+                @endif
+            </div>
+        </div>
+    </div>
+</div>
 @endsection

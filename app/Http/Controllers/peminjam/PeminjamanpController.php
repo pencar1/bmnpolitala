@@ -177,9 +177,12 @@ class PeminjamanpController extends Controller
         $peminjaman = new Peminjaman();
         $user = Auth::user();
         $peminjaman->iduser = $user->id;
+        $peminjaman->nama = $request->input('nama');
+        $peminjaman->nim = $request->input('nim');
         $peminjaman->tanggalpeminjaman = $request->input('tanggalpeminjaman');
         $peminjaman->idruangan = $request->input('idruangan'); // Menambahkan penyimpanan idruangan
         $peminjaman->status = 'Diproses';
+        $jumlah = 1;
 
         // Jika ada file yang di-upload, simpan file tersebut
         if ($request->hasFile('lampiran')) {
@@ -190,6 +193,7 @@ class PeminjamanpController extends Controller
         }
 
         // Simpan data peminjaman ke database
+        $peminjaman->jumlahaset = $jumlah;
         $peminjaman->save();
 
         // Redirect ke rute 'peminjam.peminjaman'

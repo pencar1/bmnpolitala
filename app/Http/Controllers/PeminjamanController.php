@@ -120,9 +120,8 @@ class PeminjamanController extends Controller
             'nim'               => 'required|string|max:16',
             'tanggalpeminjaman' => 'required|date',
             'jumlahaset'        => 'required|integer|min:1',
-            'status'            => 'required|in:dipinjam,dikembalikan,ditolak',
+            'status'            => 'required|in:dipinjam,dikembalikan',
             'lampiran'          => 'nullable|file|mimes:jpg,jpeg,png,pdf,doc,docx|max:2048',
-            'alasanpenolakan'   => 'nullable|string|max:50',
         ]);
 
         if ($validator->fails()) {
@@ -140,26 +139,21 @@ class PeminjamanController extends Controller
         $peminjaman->jumlahaset = $request->input('jumlahaset');
         $peminjaman->status = $request->input('status');
 
-        // Update alasanpenolakan only if the status is 'ditolak'
-        if ($request->input('status') == 'ditolak') {
-            $peminjaman->alasanpenolakan = $request->input('alasanpenolakan');
-        } else {
-            $peminjaman->alasanpenolakan = null;
-        }
-
         if ($request->hasFile('lampiran')) {
             $lampiran = $request->file('lampiran');
-            $lampiranName = time().'_'.$lampiran->getClientOriginalName();
+            $lampiranName = time() . '_' . $lampiran->getClientOriginalName();
             $lampiran->move(public_path('lampiran'), $lampiranName);
             $peminjaman->lampiran = $lampiranName;
         }
 
+        // Simpan perubahan pada data peminjaman
         $peminjaman->save();
 
-        // Jika status adalah 'dikembalikan', tambahkan data ke tabel pengembalian
+        // Jika status adalah 'dikembalikan', tambahkan data ke tabel pengembalian dan kembalikan stok aset
         if ($request->input('status') == 'dikembalikan') {
+            // Buat entri baru di tabel pengembalian
             Pengembalian::create([
-                'idpeminjaman' => $peminjaman->id,
+                'idpeminjaman'        => $peminjaman->idpeminjaman,
                 'tanggalpengembalian' => now(),
             ]);
 
@@ -174,29 +168,36 @@ class PeminjamanController extends Controller
             }
 
             // Mengembalikan stok aset yang terkait dengan peminjaman yang dikembalikan
-            if ($jenisaset === 'barang') {
-                $barang = Barang::find($peminjaman->idbarang);
-                if ($barang) {
-                    $barang->tambahStokb($peminjaman->jumlahaset);
-                    $barang->save();
-                }
-            } elseif ($jenisaset === 'transportasi') {
-                $transportasi = Transportasi::find($peminjaman->idtransportasi);
-                if ($transportasi) {
-                    $transportasi->tambahStokt($peminjaman->jumlahaset);
-                    $transportasi->save();
-                }
-            } elseif ($jenisaset === 'ruangan') {
-                $ruangan = Ruangan::find($peminjaman->idruangan);
-                if ($ruangan) {
-                    $ruangan->stokruangan += $peminjaman->jumlahaset;
-                    $ruangan->save();
-                }
+            switch ($jenisaset) {
+                case 'barang':
+                    $barang = Barang::find($peminjaman->idbarang);
+                    if ($barang) {
+                        $barang->tambahStokb($peminjaman->jumlahaset);
+                        $barang->save();
+                    }
+                    break;
+                case 'transportasi':
+                    $transportasi = Transportasi::find($peminjaman->idtransportasi);
+                    if ($transportasi) {
+                        $transportasi->tambahStokt($peminjaman->jumlahaset);
+                        $transportasi->save();
+                    }
+                    break;
+                case 'ruangan':
+                    $ruangan = Ruangan::find($peminjaman->idruangan);
+                    if ($ruangan) {
+                        $ruangan->tambahStokr($peminjaman->jumlahaset);
+                        $ruangan->save();
+                    }
+                    break;
+                default:
+                    break;
             }
         }
 
         return redirect()->route('admin.peminjaman')->with('success', 'Data peminjaman berhasil diperbarui.');
     }
+
 
 
     public function destroy($id)

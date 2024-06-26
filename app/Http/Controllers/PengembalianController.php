@@ -6,27 +6,32 @@ use Illuminate\Http\Request;
 use App\Models\Pengembalian;
 use App\Models\Peminjaman;
 use App\Models\User;
+use App\Models\Barang;
+use App\Models\Transportasi;
+use App\Models\Ruangan;
 
 class PengembalianController extends Controller
 {
     public function index()
     {
-        $data = Pengembalian::with('peminjaman', 'peminjaman.user')->get();
+        $data = Peminjaman::where('status', 'dikembalikan')->with(['user', 'barang', 'transportasi', 'ruangan'])->orderBy('idpeminjaman', 'desc')->get();
+
         return view('admin.pengembalian', compact('data'));
     }
 
     public function detail($id)
     {
-        // Mengambil data pengembalian berdasarkan ID dengan relasi peminjaman, barang, transportasi, dan ruangan
-        $pengembalian = Pengembalian::with(['peminjaman', 'barang', 'transportasi', 'ruangan'])->find($id);
+        // Mengambil data peminjaman berdasarkan ID dengan relasi peminjaman, barang, transportasi, ruangan, dan pengembalian
+        $peminjaman = Peminjaman::with(['user', 'barang', 'transportasi', 'ruangan', 'pengembalian'])->find($id);
         
-        // Memastikan data pengembalian ditemukan
-        if (!$pengembalian) {
-            return redirect()->route('admin.pengembalian.index')->withErrors('Data tidak ditemukan.');
+        // Jika tidak menemukan data peminjaman
+        if (!$peminjaman) {
+            return redirect()->route('admin.peminjaman')->withErrors('Data tidak ditemukan.');
         }
-
-        // Menampilkan view detail pengembalian dengan data yang diperlukan
-        return view('admin.pengembalian.detailkembali', compact('pengembalian'));
+        
+        // Menampilkan view detail peminjaman dengan data yang diperlukan
+        return view('admin.pengembalian.detailkembali', compact('peminjaman'));
     }
+
 
 }
