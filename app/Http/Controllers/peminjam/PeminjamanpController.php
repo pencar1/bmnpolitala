@@ -21,15 +21,22 @@ class PeminjamanpController extends Controller
     {
         $userId = Auth::id();
         $transportasis = Transportasi::all();
-        $data = Peminjaman::with(['user', 'barang', 'transportasi'])
+
+        $status = ['diproses', 'dikembalikan', 'disetujui', 'dipinjam'];
+
+        $data = Peminjaman::with(['user', 'barang', 'transportasi', 'ruangan'])
             ->where('iduser', $userId)
+            ->whereIn('status', $status)
             ->where(function ($query) {
-            $query->whereNotNull('idbarang')
-            ->orWhereNotNull('idtransportasi');
-        })
-        ->get();
+                $query->whereNotNull('idbarang')
+                    ->orWhereNotNull('idtransportasi')
+                    ->orWhereNotNull('idruangan');
+            })
+            ->get();
+
         return view('peminjam.peminjaman', compact('data', 'transportasis'));
     }
+
 
     public function tambahpeminjamanbarang(Request $request)
     {
@@ -61,10 +68,13 @@ class PeminjamanpController extends Controller
     {
         $idRuangan = $request->query('idRuangan');
         $ruangan = Ruangan::find($idRuangan);
+
         if (!$ruangan) {
             return redirect()->route('peminjam.ruangan')->withErrors(['ruangan' => 'Ruangan tidak ditemukan.']);
         }
-        return view('peminjam.peminjamanp.pinjamruangan', compact('ruangan'));
+
+        $user = Auth::user();
+        return view('peminjam.peminjamanp.pinjamruangan', compact('ruangan', 'user'));
     }
 
     public function storebar(Request $request)
@@ -158,14 +168,14 @@ class PeminjamanpController extends Controller
         // Validasi data yang diterima
         $validator = Validator::make($request->all(), [
             'tanggalpeminjaman' => 'required|date',
-            'lampiran'          => 'nullable|mimes:jpeg,png,jpg,gif,pdf,docx|max:2048',
+            'lampiran'          => 'required|mimes:jpeg,png,jpg,gif,pdf,docx|max:2048',
             'idruangan'         => 'required|integer' // Menambahkan validasi untuk idruangan
         ],[
-            'tanggalpeminjaman.required' => 'Nama ruangan harus diisi.',
-            'lampiran.required' => 'Foto ruangan harus diunggah.',
-            'lampiran.image' => 'File harus berupa gambar.',
-            'lampiran.mimes' => 'Format gambar yang diperbolehkan: jpeg, png, jpg, gif.',
-            'lampiran.max' => 'Ukuran maksimal gambar adalah 2048 KB.',
+            'tanggalpeminjaman.required' => 'Isi Tanggal Peminjaman!',
+            'lampiran.required' => 'Lampiran Tidak Boleh Kosong!',
+            'lampiran.image' => 'Lampiran harus berupa gambar!',
+            'lampiran.mimes' => 'Lampiran gambar yang diperbolehkan: jpeg, png, jpg, gif, pdf, docx!',
+            'lampiran.max' => 'Ukuran Lampiran Terlalu Besar!',
         ]);
 
         // Jika validasi gagal, kembalikan ke halaman sebelumnya dengan pesan error
@@ -175,6 +185,7 @@ class PeminjamanpController extends Controller
 
         // Buat instance baru dari model Peminjaman
         $peminjaman = new Peminjaman();
+        // Ambil user yang sedang login
         $user = Auth::user();
         $peminjaman->iduser = $user->id;
         $peminjaman->nama = $request->input('nama');

@@ -50,4 +50,5 @@ class Barang extends Model
         $this->save();
         return true;
     }
+
 }

@@ -180,6 +180,7 @@ Route::group(['prefix' => 'peminjam', 'middleware' => ['auth', 'role:peminjam'],
         Route::get('/ruangan/search', [RuanganpController::class, 'search'])->name('ruangan.search');
 
         Route::get('/arsipditolak', [ArsipditolakpController::class, 'index'])->name('arsipditolak');
+        Route::get('/arsiptolak/{id}/detail', [ArsipditolakpController::class, 'detail'])->name('arsiptolak.detail');
 
         // Tambahkan rute khusus peminjam lainnya di sini...
     });

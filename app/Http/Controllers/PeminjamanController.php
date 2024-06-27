@@ -73,15 +73,6 @@ class PeminjamanController extends Controller
             } else {
                 return redirect()->back()->withInput()->withErrors(['jumlahaset' => 'Stok transportasi tidak mencukupi.']);
             }
-        } elseif ($jenisaset === 'ruangan') {
-            $ruangan = Ruangan::find($asetId);
-            if ($ruangan && $ruangan->stok >= $jumlah) {
-                $ruangan->stokruangan -= $jumlah;
-                $ruangan->save();
-                $peminjaman->idruangan = $asetId;
-            } else {
-                return redirect()->back()->withInput()->withErrors(['jumlahaset' => 'Stok ruangan tidak mencukupi.']);
-            }
         }
 
         if ($request->hasFile('lampiran')) {
@@ -98,7 +89,6 @@ class PeminjamanController extends Controller
         return redirect()->route('admin.peminjaman')->with('success', 'Data berhasil ditambahkan.');
     }
 
-
     public function edit($id)
     {
         $data = Peminjaman::with(['barang', 'transportasi', 'ruangan'])->find($id);
@@ -111,7 +101,6 @@ class PeminjamanController extends Controller
 
         return view('admin.peminjaman.editp', compact('data', 'jenisAset', 'namaAset'));
     }
-
 
     public function update(Request $request, $id)
     {
@@ -133,6 +122,7 @@ class PeminjamanController extends Controller
             return redirect()->route('admin.peminjaman')->withErrors('Data tidak ditemukan.');
         }
 
+        // Simpan data yang diubah
         $peminjaman->nama = $request->input('nama');
         $peminjaman->nim = $request->input('nim');
         $peminjaman->tanggalpeminjaman = $request->input('tanggalpeminjaman');
@@ -173,21 +163,18 @@ class PeminjamanController extends Controller
                     $barang = Barang::find($peminjaman->idbarang);
                     if ($barang) {
                         $barang->tambahStokb($peminjaman->jumlahaset);
-                        $barang->save();
                     }
                     break;
                 case 'transportasi':
                     $transportasi = Transportasi::find($peminjaman->idtransportasi);
                     if ($transportasi) {
                         $transportasi->tambahStokt($peminjaman->jumlahaset);
-                        $transportasi->save();
                     }
                     break;
                 case 'ruangan':
                     $ruangan = Ruangan::find($peminjaman->idruangan);
                     if ($ruangan) {
                         $ruangan->tambahStokr($peminjaman->jumlahaset);
-                        $ruangan->save();
                     }
                     break;
                 default:
@@ -197,7 +184,6 @@ class PeminjamanController extends Controller
 
         return redirect()->route('admin.peminjaman')->with('success', 'Data peminjaman berhasil diperbarui.');
     }
-
 
 
     public function destroy($id)
