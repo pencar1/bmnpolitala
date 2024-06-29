@@ -1,4 +1,3 @@
-<!-- peminjaman.blade.php -->
 @extends('layout.layoutpeminjamf')
 
 @section('content')
@@ -25,7 +24,7 @@
                                         <th>Aset Yang Dipinjam</th>
                                         <th>Tanggal Peminjaman</th>
                                         <th>Jumlah Dipinjam</th>
-                                        <th>Statuss</th>
+                                        <th>Status</th>
                                         <th style="width: 10%">Action</th>
                                     </tr>
                                 </thead>
@@ -33,19 +32,68 @@
                                     @foreach ($data as $d)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $d->getNama()}}</td>
-                                        <td>{{ $d->getAsetName()}}</td>
+                                        <td>{{ $d->getNama() }}</td>
+                                        <td>{{ $d->getAsetName() }}</td>
                                         <td>{{ \Carbon\Carbon::parse($d->tanggalpeminjaman)->format('d-m-Y') }}</td>
                                         <td>{{ $d->jumlahaset }}</td>
                                         <td>{{ $d->status }}</td>
                                         <td>
+                                            <!-- Tombol Lihat Detail (Modal) -->
+                                            @if(!in_array($d->status, ['Diproses']))
+                                            <button type="button" class="btn btn-link btn-info" data-toggle="modal" data-target="#lihatModal-{{ $d->idpeminjaman }}">
+                                                <i class="fa fa-eye"></i>
+                                            </button>
+                                            @endif
+                                            
+                                            <!-- Tombol Batalkan jika status bukan dikembalikan, dipinjam, disetujui, dibatalkan -->
+                                            @if(!in_array($d->status, ['dikembalikan', 'dipinjam', 'disetujui', 'dibatalkan']))
                                                 <button type="button" data-id="{{ $d->idpeminjaman }}" data-name="{{ $d->aset }}" data-toggle="modal" data-target="#deleteModal-{{ $d->idpeminjaman }}" title="Hapus Peminjaman" class="btn btn-link btn-danger deleteButton">
                                                     <i class="fa fa-times"></i>
                                                 </button>
-                                            </div>
+                                            @endif
                                         </td>
                                     </tr>
+                                    <!-- Modal Lihat Detail -->
+                                    @if(!in_array($d->status, ['Diproses']))
+                                    <div class="modal fade" id="lihatModal-{{ $d->idpeminjaman }}" tabindex="-1" role="dialog" aria-labelledby="lihatModalLabel-{{ $d->idpeminjaman }}" aria-hidden="true">
+                                        <div class="modal-dialog modal-lg" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="lihatModalLabel-{{ $d->idpeminjaman }}">Detail Peminjaman</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="form-group">
+                                                        <label>Nama Peminjam</label>
+                                                        <input type="text" class="form-control" value="{{ $d->getNama() }}" readonly style="font-weight: bold; color: black;">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Aset Yang Dipinjam</label>
+                                                        <input type="text" class="form-control" value="{{ $d->getAsetName() }}" readonly style="font-weight: bold; color: black;">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Tanggal Peminjaman</label>
+                                                        <input type="text" class="form-control" value="{{ \Carbon\Carbon::parse($d->tanggalpeminjaman)->format('d-m-Y') }}" readonly style="font-weight: bold; color: black;">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Jumlah Dipinjam</label>
+                                                        <input type="text" class="form-control" value="{{ $d->jumlahaset }}" readonly style="font-weight: bold; color: black;">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Status</label>
+                                                        <input type="text" class="form-control" value="{{ $d->status }}" readonly style="font-weight: bold; color: black;">
+                                                    </div>
+                                                    <!-- Tambahkan informasi lainnya sesuai kebutuhan -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- End Modal Lihat Detail -->
+                                    @endif
                                     <!-- Modal -->
+                                    @if(!in_array($d->status, ['dikembalikan', 'dipinjam', 'disetujui', 'dibatalkan']))
                                     <div class="modal" id="deleteModal-{{ $d->idpeminjaman }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel-{{ $d->idpeminjaman }}" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
@@ -59,16 +107,17 @@
                                                     Apakah Anda yakin ingin membatalkan peminjaman <strong>{{ $d->getAsetName() }}</strong>?
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <form action="{{ route('peminjam.peminjaman.update', ['id' => $d->idpeminjaman]) }}" method="POST"> <!-- Mengarahkan ke fungsi update -->
+                                                    <form action="{{ route('peminjam.peminjaman.update', ['id' => $d->idpeminjaman]) }}" method="POST">
                                                         @csrf
-                                                        @method('PUT') <!-- Gunakan method PUT karena route-nya menggunakan PUT -->
+                                                        @method('PUT')
                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
-                                                        <button type="submit" class="btn btn-danger">Batalkan Peminjaman</button> <!-- Mengubah teks tombol menjadi "Batalkan Peminjaman" -->
+                                                        <button type="submit" class="btn btn-danger">Batalkan Peminjaman</button>
                                                     </form>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                    @endif
                                     @endforeach
                                 </tbody>
                             </table>

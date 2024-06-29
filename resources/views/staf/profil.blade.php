@@ -10,6 +10,11 @@
     <h4 class="page-title">User Profil</h4>
     <div class="row">
         <div class="col-md-8">
+            @if (session('success'))
+            <div class="alert alert-success" role="alert">
+                {{ session('success') }}
+            </div>
+        @endif
             <div class="card card-with-nav">
                 <div class="card-header">
                     <div class="row row-nav-line">
@@ -66,6 +71,7 @@
                                 </div>
                             </div>
                         </div>
+                        
                         <div class="text-right mt-3 mb-3">
                             <button type="button" class="btn btn-success saveButton">Ganti</button>
                             <button type="button" class="btn btn-danger" onclick="window.location.href='{{ route('staf.dashboard') }}'">Kembali</button>

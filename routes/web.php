@@ -167,7 +167,7 @@ Route::group(['prefix' => 'peminjam', 'middleware' => ['auth', 'role:peminjam'],
         Route::post('/peminjaman', [PeminjamanpController::class, 'storeruangan'])->name('peminjaman.storeruangan');
 
         Route::get('/peminjaman/{id}/edit', [PeminjamanpController::class, 'edit'])->name('peminjaman.edit');
-        Route::put('/peminjaman/{id}', [PeminjamanpController::class, 'update'])->name('peminjaman.update');
+        // Route::put('/peminjaman/{id}', [PeminjamanpController::class, 'update'])->name('peminjaman.update');
         Route::delete('/peminjaman/{id}', [PeminjamanpController::class, 'destroy'])->name('peminjaman.destroy');
 
         Route::get('/barang', [BarangpController::class, 'index'])->name('barang');

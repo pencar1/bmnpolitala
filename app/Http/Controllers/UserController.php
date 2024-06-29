@@ -75,19 +75,43 @@ class UserController extends Controller
 
     public function store(Request $request) {
         $validator = Validator::make($request->all(), [
-            'nama'          => 'required|string|max:50',
-            'prodi'         => 'required|string|max:50',
-            'nim'           => 'required|string|max:16',
-            'nohp'          => 'required|string|max:16',
-            'organisasi'    => 'required|string|max:50',
-            'email'         => 'required|email|max:255|unique:users,email',
-            'password'      => [
+            'nama' => 'required|string|max:50',
+            'prodi' => 'required|string|max:50',
+            'nim' => 'required|string|max:16',
+            'nohp' => 'required|string|max:16',
+            'organisasi' => 'required|string|max:50',
+            'email' => 'required|email|max:255|unique:users,email',
+            'password' => [
                 'required',
                 'string',
                 'min:8',
-                'regex:/[a-z]/', // at least one lowercase letter
-                'regex:/[A-Z]/', // at least one uppercase letter
+                'regex:/[a-z]/', // minimal satu huruf kecil
+                'regex:/[A-Z]/', // minimal satu huruf besar
             ],
+        ], [
+            'nama.required' => 'Nama harus diisi.',
+            'nama.string' => 'Nama harus berupa teks.',
+            'nama.max' => 'Nama maksimal 50 karakter.',
+            'prodi.required' => 'Prodi harus diisi.',
+            'prodi.string' => 'Prodi harus berupa teks.',
+            'prodi.max' => 'Prodi maksimal 50 karakter.',
+            'nim.required' => 'NIM harus diisi.',
+            'nim.string' => 'NIM harus berupa teks.',
+            'nim.max' => 'NIM maksimal 16 karakter.',
+            'nohp.required' => 'Nomor HP harus diisi.',
+            'nohp.string' => 'Nomor HP harus berupa teks.',
+            'nohp.max' => 'Nomor HP maksimal 16 karakter.',
+            'organisasi.required' => 'Organisasi harus diisi.',
+            'organisasi.string' => 'Organisasi harus berupa teks.',
+            'organisasi.max' => 'Organisasi maksimal 50 karakter.',
+            'email.required' => 'Email harus diisi.',
+            'email.email' => 'Format email tidak valid.',
+            'email.max' => 'Email maksimal 255 karakter.',
+            'email.unique' => 'Email sudah terdaftar.',
+            'password.required' => 'Password harus diisi.',
+            'password.string' => 'Password harus berupa teks.',
+            'password.min' => 'Password minimal 8 karakter dengan minimal satu huruf besar dan satu huruf kecil.',
+            'password.regex' => 'Password minimal 8 karakter dengan minimal satu huruf besar dan satu huruf kecil.',
         ]);
 
         if ($validator->fails()) {
