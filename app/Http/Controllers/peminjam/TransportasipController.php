@@ -9,11 +9,17 @@ use Illuminate\Support\Facades\Validator;
 
 class TransportasipController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $data = Transportasi::where('stoktransportasi', '>', 0)->get();
 
-        return view('peminjam.transportasi', compact('data'));
+        $detailtransportasi = null;
+
+        if ($request->has('lihat')) {
+            $detailtransportasi = Transportasi::find($request->input('lihat'));
+        }
+
+        return view('peminjam.transportasi', compact('data', 'detailtransportasi'));
     }
 
     public function search(Request $request)
