@@ -15,44 +15,51 @@ class RuanganSeeder extends Seeder
     {
         Ruangan::create([
             'namaruangan'       => 'Ruang Kelas',
-            'deskripsiruangan'   => 'Muat 50 kursi',
-            'foto'              => '1717837002_kelas.jpg',
+            'stokruangan'       => '1',
+            'deskripsiruangan'  => 'Muat 50 kursi',
+            'foto'              => 'kelas.jpg',
         ]);
 
         Ruangan::create([
             'namaruangan'       => 'Ruang Kelas',
-            'deskripsiruangan'   => 'Muat 50 kursi',
-            'foto'              => '1717836865_ruang kelas.png',
+            'stokruangan'       => '1',
+            'deskripsiruangan'  => 'Muat 50 kursi',
+            'foto'              => 'ruang kelas.png',
         ]);
 
         Ruangan::create([
             'namaruangan'       => 'Ruang Aula Lantai Dasar',
-            'deskripsiruangan'   => 'Muat 250 kursi',
-            'foto'              => '1717836878_aula.jpg',
+            'stokruangan'       => '1',
+            'deskripsiruangan'  => 'Muat 250 kursi',
+            'foto'              => 'aula.jpg',
         ]);
 
         Ruangan::create([
             'namaruangan'       => 'Ruang Lab Komputer',
-            'deskripsiruangan'   => 'Muat 30 kursi',
-            'foto'              => '1717836894_lab kom.jpg',
+            'stokruangan'       => '1',
+            'deskripsiruangan'  => 'Muat 30 kursi',
+            'foto'              => 'lab kom.jpg',
         ]);
 
         Ruangan::create([
             'namaruangan'       => 'Ruang Lab Komputer',
-            'deskripsiruangan'   => 'Muat 30 kursi',
-            'foto'              => '1717839174_lab komputer.jpg',
+            'stokruangan'       => '1',
+            'deskripsiruangan'  => 'Muat 30 kursi',
+            'foto'              => 'lab komputer.jpg',
         ]);
 
         Ruangan::create([
             'namaruangan'       => 'Ruang Kelas',
-            'deskripsiruangan'   => 'Muat 50 kursi',
-            'foto'              => '1717839023_classroom.jpg',
+            'stokruangan'       => '1',
+            'deskripsiruangan'  => 'Muat 50 kursi',
+            'foto'              => 'classroom.jpg',
         ]);
 
         Ruangan::create([
             'namaruangan'       => 'Ruang Aula GKT Lantai 1',
-            'deskripsiruangan'   => 'Muat 250 kursi',
-            'foto'              => '1718447162_aula gkt lantai 1.jpg',
+            'stokruangan'       => '1',
+            'deskripsiruangan'  => 'Muat 250 kursi',
+            'foto'              => 'aula gkt lantai 1.jpg',
         ]);
     }
 }

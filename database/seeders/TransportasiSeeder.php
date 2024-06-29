@@ -18,7 +18,7 @@ class TransportasiSeeder extends Seeder
             'merktransportasi'          => 'Toyota',
             'stoktransportasi'          => '1',
             'deskripsitransportasi'     => 'Pick UP single cabin',
-            'foto'                      => '1717377909_hilux.jpg',
+            'foto'                      => 'hilux.jpg',
         ]);
 
         Transportasi::create([
@@ -26,7 +26,7 @@ class TransportasiSeeder extends Seeder
             'merktransportasi'          => 'Hino',
             'stoktransportasi'          => '1',
             'deskripsitransportasi'     => 'Truk dengan kapasitas 8 ton',
-            'foto'                      => '1717377944_hino 300.jpg',
+            'foto'                      => 'hino 300.jpg',
         ]);
 
         Transportasi::create([
@@ -34,7 +34,7 @@ class TransportasiSeeder extends Seeder
             'merktransportasi'          => 'Viar',
             'stoktransportasi'          => '1',
             'deskripsitransportasi'     => 'Viar motor roda 3',
-            'foto'                      => '1717381835_viar roda 3.jpg',
+            'foto'                      => 'viar roda 3.jpg',
         ]);
     }
 }

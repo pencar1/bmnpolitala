@@ -43,14 +43,14 @@
                         </div>
                         <div class="form-group">
                             <label for="tanggalpeminjaman">Tanggal Peminjaman</label>
-                            <input type="date" name="tanggalpeminjaman" class="form-control" id="tanggalpeminjaman" value="{{ old('tanggalpeminjaman', $data->tanggalpeminjaman) }}" placeholder="Masukkan Tanggal Peminjaman" min="{{ date('Y-m-d') }}">
+                            <input type="date" name="tanggalpeminjaman" class="form-control" id="tanggalpeminjaman" value="{{ old('tanggalpeminjaman', $data->tanggalpeminjaman) }}" placeholder="Masukkan Tanggal Peminjaman" min="{{ date('Y-m-d') }}" readonly style="font-weight: bold; color: black;">
                             @error('tanggalpeminjaman')
                                 <small>{{ $message }}</small>
                             @enderror
                         </div>
                         <div class="form-group">
                             <label for="jumlahaset">Jumlah Aset</label>
-                            <input type="number" name="jumlahaset" class="form-control" id="jumlahaset" min="1" oninput="this.value = this.value.replace(/[^0-9]/g, '')" value="{{ old('jumlahaset', $data->jumlahaset) }}" placeholder="Masukkan Jumlah Aset">
+                            <input type="number" name="jumlahaset" class="form-control" id="jumlahaset" min="1" oninput="this.value = this.value.replace(/[^0-9]/g, '')" value="{{ old('jumlahaset', $data->jumlahaset) }}" placeholder="Masukkan Jumlah Aset" readonly style="font-weight: bold; color: black;">
                             @error('jumlahaset')
                                 <small>{{ $message }}</small>
                             @enderror
@@ -68,7 +68,6 @@
                                     @endif
                                 </div>
                             @endif
-                            <input type="file" name="lampiran" class="form-control" id="lampiran">
                             @error('lampiran')
                                 <small>{{ $message }}</small>
                             @enderror
@@ -118,9 +117,9 @@
                 @if (in_array(pathinfo($data->lampiran, PATHINFO_EXTENSION), ['jpg', 'jpeg', 'png']))
                     <img src="{{ asset('lampiran/' . $data->lampiran) }}" alt="Lampiran" class="img-fluid">
                 @elseif (in_array(pathinfo($data->lampiran, PATHINFO_EXTENSION), ['pdf']))
-                    <iframe src="{{ asset('lampiran/' . $data->lampiran) }}" width="100%" height="600px"></iframe>
+                    <iframe src="{{ asset('lampiran/' . $data->lampiran) }}" width="100%" height="500px"></iframe>
                 @elseif (in_array(pathinfo($data->lampiran, PATHINFO_EXTENSION), ['doc', 'docx']))
-                    <iframe src="https://view.officeapps.live.com/op/embed.aspx?src={{ urlencode(asset('lampiran/' . $data->lampiran)) }}" width="100%" height="500px"></iframe>
+                    <iframe src="https://docs.google.com/viewer?url={{ urlencode(asset('lampiran/' . $data->lampiran)) }}&embedded=true" width="100%" height="500px"></iframe>
                 @else
                     <p>File tidak dapat ditampilkan.</p>
                 @endif

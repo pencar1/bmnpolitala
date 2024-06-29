@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('ruangans', function (Blueprint $table) {
             $table->increments('idruangan'); // Primary key
             $table->string('namaruangan', 50);
+            $table->integer('stokruangan');
             $table->text('deskripsiruangan');
             $table->string('foto')->nullable();
-            $table->integer('stokruangan');
         });
     }
 

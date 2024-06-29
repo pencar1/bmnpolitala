@@ -54,7 +54,6 @@
                                     @endif
                                 </div>
                             @endif
-                            <input type="file" name="lampiran" class="form-control" id="lampiran">
                             @error('lampiran')
                                 <small>{{ $message }}</small>
                             @enderror

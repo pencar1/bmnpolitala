@@ -17,32 +17,48 @@ class BarangSeeder extends Seeder
             'namabarang'        => 'Bor Listrik',
             'merkbarang'        => 'Ryu',
             'stokbarang'        => '5',
-            'deskripsibarang'  => 'Bor listrik hemat daya',
-            'foto'              => '1717382320_bor listrik.jpg',
+            'deskripsibarang'   => 'Bor listrik hemat daya',
+            'foto'              => 'bor listrik.jpg',
         ]);
 
         Barang::create([
             'namabarang'        => 'Grinda Listrik',
             'merkbarang'        => 'Ryu',
             'stokbarang'        => '5',
-            'deskripsibarang'  => 'Grinda listrik hemat daya',
-            'foto'              => '1717382367_grinda listrik.jpg',
+            'deskripsibarang'   => 'Grinda listrik hemat daya',
+            'foto'              => 'grinda listrik.jpg',
         ]);
 
         Barang::create([
             'namabarang'        => 'Obeng',
             'merkbarang'        => 'Krisbow',
             'stokbarang'        => '5',
-            'deskripsibarang'  => 'Obeng biasa',
-            'foto'              => '1717382400_obeng.jpg',
+            'deskripsibarang'   => 'Obeng biasa',
+            'foto'              => 'obeng.jpg',
         ]);
 
         Barang::create([
             'namabarang'        => 'Palu',
             'merkbarang'        => 'Krisbow',
             'stokbarang'        => '5',
-            'deskripsibarang'  => 'Palu biasa',
-            'foto'              => '1717382474_palu.jpg',
+            'deskripsibarang'   => 'Palu biasa',
+            'foto'              => 'palu.jpg',
+        ]);
+
+        Barang::create([
+            'namabarang'        => 'Paku',
+            'merkbarang'        => 'Krisbow',
+            'stokbarang'        => '5000',
+            'deskripsibarang'   => 'Paku biasa',
+            'foto'              => 'paku.jpg',
+        ]);
+
+        Barang::create([
+            'namabarang'        => 'Palu payung',
+            'merkbarang'        => 'Krisbow',
+            'stokbarang'        => '5000',
+            'deskripsibarang'   => 'Palu payung',
+            'foto'              => 'palu payung.jpg',
         ]);
     }
 }

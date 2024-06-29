@@ -165,11 +165,10 @@ class PeminjamanpController extends Controller
 
     public function storeruangan(Request $request)
     {
-        // Validasi data yang diterima
         $validator = Validator::make($request->all(), [
             'tanggalpeminjaman' => 'required|date',
             'lampiran'          => 'required|mimes:jpeg,png,jpg,gif,pdf,docx|max:2048',
-            'idruangan'         => 'required|integer' // Menambahkan validasi untuk idruangan
+            'idruangan'         => 'required|integer'
         ],[
             'tanggalpeminjaman.required' => 'Isi Tanggal Peminjaman!',
             'lampiran.required' => 'Lampiran Tidak Boleh Kosong!',
@@ -178,24 +177,20 @@ class PeminjamanpController extends Controller
             'lampiran.max' => 'Ukuran Lampiran Terlalu Besar!',
         ]);
 
-        // Jika validasi gagal, kembalikan ke halaman sebelumnya dengan pesan error
         if ($validator->fails()) {
             return redirect()->back()->withInput()->withErrors($validator);
         }
 
-        // Buat instance baru dari model Peminjaman
         $peminjaman = new Peminjaman();
-        // Ambil user yang sedang login
         $user = Auth::user();
         $peminjaman->iduser = $user->id;
         $peminjaman->nama = $request->input('nama');
         $peminjaman->nim = $request->input('nim');
         $peminjaman->tanggalpeminjaman = $request->input('tanggalpeminjaman');
-        $peminjaman->idruangan = $request->input('idruangan'); // Menambahkan penyimpanan idruangan
+        $peminjaman->idruangan = $request->input('idruangan');
         $peminjaman->status = 'Diproses';
         $jumlah = 1;
 
-        // Jika ada file yang di-upload, simpan file tersebut
         if ($request->hasFile('lampiran')) {
             $file = $request->file('lampiran');
             $filename = time() . '_' . $file->getClientOriginalName();
@@ -203,11 +198,9 @@ class PeminjamanpController extends Controller
             $peminjaman->lampiran = $filename;
         }
 
-        // Simpan data peminjaman ke database
         $peminjaman->jumlahaset = $jumlah;
         $peminjaman->save();
 
-        // Redirect ke rute 'peminjam.peminjaman'
         return redirect()->route('peminjam.peminjaman');
     }
 
@@ -215,7 +208,7 @@ class PeminjamanpController extends Controller
     public function updatestatus(Request $request)
 {
     $peminjaman = Peminjaman::findOrFail($request->id);
-    $peminjaman->status = 'Dibatalkan'; // Mengubah status menjadi "Batal"
+    $peminjaman->status = 'Dibatalkan';
     $peminjaman->save();
 
     return redirect()->route('peminjam.peminjaman');
@@ -223,16 +216,11 @@ class PeminjamanpController extends Controller
 
 public function update(Request $request, $id)
 {
-    // Find the peminjaman by its ID
     $peminjaman = Peminjaman::findOrFail($id);
 
-    // Perform any necessary validation here
-
-    // Update the peminjaman status
     $peminjaman->status = 'Dibatalkan';
     $peminjaman->save();
 
-    // Redirect back to the peminjaman index page
     return redirect()->route('peminjam.peminjaman');
 }
 

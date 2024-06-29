@@ -50,7 +50,7 @@
                         </div>
                         <div class="form-group">
                             <label for="jumlahaset">Jumlah Aset</label>
-                            <input type="number" name="jumlahaset" class="form-control" id="jumlahaset" min="1" oninput="this.value = this.value.replace(/[^0-9]/g, '')" value="{{ old('jumlahaset', $data->jumlahaset) }}" placeholder="Masukkan Jumlah Aset">
+                            <input type="number" name="jumlahaset" class="form-control" id="jumlahaset" min="1" oninput="this.value = this.value.replace(/[^0-9]/g, '')" value="{{ old('jumlahaset', $data->jumlahaset) }}" placeholder="Masukkan Jumlah Aset" readonly style="font-weight: bold; color: black;">
                             @error('jumlahaset')
                                 <small>{{ $message }}</small>
                             @enderror
@@ -59,18 +59,16 @@
                             <label for="lampiran">Lampiran</label>
                             @if ($data->lampiran)
                                 <div class="mt-2">
-                                    @php
-                                        $fileExtension = pathinfo($data->lampiran, PATHINFO_EXTENSION);
-                                    @endphp
-                                    @if (in_array($fileExtension, ['jpg', 'jpeg', 'png']))
-                                        <img src="{{ asset('lampiran/' . $data->lampiran) }}" alt="Lampiran" style="max-width: 200px;">
-                                    @elseif (in_array($fileExtension, ['pdf']))
-                                        <iframe src="{{ asset('lampiran/' . $data->lampiran) }}" style="width: 100%; height: 500px;" frameborder="0"></iframe>
+                                    @if (in_array(pathinfo($data->lampiran, PATHINFO_EXTENSION), ['jpg', 'jpeg', 'png']))
+                                        <img src="{{ asset('lampiran/' . $data->lampiran) }}" alt="Lampiran" style="max-width: 200px; cursor: pointer;" data-toggle="modal" data-target="#lampiranModal">
+                                    @elseif (in_array(pathinfo($data->lampiran, PATHINFO_EXTENSION), ['pdf', 'doc', 'docx']))
+                                        <a href="{{ asset('lampiran/' . $data->lampiran) }}" style="cursor: pointer;" data-toggle="modal" data-target="#lampiranModal">{{ $data->lampiran }}</a>
                                     @else
                                         <a href="{{ asset('lampiran/' . $data->lampiran) }}" target="_blank">{{ $data->lampiran }}</a>
                                     @endif
                                 </div>
                             @endif
+                            <input type="file" name="lampiran" class="form-control" id="lampiran">
                             @error('lampiran')
                                 <small>{{ $message }}</small>
                             @enderror

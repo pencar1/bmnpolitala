@@ -42,7 +42,7 @@
                         </div>
                         <div class="form-group">
                             <label for="stokbarang">Stok Barang</label>
-                            <input type="text" name="stokbarang" class="form-control" id="stokbarang" value="{{ old('stokbarang', $data->stokbarang) }}" placeholder="Masukkan Stok">
+                            <input type="number" name="stokbarang" class="form-control" id="stokbarang" value="{{ old('stokbarang', $data->stokbarang) }}" oninput="this.value = this.value.replace(/[^0-9]/g, '')" placeholder="Masukkan Stok">
                             @error('stokbarang')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
