@@ -106,7 +106,7 @@ class PeminjamanController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'nama'              => 'required|string|max:50',
-            'nim'               => 'required|string|max:16',
+            'nim'               => 'max:16',
             'tanggalpeminjaman' => 'required|date',
             'jumlahaset'        => 'required|integer|min:1',
             'status'            => 'required|in:dipinjam,dikembalikan',
