@@ -1,5 +1,5 @@
 <!-- peminjaman.blade.php -->
-@extends('layout.layoutpeminjam')
+@extends('layout.layoutpeminjamf')
 
 @section('content')
 <div class="page-inner">
