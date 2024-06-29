@@ -1,4 +1,4 @@
-@extends('layout.layoutadmin')
+@extends('layout.layoutpeminjam')
 
 @section('content')
 
@@ -13,27 +13,6 @@
                         <div class="card-title">Detail Arsip Di Tolak</div>
                     </div>
                     <div class="card-body">
-                        <div class="form-group">
-                            <label for="namapeminjam">Nama Peminjam</label>
-                            <input type="text" name="namapeminjam" class="form-control" id="namapeminjam" value="{{ old('namapeminjam', $peminjaman->user->nama ?? '') }}" readonly style="font-weight: bold; color: black;">
-                            @error('namapeminjam')
-                                <small>{{ $message }}</small>
-                            @enderror
-                        </div>
-                        <div class="form-group">
-                            <label for="organisasi">Organisasi</label>
-                            <input type="text" name="organisasi" class="form-control" id="organisasi" value="{{ old('organisasi', $peminjaman->user->organisasi ?? '') }}" readonly style="font-weight: bold; color: black;">
-                            @error('organisasi')
-                                <small>{{ $message }}</small>
-                            @enderror
-                        </div>
-                        <div class="form-group">
-                            <label for="nohp">No HP</label>
-                            <input type="text" name="nohp" class="form-control" id="nohp" value="{{ old('nohp', $peminjaman->user->nohp ?? '') }}" readonly style="font-weight: bold; color: black;">
-                            @error('nohp')
-                                <small>{{ $message }}</small>
-                            @enderror
-                        </div>
                         <div class="form-group">
                             <label for="jenisaset">Jenis Aset</label>
                             <input type="text" name="jenisaset" class="form-control" id="jenisaset" value="{{ old('jenisaset', $peminjaman->getJenisAset()) }}" readonly style="font-weight: bold; color: black;">
@@ -97,7 +76,7 @@
                             @enderror
                         </div>
                         <div class="card-action">
-                            <button type="button" class="btn btn-success" onclick="window.location.href='{{ route('admin.arsiptolak') }}'">Kembali</button>
+                            <button type="button" class="btn btn-success" onclick="window.location.href='{{ route('peminjam.arsipditolak') }}'">Kembali</button>
                         </div>
                     </div>
                 </div>

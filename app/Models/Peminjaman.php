@@ -26,6 +26,7 @@ class Peminjaman extends Model
 
     // Kolom-kolom yang dapat diisi secara massal
     protected $fillable = [
+        'idpeminjaman',
         'iduser',
         'nama',
         'nim',
@@ -61,6 +62,13 @@ class Peminjaman extends Model
     {
         return $this->belongsTo(Ruangan::class, 'idruangan', 'idruangan');
     }
+
+    // Model Peminjaman
+    public function pengembalian()
+    {
+        return $this->hasOne(Pengembalian::class, 'idpeminjaman');
+    }
+
 
     public function getNama()
     {

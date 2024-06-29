@@ -29,5 +29,23 @@ class Ruangan extends Model
         'namaruangan',
         'deskripsiruangan',
         'foto',
+        'stokruangan',
     ];
+    public function kurangiStokr($jumlah)
+    {
+        if ($this->stokruangan >= $jumlah) {
+            $this->stokruangan -= $jumlah;
+            $this->save();
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function tambahStokr($jumlah)
+    {
+        $this->stokruangan += $jumlah;
+        $this->save();
+        return true;
+    }
 }

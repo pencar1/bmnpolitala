@@ -8,6 +8,11 @@
     <div class="page-body">
         <div class="row">
             <div class="col-md-12">
+                @if (session('success'))
+                    <div class="alert alert-success" role="alert">
+                        {{ session('success') }}
+                    </div>
+                @endif
                 <div class="card">
                     <div class="card-header">
                         <div class="d-flex align-items-center">
@@ -32,14 +37,14 @@
                                     @foreach ($data as $data)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $data->peminjaman->user->nama }}</td>
-                                        <td>{{ $data->peminjaman->getAsetName() }}</td>
-                                        <td>{{ \Carbon\Carbon::parse($data->peminjaman->tanggalpeminjaman)->format('d-m-Y') }}</td>
+                                        <td>{{ $data->nama }}</td>
+                                        <td>{{ $data->getAsetName() }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($data->tanggalpeminjaman)->format('d-m-Y') }}</td>
                                         <td>{{ \Carbon\Carbon::parse($data->tanggalpengembalian)->format('d-m-Y') }}</td>
-                                        <td>{{ $data->peminjaman->status }}</td>
+                                        <td>{{ $data->status }}</td>
                                         <td>
                                             <div class="form-button-action">
-                                                <a href="{{ route('admin.pengembalian.detail', ['id' => $data->idpengembalian]) }}" class="btn btn-link btn-primary btn-lg" data-toggle="tooltip" title="Lihat Detail">
+                                                <a href="{{ route('admin.pengembalian.detail', ['id' => $data->idpeminjaman]) }}" class="btn btn-link btn-primary btn-lg" data-toggle="tooltip" title="Lihat Detail">
                                                     <i class="fa fa-eye"></i>
                                                 </a>
                                             </div>

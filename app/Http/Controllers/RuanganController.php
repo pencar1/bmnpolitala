@@ -45,6 +45,7 @@ class RuanganController extends Controller
         $ruangan = new Ruangan();
         $ruangan->namaruangan = $request->input('namaruangan');
         $ruangan->deskripsiruangan = $request->input('deskripsiruangan');
+        $ruangan->stokruangan = 1; 
 
         if ($request->hasFile('foto')) {
             $file = $request->file('foto');

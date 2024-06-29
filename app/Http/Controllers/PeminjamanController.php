@@ -73,15 +73,6 @@ class PeminjamanController extends Controller
             } else {
                 return redirect()->back()->withInput()->withErrors(['jumlahaset' => 'Stok transportasi tidak mencukupi.']);
             }
-        } elseif ($jenisaset === 'ruangan') {
-            $ruangan = Ruangan::find($asetId);
-            if ($ruangan && $ruangan->stok >= $jumlah) {
-                $ruangan->stokruangan -= $jumlah;
-                $ruangan->save();
-                $peminjaman->idruangan = $asetId;
-            } else {
-                return redirect()->back()->withInput()->withErrors(['jumlahaset' => 'Stok ruangan tidak mencukupi.']);
-            }
         }
 
         if ($request->hasFile('lampiran')) {
@@ -98,7 +89,6 @@ class PeminjamanController extends Controller
         return redirect()->route('admin.peminjaman')->with('success', 'Data berhasil ditambahkan.');
     }
 
-
     public function edit($id)
     {
         $data = Peminjaman::with(['barang', 'transportasi', 'ruangan'])->find($id);
@@ -112,7 +102,6 @@ class PeminjamanController extends Controller
         return view('admin.peminjaman.editp', compact('data', 'jenisAset', 'namaAset'));
     }
 
-
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
@@ -121,14 +110,19 @@ class PeminjamanController extends Controller
             'tanggalpeminjaman' => 'required|date',
             'jumlahaset'        => 'required|integer|min:1',
             'status'            => 'required|in:dipinjam,dikembalikan',
-            'lampiran'          => 'nullable|file|mimes:jpg,jpeg,png,pdf,doc,docx|max:2048'
+            'lampiran'          => 'nullable|file|mimes:jpg,jpeg,png,pdf,doc,docx|max:2048',
         ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
 
         $peminjaman = Peminjaman::find($id);
         if (!$peminjaman) {
             return redirect()->route('admin.peminjaman')->withErrors('Data tidak ditemukan.');
         }
 
+        // Simpan data yang diubah
         $peminjaman->nama = $request->input('nama');
         $peminjaman->nim = $request->input('nim');
         $peminjaman->tanggalpeminjaman = $request->input('tanggalpeminjaman');
@@ -137,17 +131,19 @@ class PeminjamanController extends Controller
 
         if ($request->hasFile('lampiran')) {
             $lampiran = $request->file('lampiran');
-            $lampiranName = time().'_'.$lampiran->getClientOriginalName();
+            $lampiranName = time() . '_' . $lampiran->getClientOriginalName();
             $lampiran->move(public_path('lampiran'), $lampiranName);
             $peminjaman->lampiran = $lampiranName;
         }
 
+        // Simpan perubahan pada data peminjaman
         $peminjaman->save();
 
-        // Jika status adalah 'dikembalikan', tambahkan data ke tabel pengembalian
+        // Jika status adalah 'dikembalikan', tambahkan data ke tabel pengembalian dan kembalikan stok aset
         if ($request->input('status') == 'dikembalikan') {
+            // Buat entri baru di tabel pengembalian
             Pengembalian::create([
-                'idpeminjaman' => $peminjaman->idpeminjaman,
+                'idpeminjaman'        => $peminjaman->idpeminjaman,
                 'tanggalpengembalian' => now(),
             ]);
 
@@ -162,29 +158,33 @@ class PeminjamanController extends Controller
             }
 
             // Mengembalikan stok aset yang terkait dengan peminjaman yang dikembalikan
-            if ($jenisaset === 'barang') {
-                $barang = Barang::find($peminjaman->idbarang);
-                if ($barang) {
-                    $barang->tambahStokb($peminjaman->jumlahaset);
-                    $barang->save();
-                }
-            } elseif ($jenisaset === 'transportasi') {
-                $transportasi = Transportasi::find($peminjaman->idtransportasi);
-                if ($transportasi) {
-                    $transportasi->tambahStokt($peminjaman->jumlahaset);
-                    $transportasi->save();
-                }
-            } elseif ($jenisaset === 'ruangan') {
-                $ruangan = Ruangan::find($peminjaman->idruangan);
-                if ($ruangan) {
-                    $ruangan->stokruangan += $peminjaman->jumlahaset;
-                    $ruangan->save();
-                }
+            switch ($jenisaset) {
+                case 'barang':
+                    $barang = Barang::find($peminjaman->idbarang);
+                    if ($barang) {
+                        $barang->tambahStokb($peminjaman->jumlahaset);
+                    }
+                    break;
+                case 'transportasi':
+                    $transportasi = Transportasi::find($peminjaman->idtransportasi);
+                    if ($transportasi) {
+                        $transportasi->tambahStokt($peminjaman->jumlahaset);
+                    }
+                    break;
+                case 'ruangan':
+                    $ruangan = Ruangan::find($peminjaman->idruangan);
+                    if ($ruangan) {
+                        $ruangan->tambahStokr($peminjaman->jumlahaset);
+                    }
+                    break;
+                default:
+                    break;
             }
         }
 
         return redirect()->route('admin.peminjaman')->with('success', 'Data peminjaman berhasil diperbarui.');
     }
+
 
     public function destroy($id)
     {

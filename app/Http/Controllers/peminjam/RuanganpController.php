@@ -9,10 +9,17 @@ use Illuminate\Support\Facades\Validator;
 
 class RuanganpController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $data = Ruangan::get();
-        return view('peminjam.ruangan', compact('data'));
+        $data = Ruangan::where('stokruangan', '>', 0)->get();
+
+        $detailRuangan = null;
+
+        if ($request->has('lihat')) {
+            $detailRuangan = Ruangan::find($request->input('lihat'));
+        }
+
+        return view('peminjam.ruangan', compact('data', 'detailRuangan'));
     }
 
     public function search(Request $request)
