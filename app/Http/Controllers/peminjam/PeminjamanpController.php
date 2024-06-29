@@ -81,26 +81,31 @@ class PeminjamanpController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'tanggalpeminjaman' => 'required|date',
-            'lampiran'          => 'nullable|mimes:jpeg,png,jpg,gif,pdf,docx|max:2048',
+            'lampiran'          => 'required|mimes:jpeg,png,jpg,gif,pdf,docx|max:2048',
             'aset'              => 'required',
             'jumlahaset'        => 'required|integer|min:1',
-            'idbarang'          => 'required|integer', 
+            'idbarang'          => 'required|integer',
+        ],[
+            'tanggalpeminjaman.required'    => 'Isi Tanggal Peminjaman!',
+            'jumlahaset.required'           => 'Isi Jumlah Aset!',
+            'lampiran.required'             => 'Lampiran Tidak Boleh Kosong!',
+            'lampiran.image'                => 'Lampiran harus berupa gambar!',
+            'lampiran.mimes'                => 'Lampiran gambar yang diperbolehkan: jpeg, png, jpg, gif, pdf, docx!',
+            'lampiran.max'                  => 'Ukuran Lampiran Terlalu Besar, max:2048!',
         ]);
-    
+
         if ($validator->fails()) {
             return redirect()->back()->withInput()->withErrors($validator);
         }
-    
+
         $asetId = $request->input('idbarang');
         $jumlah = $request->input('jumlahaset');
-    
-        // Cek stok barang
+
         $barang = Barang::find($asetId);
-        if (!$barang || $barang->stokbarang < $jumlah) { // pastikan 'stokbarang' adalah nama kolom yang benar
+        if (!$barang || $barang->stokbarang < $jumlah) {
             return redirect()->back()->withInput()->withErrors(['jumlahaset' => 'Stok barang tidak mencukupi.']);
         }
-    
-        // Buat peminjaman baru
+
         $peminjaman = new Peminjaman();
         $user = Auth::user();
         $peminjaman->iduser = $user->id;
@@ -110,28 +115,35 @@ class PeminjamanpController extends Controller
         $peminjaman->status = 'Diproses';
         $peminjaman->idbarang = $asetId;
         $peminjaman->jumlahaset = $jumlah;
-    
+
         if ($request->hasFile('lampiran')) {
             $file = $request->file('lampiran');
             $filename = time() . '_' . $file->getClientOriginalName();
             $file->move(public_path('lampiran'), $filename);
             $peminjaman->lampiran = $filename;
         }
-    
+
         $peminjaman->save();
-    
+
         return redirect()->route('peminjam.peminjaman');
     }
-    
+
 
     public function storetrans(Request $request)
 {
     $validator = Validator::make($request->all(), [
         'tanggalpeminjaman' => 'required|date',
-        'lampiran'          => 'nullable|mimes:jpeg,png,jpg,gif,pdf,docx|max:2048',
+        'lampiran'          => 'required|mimes:jpeg,png,jpg,gif,pdf,docx|max:2048',
         'aset'              => 'required',
         'jumlahaset'        => 'required|integer|min:1',
-        'idtransportasi'    => 'required|integer', 
+        'idtransportasi'    => 'required|integer',
+    ],[
+        'tanggalpeminjaman.required'    => 'Isi Tanggal Peminjaman!',
+        'jumlahaset.required'           => 'Isi Jumlah Aset!',
+        'lampiran.required'             => 'Lampiran Tidak Boleh Kosong!',
+        'lampiran.image'                => 'Lampiran harus berupa gambar!',
+        'lampiran.mimes'                => 'Lampiran gambar yang diperbolehkan: jpeg, png, jpg, gif, pdf, docx!',
+        'lampiran.max'                  => 'Ukuran Lampiran Terlalu Besar, max:2048!',
     ]);
 
     if ($validator->fails()) {
@@ -141,13 +153,11 @@ class PeminjamanpController extends Controller
     $asetId = $request->input('idtransportasi');
     $jumlah = $request->input('jumlahaset');
 
-    // Cek stok transportasi
     $transportasi = Transportasi::find($asetId);
     if (!$transportasi || $transportasi->stoktransportasi < $jumlah) {
         return redirect()->back()->withInput()->withErrors(['jumlahaset' => 'Stok transportasi tidak mencukupi.']);
     }
 
-    // Buat peminjaman baru
     $peminjaman = new Peminjaman();
     $user = Auth::user();
     $peminjaman->iduser = $user->id;
@@ -182,7 +192,7 @@ class PeminjamanpController extends Controller
             'lampiran.required' => 'Lampiran Tidak Boleh Kosong!',
             'lampiran.image' => 'Lampiran harus berupa gambar!',
             'lampiran.mimes' => 'Lampiran gambar yang diperbolehkan: jpeg, png, jpg, gif, pdf, docx!',
-            'lampiran.max' => 'Ukuran Lampiran Terlalu Besar!',
+            'lampiran.max' => 'Ukuran Lampiran Terlalu Besar, max:2048!',
         ]);
 
         if ($validator->fails()) {
@@ -216,11 +226,7 @@ class PeminjamanpController extends Controller
     public function updatestatus(Request $request)
 {
     $peminjaman = Peminjaman::findOrFail($request->id);
-<<<<<<< HEAD
-    $peminjaman->status = 'Dibatalkan';
-=======
-    $peminjaman->status = 'dibatalkan'; // Mengubah status menjadi "Batal"
->>>>>>> 6c57e3968aeca547fbf951490827959ae281146f
+    $peminjaman->status = 'dibatalkan';
     $peminjaman->save();
 
     return redirect()->route('peminjam.peminjaman');
@@ -230,14 +236,7 @@ public function update(Request $request, $id)
 {
     $peminjaman = Peminjaman::findOrFail($id);
 
-<<<<<<< HEAD
-    $peminjaman->status = 'Dibatalkan';
-=======
-    // Perform any necessary validation here
-
-    // Update the peminjaman status
     $peminjaman->status = 'dibatalkan';
->>>>>>> 6c57e3968aeca547fbf951490827959ae281146f
     $peminjaman->save();
 
     return redirect()->route('peminjam.peminjaman');

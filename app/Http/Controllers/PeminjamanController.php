@@ -41,6 +41,20 @@ class PeminjamanController extends Controller
             'jenisaset'         => 'required|in:barang,transportasi,ruangan',
             'aset'              => 'required',
             'jumlahaset'        => 'required|integer|min:1',
+        ], [
+            'nama.required'                 => 'Nama harus diisi!',
+            'nama.string'                   => 'Nama harus berupa teks!',
+            'nama.max'                      => 'Nama maksimal 50 karakter!',
+            'nim.required'                  => 'NIM harus diisi!',
+            'nim.string'                    => 'NIM harus berupa angka!',
+            'nim.max'                       => 'NIM maksimal 16 karakter!',
+            'jenisaset.required'            => 'Jenis aset harus diisi!',
+            'tanggalpeminjaman.required'    => 'Isi Tanggal Peminjaman!',
+            'jumlahaset.required'           => 'Isi Jumlah Aset!',
+            'lampiran.required'             => 'Lampiran Tidak Boleh Kosong!',
+            'lampiran.image'                => 'Lampiran harus berupa gambar!',
+            'lampiran.mimes'                => 'Lampiran gambar yang diperbolehkan: jpeg, png, jpg, gif, pdf, docx!',
+            'lampiran.max'                  => 'Ukuran Lampiran Terlalu Besar, max:2048!',
         ]);
 
         if ($validator->fails()) {
@@ -111,6 +125,20 @@ class PeminjamanController extends Controller
             'jumlahaset'        => 'required|integer|min:1',
             'status'            => 'required|in:dipinjam,dikembalikan',
             'lampiran'          => 'nullable|file|mimes:jpg,jpeg,png,pdf,doc,docx|max:2048',
+        ], [
+            'nama.required'                 => 'Nama harus diisi!',
+            'nama.string'                   => 'Nama harus berupa teks!',
+            'nama.max'                      => 'Nama maksimal 50 karakter!',
+            'nim.required'                  => 'NIM harus diisi!',
+            'nim.string'                    => 'NIM harus berupa angka!',
+            'nim.max'                       => 'NIM maksimal 16 karakter!',
+            'jenisaset.required'            => 'Jenis aset harus diisi!',
+            'tanggalpeminjaman.required'    => 'Isi Tanggal Peminjaman!',
+            'jumlahaset.required'           => 'Isi Jumlah Aset!',
+            'lampiran.required'             => 'Lampiran Tidak Boleh Kosong!',
+            'lampiran.image'                => 'Lampiran harus berupa gambar!',
+            'lampiran.mimes'                => 'Lampiran gambar yang diperbolehkan: jpeg, png, jpg, gif, pdf, docx!',
+            'lampiran.max'                  => 'Ukuran Lampiran Terlalu Besar, max:2048!',
         ]);
 
         if ($validator->fails()) {

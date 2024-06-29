@@ -2,7 +2,7 @@
 
 @section('content')
 <style>
-    .error-message {
+    .text-danger {
         color: red;
     }
 </style>
@@ -20,7 +20,7 @@
                             <label for="nama">Nama</label>
                             <input type="text" name="nama" class="form-control" id="nama" placeholder="Masukkan Nama" value="{{ old('nama') }}">
                             @error('nama')
-                                <small class="error-message">{{ $message }}</small>
+                                <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
                         <div class="form-group">
@@ -32,21 +32,21 @@
                                 <option {{ old('prodi') == 'Agroindustri' ? 'selected' : '' }}>Agroindustri</option>
                             </select>
                             @error('prodi')
-                                <small class="error-message">{{ $message }}</small>
+                                <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
                         <div class="form-group">
                             <label for="nim">NIM</label>
                             <input type="text" name="nim" class="form-control" id="nim" placeholder="Masukkan NIM" value="{{ old('nim') }}" pattern="[0-9]*" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
                             @error('nim')
-                                <small class="error-message">{{ $message }}</small>
+                                <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
                         <div class="form-group">
                             <label for="nohp">No HP</label>
                             <input type="text" name="nohp" class="form-control" id="nohp" placeholder="Masukkan No HP" value="{{ old('nohp') }}" pattern="[0-9]*" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
                             @error('nohp')
-                                <small class="error-message">{{ $message }}</small>
+                                <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
                         <div class="form-group">
@@ -58,21 +58,21 @@
                                 <option {{ old('organisasi') == 'Mapala' ? 'selected' : '' }}>Mapala</option>
                             </select>
                             @error('organisasi')
-                                <small class="error-message">{{ $message }}</small>
+                                <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
                         <div class="form-group">
                             <label for="email2">Email</label>
                             <input type="email" name="email" class="form-control" id="email2" placeholder="Masukkan Email" value="{{ old('email') }}">
                             @error('email')
-                                <small class="error-message">{{ $message }}</small>
+                                <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
                         <div class="form-group">
                             <label for="password">Password (Isi menggunakan huruf besar dan kecil minimal 8 huruf)</label>
                             <input type="password" name="password" class="form-control" id="password" placeholder="Masukkan Password">
                             @error('password')
-                                <small class="error-message">{{ $message }}</small>
+                                <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
                         <div class="form-group">
@@ -84,7 +84,7 @@
                                 <option {{ old('role') == 'peminjam' ? 'selected' : '' }}>peminjam</option>
                             </select>
                             @error('role')
-                                <small class="error-message">{{ $message }}</small>
+                                <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
                     </div>

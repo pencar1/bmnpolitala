@@ -16,14 +16,14 @@
                             <label for="nama">Nama</label>
                             <input type="text" name="nama" class="form-control" id="nama" value="{{ old('nama') }}" placeholder="Masukkan Nama">
                             @error('nama')
-                                <small>{{ $message }}</small>
+                                <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="form-group">
                             <label for="nim">NIM</label>
                             <input type="text" name="nim" class="form-control" id="nim" value="{{ old('nim') }}" placeholder="Masukkan NIM">
                             @error('nim')
-                                <small>{{ $message }}</small>
+                                <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="form-group">
@@ -34,7 +34,7 @@
                                 <option value="transportasi" {{ old('jenisaset') == 'transportasi' ? 'selected' : '' }}>Transportasi</option>
                             </select>
                             @error('jenisaset')
-                                <small>{{ $message }}</small>
+                                <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="form-group">
@@ -52,28 +52,28 @@
                                 @endif
                             </select>
                             @error('aset')
-                                <small>{{ $message }}</small>
+                                <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="form-group">
                             <label for="tanggalpeminjaman">Tanggal Peminjaman</label>
                             <input type="date" name="tanggalpeminjaman" class="form-control" id="tanggalpeminjaman" value="{{ old('tanggalpeminjaman') }}" placeholder="Masukkan Tanggal Peminjaman" min="{{ date('Y-m-d') }}">
                             @error('tanggalpeminjaman')
-                                <small>{{ $message }}</small>
+                                <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="form-group">
                             <label for="jumlahaset">Jumlah Aset</label>
                             <input type="number" name="jumlahaset" class="form-control" id="jumlahaset" min="1" oninput="this.value = this.value.replace(/[^0-9]/g, '')" value="{{ old('jumlahaset') }}" placeholder="Masukkan Jumlah Aset">
                             @error('jumlahaset')
-                                <small>{{ $message }}</small>
+                                <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="form-group">
                             <label for="lampiran">Lampiran</label>
                             <input type="file" name="lampiran" class="form-control" id="lampiran">
                             @error('lampiran')
-                                <small>{{ $message }}</small>
+                                <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
                     </div>

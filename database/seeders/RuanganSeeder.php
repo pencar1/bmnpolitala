@@ -42,20 +42,6 @@ class RuanganSeeder extends Seeder
         ]);
 
         Ruangan::create([
-            'namaruangan'       => 'Ruang Lab Komputer',
-            'stokruangan'       => '1',
-            'deskripsiruangan'  => 'Muat 30 kursi',
-            'foto'              => 'lab komputer.jpg',
-        ]);
-
-        Ruangan::create([
-            'namaruangan'       => 'Ruang Kelas',
-            'stokruangan'       => '1',
-            'deskripsiruangan'  => 'Muat 50 kursi',
-            'foto'              => 'classroom.jpg',
-        ]);
-
-        Ruangan::create([
             'namaruangan'       => 'Ruang Aula GKT Lantai 1',
             'stokruangan'       => '1',
             'deskripsiruangan'  => 'Muat 250 kursi',

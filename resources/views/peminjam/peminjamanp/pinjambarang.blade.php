@@ -23,14 +23,14 @@
                                 <input type="text" name="aset" class="form-control" id="aset" value="Barang tidak ditemukan" readonly style="font-weight: bold; color: black;">
                             @endif
                             @error('aset')
-                                <small>{{ $message }}</small>
+                                <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
                         <div class="form-group">
                             <label for="tanggalpeminjaman">Tanggal Peminjaman</label>
                             <input type="date" name="tanggalpeminjaman" class="form-control" id="tanggalpeminjaman" value="{{ old('tanggalpeminjaman') }}" placeholder="Masukkan Tanggal Peminjaman" min="{{ date('Y-m-d') }}">
                             @error('tanggalpeminjaman')
-                                <small>{{ $message }}</small>
+                                <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
 
@@ -38,7 +38,7 @@
                             <label for="jumlahaset">Jumlah Aset</label>
                             <input type="number" name="jumlahaset" class="form-control" id="jumlahaset" min="1" oninput="this.value = this.value.replace(/[^0-9]/g, '')" value="{{ old('jumlahaset') }}" placeholder="Masukkan Jumlah Aset">
                             @error('jumlahaset')
-                                <small>{{ $message }}</small>
+                                <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
 
@@ -46,13 +46,13 @@
                             <label for="lampiran">Lampiran</label>
                             <input type="file" name="lampiran" class="form-control" id="lampiran">
                             @error('lampiran')
-                                <small>{{ $message }}</small>
+                                <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
                     </div>
                     <div class="card-action">
                         <button type="button" class="btn btn-success saveButton">Simpan</button>
-                        <button type="button" class="btn btn-danger" onclick="window.location.href='{{ route('peminjam.peminjaman') }}'">Batal</button>
+                        <button type="button" class="btn btn-danger" onclick="window.location.href='{{ route('peminjam.barang') }}'">Batal</button>
                     </div>
                 </div>
             </form>

@@ -119,7 +119,9 @@
                 @elseif (in_array(pathinfo($data->lampiran, PATHINFO_EXTENSION), ['pdf']))
                     <iframe src="{{ asset('lampiran/' . $data->lampiran) }}" width="100%" height="500px"></iframe>
                 @elseif (in_array(pathinfo($data->lampiran, PATHINFO_EXTENSION), ['doc', 'docx']))
-                    <iframe src="https://docs.google.com/viewer?url={{ urlencode(asset('lampiran/' . $data->lampiran)) }}&embedded=true" width="100%" height="500px"></iframe>
+                    <object data="{{ asset('lampiran/' . $data->lampiran) }}" type="application/vnd.openxmlformats-officedocument.wordprocessingml.document" width="100%" height="500px">
+                        <p>Tidak dapat menampilkan file. Anda bisa <a href="{{ asset('lampiran/' . $data->lampiran) }}">unduh file</a> untuk melihatnya.</p>
+                    </object>
                 @else
                     <p>File tidak dapat ditampilkan.</p>
                 @endif

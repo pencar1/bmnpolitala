@@ -2,7 +2,7 @@
 
 @section('content')
 <style>
-    .error-message {
+    .text-danger {
         color: red;
     }
 </style>
@@ -21,7 +21,7 @@
                             <label for="nama">Nama</label>
                             <input type="text" name="nama" value="{{ $data->nama }}" class="form-control" id="nama" placeholder="Masukkan Nama">
                             @error('nama')
-                                 <small class="error-message">{{ $message }}</small>
+                                <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
                         <div class="form-group">
@@ -36,14 +36,14 @@
                             <label for="nim">NIM</label>
                             <input type="text" name="nim" value="{{ $data->nim }}" class="form-control" id="nim" placeholder="Masukkan NIM" value="{{ old('nim') }}" pattern="[0-9]*" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
                             @error('nim')
-                                 <small class="error-message">{{ $message }}</small>
+                                <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
                         <div class="form-group">
                             <label for="nohp">No HP</label>
                             <input type="text" name="nohp" value="{{ $data->nohp }}" class="form-control" id="nohp" placeholder="Masukkan No HP" value="{{ old('nohp') }}" pattern="[0-9]*" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
                             @error('nohp')
-                                 <small class="error-message">{{ $message }}</small>
+                                <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
                         <div class="form-group">
@@ -54,21 +54,21 @@
                                 <option value="mapala" {{ $data->organisasi == 'mapala' ? 'selected' : '' }}>Mapala</option>
                             </select>
                             @error('organisasi')
-                                 <small class="error-message">{{ $message }}</small>
+                                <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
                         <div class="form-group">
                             <label for="email2">Email</label>
                             <input type="email" name="email" value="{{ $data->email }}" class="form-control" id="email2" placeholder="Masukkan Email">
                             @error('email')
-                                 <small class="error-message">{{ $message }}</small>
+                                <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
                         <div class="form-group">
                             <label for="password">Password (Isi menggunakan huruf besar dan kecil minimal 8 huruf)</label>
                             <input type="password" name="password" class="form-control" id="password" placeholder="Masukkan Password">
                             @error('password')
-                                 <small class="error-message">{{ $message }}</small>
+                                <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
                         <div class="form-group">
@@ -79,7 +79,7 @@
                                 <option value="peminjam" {{ $data->role == 'peminjam' ? 'selected' : '' }}>Peminjam</option>
                             </select>
                             @error('role')
-                                 <small class="error-message">{{ $message }}</small>
+                                <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
                     </div>

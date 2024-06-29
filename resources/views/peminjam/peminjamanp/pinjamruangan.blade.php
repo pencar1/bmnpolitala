@@ -43,8 +43,8 @@
                         </div>
                     </div>
                     <div class="card-action">
-                        <button type="button" class="btn btn-danger" onclick="window.location.href='{{ route('peminjam.peminjaman') }}'">Batal</button>
-                        <button type="submit" class="btn btn-success">Simpan</button>
+                        <button type="submit" class="btn btn-success saveButton">Simpan</button>
+                        <button type="button" class="btn btn-danger" onclick="window.location.href='{{ route('peminjam.ruangan') }}'">Batal</button>
                     </div>
                 </div>
             </form>

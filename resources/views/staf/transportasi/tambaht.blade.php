@@ -14,28 +14,28 @@
                     <div class="card-body">
                         <div class="form-group">
                             <label for="namatransportasi">Nama Transportasi</label>
-                            <input type="text" name="namatransportasi" class="form-control" id="namatransportasi" placeholder="Masukkan Nama">
+                            <input type="text" name="namatransportasi" class="form-control" id="namatransportasi" value="{{ old('namatransportasi') }}" placeholder="Masukkan Nama">
                             @error('namatransportasi')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="form-group">
                             <label for="merktransportasi">Merk Transportasi</label>
-                            <input type="text" name="merktransportasi" class="form-control" id="merktransportasi" placeholder="Masukkan Merk">
+                            <input type="text" name="merktransportasi" class="form-control" id="merktransportasi" value="{{ old('merktransportasi') }}" placeholder="Masukkan Merk">
                             @error('merktransportasi')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="form-group">
                             <label for="stoktransportasi">Stok Transportasi</label>
-                            <input type="text" name="stoktransportasi" class="form-control" id="stoktransportasi" placeholder="Masukkan Stok">
+                            <input type="number" name="stoktransportasi" class="form-control" id="stoktransportasi" oninput="this.value = this.value.replace(/[^0-9]/g, '')" value="{{ old('stoktransportsi') }}" placeholder="Masukkan Stok">
                             @error('stoktransportasi')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="form-group">
                             <label for="deskripsitransportasi">Deskripsi Transportasi</label>
-                            <textarea name="deskripsitransportasi" class="form-control" id="deskripsitransportasi" placeholder="Masukkan Deskripsi" rows="5"></textarea>
+                            <textarea name="deskripsitransportasi" class="form-control" id="deskripsitransportasi" value="{{ old('deskripsitransportasi') }}" placeholder="Masukkan Deskripsi" rows="5"></textarea>
                             @error('deskripsitransportasi')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror

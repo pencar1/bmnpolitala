@@ -14,14 +14,14 @@
                     <div class="card-body">
                         <div class="form-group">
                             <label for="namaruangan">Nama Ruangan</label>
-                            <input type="text" name="namaruangan" class="form-control" id="namaruangan" placeholder="Masukkan Nama">
+                            <input type="text" name="namaruangan" class="form-control" id="namaruangan" value="{{ old('namaruangan') }}" placeholder="Masukkan Nama">
                             @error('namaruangan')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="form-group">
                             <label for="deskripsiruangan">Deskripsi Ruangan</label>
-                            <textarea name="deskripsiruangan" class="form-control" id="deskripsiruangan" placeholder="Masukkan Deskripsi" rows="5"></textarea>
+                            <textarea name="deskripsiruangan" class="form-control" id="deskripsiruangan" value="{{ old('deskripsiruangan') }}" placeholder="Masukkan Deskripsi" rows="5"></textarea>
                             @error('deskripsiruangan')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror

@@ -44,21 +44,5 @@ class BarangSeeder extends Seeder
             'deskripsibarang'   => 'Palu biasa',
             'foto'              => 'palu.jpg',
         ]);
-
-        Barang::create([
-            'namabarang'        => 'Paku',
-            'merkbarang'        => 'Krisbow',
-            'stokbarang'        => '5000',
-            'deskripsibarang'   => 'Paku biasa',
-            'foto'              => 'paku.jpg',
-        ]);
-
-        Barang::create([
-            'namabarang'        => 'Palu payung',
-            'merkbarang'        => 'Krisbow',
-            'stokbarang'        => '5000',
-            'deskripsibarang'   => 'Palu payung',
-            'foto'              => 'palu payung.jpg',
-        ]);
     }
 }

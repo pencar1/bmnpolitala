@@ -17,42 +17,42 @@
                             <label for="nama">Nama</label>
                             <input type="text" name="nama" class="form-control" id="nama" value="{{ old('nama', $data->nama) }}" placeholder="Masukkan Nama" readonly style="font-weight: bold; color: black;">
                             @error('nama')
-                                <small>{{ $message }}</small>
+                                <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="form-group">
                             <label for="nim">NIM</label>
                             <input type="text" name="nim" class="form-control" id="nim" value="{{ old('nim', $data->nim) }}" placeholder="Masukkan NIM" readonly style="font-weight: bold; color: black;">
                             @error('nim')
-                                <small>{{ $message }}</small>
+                                <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="form-group">
                             <label for="jenisaset">Jenis Aset</label>
                             <input type="text" name="jenisaset" class="form-control" id="jenisaset" value="{{ old('jenisaset', $jenisAset) }}" readonly style="font-weight: bold; color: black;">
                             @error('jenisaset')
-                                <small>{{ $message }}</small>
+                                <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="form-group">
                             <label for="namaaset">Nama Aset</label>
                             <input type="text" name="namaaset" class="form-control" id="namaaset" value="{{ old('namaaset', $namaAset) }}" readonly style="font-weight: bold; color: black;">
                             @error('namaaset')
-                                <small>{{ $message }}</small>
+                                <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="form-group">
                             <label for="tanggalpeminjaman">Tanggal Peminjaman</label>
                             <input type="date" name="tanggalpeminjaman" class="form-control" id="tanggalpeminjaman" value="{{ old('tanggalpeminjaman', $data->tanggalpeminjaman) }}" placeholder="Masukkan Tanggal Peminjaman" min="{{ date('Y-m-d') }}">
                             @error('tanggalpeminjaman')
-                                <small>{{ $message }}</small>
+                                <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="form-group">
                             <label for="jumlahaset">Jumlah Aset</label>
                             <input type="number" name="jumlahaset" class="form-control" id="jumlahaset" min="1" oninput="this.value = this.value.replace(/[^0-9]/g, '')" value="{{ old('jumlahaset', $data->jumlahaset) }}" placeholder="Masukkan Jumlah Aset">
                             @error('jumlahaset')
-                                <small>{{ $message }}</small>
+                                <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="form-group">
@@ -68,9 +68,8 @@
                                     @endif
                                 </div>
                             @endif
-                            <input type="file" name="lampiran" class="form-control" id="lampiran">
                             @error('lampiran')
-                                <small>{{ $message }}</small>
+                                <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="form-group">
@@ -80,7 +79,7 @@
                                 <option value="dikembalikan" {{ $data->status == 'dikembalikan' ? 'selected' : '' }}>Dikembalikan</option>
                             </select>
                             @error('status')
-                                <small>{{ $message }}</small>
+                                <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
                     </div>
@@ -110,7 +109,9 @@
                 @elseif (in_array(pathinfo($data->lampiran, PATHINFO_EXTENSION), ['pdf']))
                     <iframe src="{{ asset('lampiran/' . $data->lampiran) }}" width="100%" height="500px"></iframe>
                 @elseif (in_array(pathinfo($data->lampiran, PATHINFO_EXTENSION), ['doc', 'docx']))
-                    <iframe src="https://view.officeapps.live.com/op/embed.aspx?src={{ urlencode(asset('lampiran/' . $data->lampiran)) }}" width="100%" height="500px"></iframe>
+                    <object data="{{ asset('lampiran/' . $data->lampiran) }}" type="application/vnd.openxmlformats-officedocument.wordprocessingml.document" width="100%" height="500px">
+                        <p>Tidak dapat menampilkan file. Anda bisa <a href="{{ asset('lampiran/' . $data->lampiran) }}">unduh file</a> untuk melihatnya.</p>
+                    </object>
                 @else
                     <p>File tidak dapat ditampilkan.</p>
                 @endif
