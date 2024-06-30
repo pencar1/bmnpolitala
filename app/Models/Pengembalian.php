@@ -27,7 +27,7 @@ class Pengembalian extends Model
     {
         return $this->belongsTo(Peminjaman::class, 'idpeminjaman', 'idpeminjaman');
     }
-    
+
     public function user()
     {
         return $this->belongsTo(User::class, 'iduser', 'id');
@@ -73,6 +73,5 @@ class Pengembalian extends Model
         }
         return 'Aset tidak ditemukan';
     }
-
 }
 

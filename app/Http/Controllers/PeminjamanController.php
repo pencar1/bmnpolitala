@@ -150,7 +150,6 @@ class PeminjamanController extends Controller
             return redirect()->route('admin.peminjaman')->withErrors('Data tidak ditemukan.');
         }
 
-        // Simpan data yang diubah
         $peminjaman->nama = $request->input('nama');
         $peminjaman->nim = $request->input('nim');
         $peminjaman->tanggalpeminjaman = $request->input('tanggalpeminjaman');
@@ -164,18 +163,17 @@ class PeminjamanController extends Controller
             $peminjaman->lampiran = $lampiranName;
         }
 
-        // Simpan perubahan pada data peminjaman
         $peminjaman->save();
 
-        // Jika status adalah 'dikembalikan', tambahkan data ke tabel pengembalian dan kembalikan stok aset
         if ($request->input('status') == 'dikembalikan') {
-            // Buat entri baru di tabel pengembalian
             Pengembalian::create([
                 'idpeminjaman'        => $peminjaman->idpeminjaman,
                 'tanggalpengembalian' => now(),
+                'idbarang'            => $peminjaman->idbarang ?? null,
+                'idtransportasi'      => $peminjaman->idtransportasi ?? null,
+                'idruangan'           => $peminjaman->idruangan ?? null,
             ]);
 
-            // Mendapatkan jenis aset yang terkait dengan peminjaman
             $jenisaset = null;
             if ($peminjaman->idbarang) {
                 $jenisaset = 'barang';
@@ -185,7 +183,6 @@ class PeminjamanController extends Controller
                 $jenisaset = 'ruangan';
             }
 
-            // Mengembalikan stok aset yang terkait dengan peminjaman yang dikembalikan
             switch ($jenisaset) {
                 case 'barang':
                     $barang = Barang::find($peminjaman->idbarang);
@@ -218,7 +215,6 @@ class PeminjamanController extends Controller
     {
         $peminjaman = Peminjaman::find($id);
         if ($peminjaman) {
-            // Mendapatkan jenis aset yang terkait dengan peminjaman
             $jenisaset = null;
             if ($peminjaman->idbarang) {
                 $jenisaset = 'barang';
@@ -228,7 +224,6 @@ class PeminjamanController extends Controller
                 $jenisaset = 'ruangan';
             }
 
-            // Mengembalikan stok aset yang terkait dengan peminjaman yang akan dihapus
             if ($jenisaset === 'barang') {
                 $barang = Barang::find($peminjaman->idbarang);
                 if ($barang) {
@@ -249,7 +244,6 @@ class PeminjamanController extends Controller
                 }
             }
 
-            // Hapus peminjaman
             if ($peminjaman->lampiran) {
                 $file_path = public_path('lampiran/' . $peminjaman->lampiran);
                 if (file_exists($file_path)) {
