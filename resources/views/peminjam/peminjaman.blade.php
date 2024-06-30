@@ -35,7 +35,11 @@
                                         <td>{{ $d->getNama() }}</td>
                                         <td>{{ $d->getAsetName() }}</td>
                                         <td>{{ \Carbon\Carbon::parse($d->tanggalpeminjaman)->format('d-m-Y') }}</td>
-                                        <td>{{ $d->jumlahaset }}</td>
+                                        @if($d->getJenisAset() == 'barang' || $d->getJenisAset() == 'transportasi')
+                                            <td>{{ $d->jumlahaset }}</td>
+                                                @else
+                                                <td>-</td>
+                                        @endif
                                         <td>{{ $d->status }}</td>
                                         <td>
                                             <!-- Tombol Lihat Detail (Modal) -->
@@ -77,10 +81,12 @@
                                                         <label>Tanggal Peminjaman</label>
                                                         <input type="text" class="form-control" value="{{ \Carbon\Carbon::parse($d->tanggalpeminjaman)->format('d-m-Y') }}" readonly style="font-weight: bold; color: black;">
                                                     </div>
-                                                    <div class="form-group">
-                                                        <label>Jumlah Dipinjam</label>
-                                                        <input type="text" class="form-control" value="{{ $d->jumlahaset }}" readonly style="font-weight: bold; color: black;">
-                                                    </div>
+                                                    @if($d->getJenisAset() == 'barang' || $d->getJenisAset() == 'transportasi')
+                                                        <div class="form-group">
+                                                            <label>Jumlah Dipinjam</label>
+                                                            <input type="text" class="form-control" value="{{ $d->jumlahaset }}" readonly style="font-weight: bold; color: black;">
+                                                        </div>
+                                                    @endif
                                                     <div class="form-group">
                                                         <label>Status</label>
                                                         <input type="text" class="form-control" value="{{ $d->status }}" readonly style="font-weight: bold; color: black;">

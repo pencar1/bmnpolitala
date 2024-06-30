@@ -117,7 +117,11 @@
                                         <td>{{ $d->nim}}</td>
                                         <td>{{ $d->getAsetName() }}</td>
                                         <td>{{ \Carbon\Carbon::parse($d->tanggalpeminjaman)->format('d-m-Y') }}</td>
-                                        <td>{{ $d->jumlahaset }}</td>
+                                        @if($d->getJenisAset() == 'barang' || $d->getJenisAset() == 'transportasi')
+                                            <td>{{ $d->jumlahaset }}</td>
+                                                @else
+                                                <td>-</td>
+                                        @endif
                                         <td>{{ $d->status }}</td>
                                         <td>
                                             <div class="form-button-action">

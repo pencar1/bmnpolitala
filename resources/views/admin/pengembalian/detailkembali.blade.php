@@ -55,13 +55,15 @@
                                 <small>{{ $message }}</small>
                             @enderror
                         </div>
-                        <div class="form-group">
-                            <label for="jumlahaset">Jumlah Aset</label>
-                            <input type="number" name="jumlahaset" class="form-control" id="jumlahaset" min="1" oninput="this.value = this.value.replace(/[^0-9]/g, '')" value="{{ old('jumlahaset', $peminjaman->jumlahaset) }}" readonly style="font-weight: bold; color: black;">
-                            @error('jumlahaset')
-                                <small>{{ $message }}</small>
-                            @enderror
-                        </div>
+                        @if($peminjaman->getJenisAset() == 'barang' || $peminjaman->getJenisAset() == 'transportasi')
+                            <div class="form-group">
+                                <label for="jumlahaset">Jumlah Aset</label>
+                                <input type="number" name="jumlahaset" class="form-control" id="jumlahaset" min="1" value="{{ old('jumlahaset', $peminjaman->jumlahaset) }}" readonly style="font-weight: bold; color: black;">
+                                @error('jumlahaset')
+                                    <small>{{ $message }}</small>
+                                @enderror
+                            </div>
+                        @endif
                         <div class="form-group">
                             <label for="lampiran">Lampiran</label>
                             @if ($peminjaman->lampiran)
