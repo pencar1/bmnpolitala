@@ -28,13 +28,6 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="nohp">No HP</label>
-                            <input type="text" name="nohp" class="form-control" id="nohp" value="{{ old('nohp', $peminjaman->user->nohp ?? '') }}" readonly style="font-weight: bold; color: black;">
-                            @error('nohp')
-                                <small>{{ $message }}</small>
-                            @enderror
-                        </div>
-                        <div class="form-group">
                             <label for="jenisaset">Jenis Aset</label>
                             <input type="text" name="jenisaset" class="form-control" id="jenisaset" value="{{ old('jenisaset', $peminjaman->getJenisAset()) }}" readonly style="font-weight: bold; color: black;">
                             @error('jenisaset')
