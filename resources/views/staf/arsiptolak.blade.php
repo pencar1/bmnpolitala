@@ -12,11 +12,7 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="d-flex align-items-center">
-                            <h4 class="card-title">User</h4>
-                            <a href="{{ route('staf.peminjaman.tambah') }}" class="btn btn-primary btn-round ml-auto">
-                                <i class="fa fa-plus"></i>
-                                Tambah
-                            </a>
+                            <h4 class="card-title">Arsip Di Tolak</h4>
                         </div>
                     </div>
                     <div class="card-body">
