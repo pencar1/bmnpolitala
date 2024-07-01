@@ -14,6 +14,20 @@
                     </div>
                     <div class="card-body">
                         <div class="form-group">
+                            <label for="nama">Nama</label>
+                            <input type="text" name="nama" class="form-control" id="nama" value="{{ old('nama', $data->nama) }}" placeholder="Masukkan Nama" readonly style="font-weight: bold; color: black;">
+                            @error('nama')
+                                <small>{{ $message }}</small>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="nim">NIM</label>
+                            <input type="text" name="nim" class="form-control" id="nim" value="{{ old('nim', $data->nim) }}" placeholder="Masukkan NIM" readonly style="font-weight: bold; color: black;">
+                            @error('nim')
+                                <small>{{ $message }}</small>
+                            @enderror
+                        </div>
+                        <div class="form-group">
                             <label for="jenisaset">Jenis Aset</label>
                             <input type="text" name="jenisaset" class="form-control" id="jenisaset" value="{{ old('jenisaset', $jenisAset) }}" readonly style="font-weight: bold; color: black;">
                             @error('jenisaset')
@@ -29,18 +43,20 @@
                         </div>
                         <div class="form-group">
                             <label for="tanggalpeminjaman">Tanggal Peminjaman</label>
-                            <input type="date" name="tanggalpeminjaman" class="form-control" id="tanggalpeminjaman" value="{{ old('tanggalpeminjaman', $data->tanggalpeminjaman) }}" placeholder="Masukkan Tanggal Peminjaman" min="{{ date('Y-m-d') }}">
+                            <input type="date" name="tanggalpeminjaman" class="form-control" id="tanggalpeminjaman" value="{{ old('tanggalpeminjaman', $data->tanggalpeminjaman) }}" placeholder="Masukkan Tanggal Peminjaman" min="{{ date('Y-m-d') }}" readonly style="font-weight: bold; color: black;">
                             @error('tanggalpeminjaman')
                                 <small>{{ $message }}</small>
                             @enderror
                         </div>
-                        <div class="form-group">
-                            <label for="jumlahaset">Jumlah Aset</label>
-                            <input type="number" name="jumlahaset" class="form-control" id="jumlahaset" min="1" oninput="this.value = this.value.replace(/[^0-9]/g, '')" value="{{ old('jumlahaset', $data->jumlahaset) }}" placeholder="Masukkan Jumlah Aset">
-                            @error('jumlahaset')
-                                <small>{{ $message }}</small>
-                            @enderror
-                        </div>
+                        @if($data->getJenisAset() == 'barang' || $data->getJenisAset() == 'transportasi' || $data->getJenisAset() == 'ruangan')
+                            <div class="form-group">
+                                <label for="jumlahaset">Jumlah Aset</label>
+                                <input type="number" name="jumlahaset" class="form-control" id="jumlahaset" min="1" value="{{ old('jumlahaset', $data->jumlahaset) }}" readonly style="font-weight: bold; color: black;">
+                                @error('jumlahaset')
+                                    <small>{{ $message }}</small>
+                                @enderror
+                            </div>
+                        @endif
                         <div class="form-group">
                             <label for="lampiran">Lampiran</label>
                             @if ($data->lampiran)
@@ -59,14 +75,21 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="exampleFormControlSelect1">Status</label>
-                            <select class="form-control" id="exampleFormControlSelect1" name="status">
+                            <label for="statusSelect">Status</label>
+                            <select class="form-control" id="statusSelect" name="status" onchange="handleStatusChange()">
                                 <option value="diproses" {{ $data->status == 'diproses' ? 'selected' : '' }}>Diproses</option>
                                 <option value="ditolak" {{ $data->status == 'ditolak' ? 'selected' : '' }}>Ditolak</option>
                                 <option value="disetujui" {{ $data->status == 'disetujui' ? 'selected' : '' }}>Disetujui</option>
                                 <option value="dipinjam" {{ $data->status == 'dipinjam' ? 'selected' : '' }}>Dipinjam</option>
                             </select>
                             @error('status')
+                                <small>{{ $message }}</small>
+                            @enderror
+                        </div>
+                        <div class="form-group" id="alasanPenolakanGroup" style="display: none;">
+                            <label for="alasanpenolakan">Alasan Penolakan</label>
+                            <textarea class="form-control" id="alasanpenolakan" name="alasanpenolakan" rows="5">{{ old('alasanpenolakan', $data->alasanpenolakan ?? '') }}</textarea>
+                            @error('alasanpenolakan')
                                 <small>{{ $message }}</small>
                             @enderror
                         </div>
@@ -107,5 +130,66 @@
         </div>
     </div>
 </div>
+
+<script>
+    function handleStatusChange() {
+        toggleAlasanPenolakan();
+        toggleDipinjamOption();
+        toggleStatusOptions();
+    }
+
+    function toggleAlasanPenolakan() {
+        var status = document.getElementById("statusSelect").value;
+        var alasanPenolakanGroup = document.getElementById("alasanPenolakanGroup");
+        if (status === "ditolak") {
+            alasanPenolakanGroup.style.display = "block";
+        } else {
+            alasanPenolakanGroup.style.display = "none";
+        }
+    }
+
+    function toggleDipinjamOption() {
+        var statusSelect = document.getElementById("statusSelect");
+        var statusValue = statusSelect.value;
+        var dipinjamOption = statusSelect.querySelector('option[value="dipinjam"]');
+
+        if (statusValue !== "disetujui") {
+            dipinjamOption.style.display = "none";
+        } else {
+            dipinjamOption.style.display = "block";
+        }
+    }
+
+    function toggleStatusOptions() {
+        var statusSelect = document.getElementById("statusSelect");
+        var statusValue = statusSelect.value;
+        var options = statusSelect.querySelectorAll('option');
+
+        options.forEach(function(option) {
+            if (option.value === "diproses") {
+                option.style.display = "none";
+            } else if (option.value === "dipinjam") {
+                if (statusValue === "disetujui") {
+                    option.style.display = "block";
+                } else {
+                    option.style.display = "none";
+                }
+            } else {
+                option.style.display = "block";
+            }
+
+            if (statusValue === "disetujui") {
+                if (option.value === "diproses") {
+                    option.style.display = "none";
+                }
+            }
+        });
+    }
+
+    // Call function on page load to set initial state
+    window.onload = function() {
+        handleStatusChange();
+    };
+</script>
 
 @endsection

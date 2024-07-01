@@ -11,20 +11,20 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('pengembalians', function (Blueprint $table) {
-            if (Schema::hasColumn('pengembalians', 'idbarang')) {
-                $table->dropForeign(['idbarang']);
-                $table->dropColumn('idbarang');
-            }
-            if (Schema::hasColumn('pengembalians', 'idtransportasi')) {
-                $table->dropForeign(['idtransportasi']);
-                $table->dropColumn('idtransportasi');
-            }
-            if (Schema::hasColumn('pengembalians', 'idruangan')) {
-                $table->dropForeign(['idruangan']);
-                $table->dropColumn('idruangan');
-            }
-        });
+        // Schema::table('pengembalians', function (Blueprint $table) {
+        //     if (Schema::hasColumn('pengembalians', 'idbarang')) {
+        //         $table->dropForeign(['idbarang']);
+        //         $table->dropColumn('idbarang');
+        //     }
+        //     if (Schema::hasColumn('pengembalians', 'idtransportasi')) {
+        //         $table->dropForeign(['idtransportasi']);
+        //         $table->dropColumn('idtransportasi');
+        //     }
+        //     if (Schema::hasColumn('pengembalians', 'idruangan')) {
+        //         $table->dropForeign(['idruangan']);
+        //         $table->dropColumn('idruangan');
+        //     }
+        // });
     }
 
     /**
@@ -32,14 +32,14 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('pengembalians', function (Blueprint $table) {
-            $table->unsignedInteger('idbarang')->nullable();
-            $table->unsignedInteger('idtransportasi')->nullable();
-            $table->unsignedInteger('idruangan')->nullable();
+        // Schema::table('pengembalians', function (Blueprint $table) {
+        //     $table->unsignedInteger('idbarang')->nullable();
+        //     $table->unsignedInteger('idtransportasi')->nullable();
+        //     $table->unsignedInteger('idruangan')->nullable();
 
-            $table->foreign('idbarang')->references('idbarang')->on('barangs')->onDelete('cascade');
-            $table->foreign('idtransportasi')->references('idtransportasi')->on('transportasis')->onDelete('cascade');
-            $table->foreign('idruangan')->references('idruangan')->on('ruangans')->onDelete('cascade');
-        });
+        //     $table->foreign('idbarang')->references('idbarang')->on('barangs')->onDelete('cascade');
+        //     $table->foreign('idtransportasi')->references('idtransportasi')->on('transportasis')->onDelete('cascade');
+        //     $table->foreign('idruangan')->references('idruangan')->on('ruangans')->onDelete('cascade');
+        // });
     }
 };

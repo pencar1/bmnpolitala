@@ -48,13 +48,15 @@
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
-                        <div class="form-group">
-                            <label for="jumlahaset">Jumlah Aset</label>
-                            <input type="number" name="jumlahaset" class="form-control" id="jumlahaset" min="1" oninput="this.value = this.value.replace(/[^0-9]/g, '')" value="{{ old('jumlahaset', $data->jumlahaset) }}" placeholder="Masukkan Jumlah Aset">
-                            @error('jumlahaset')
-                                <div class="text-danger">{{ $message }}</div>
-                            @enderror
-                        </div>
+                        @if($data->getJenisAset() == 'barang' || $data->getJenisAset() == 'transportasi' || $data->getJenisAset() == 'ruangan')
+                            <div class="form-group">
+                                <label for="jumlahaset">Jumlah Aset</label>
+                                <input type="number" name="jumlahaset" class="form-control" id="jumlahaset" min="1" value="{{ old('jumlahaset', $data->jumlahaset) }}" readonly style="font-weight: bold; color: black;">
+                                @error('jumlahaset')
+                                    <small>{{ $message }}</small>
+                                @enderror
+                            </div>
+                        @endif
                         <div class="form-group">
                             <label for="lampiran">Lampiran</label>
                             @if ($data->lampiran)

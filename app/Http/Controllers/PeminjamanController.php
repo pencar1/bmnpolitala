@@ -207,7 +207,6 @@ class PeminjamanController extends Controller
         return redirect()->route('admin.peminjaman')->with('success', 'Data peminjaman berhasil diperbarui.');
     }
 
-
     public function destroy($id)
     {
         $peminjaman = Peminjaman::find($id);
