@@ -48,7 +48,7 @@
                                 <small>{{ $message }}</small>
                             @enderror
                         </div>
-                        @if($data->getJenisAset() == 'barang' || $data->getJenisAset() == 'transportasi' ||)
+                        @if($data->getJenisAset() == 'barang' || $data->getJenisAset() == 'transportasi' || $data->getJenisAset() == 'ruangan')
                             <div class="form-group">
                                 <label for="jumlahaset">Jumlah Aset</label>
                                 <input type="number" name="jumlahaset" class="form-control" id="jumlahaset" min="1" value="{{ old('jumlahaset', $data->jumlahaset) }}" readonly style="font-weight: bold; color: black;">
