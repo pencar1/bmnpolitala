@@ -27,9 +27,17 @@
                             <label for="exampleFormControlSelect1">Prodi</label>
                             <select class="form-control" id="exampleFormControlSelect1" name="prodi">
                                 <option selected disabled hidden>Pilih Prodi</option>
-                                <option {{ old('prodi') == 'Teknologi Informasi' ? 'selected' : '' }}>Teknologi Informasi</option>
-                                <option {{ old('prodi') == 'Mesin Otomotif' ? 'selected' : '' }}>Mesin Otomotif</option>
-                                <option {{ old('prodi') == 'Agroindustri' ? 'selected' : '' }}>Agroindustri</option>
+                                <option {{ old('prodi') == 'D3 Teknologi Informasi' ? 'selected' : '' }}>D3 Teknologi Informasi</option>
+                                <option {{ old('prodi') == 'D3 Teknologi Otomotif' ? 'selected' : '' }}>D3 Teknologi Otomotif</option>
+                                <option {{ old('prodi') == 'D3 Agroindustri' ? 'selected' : '' }}>D3 Agroindustri</option>
+                                <option {{ old('prodi') == 'D3 Akuntansi' ? 'selected' : '' }}>D3 Akuntansi</option>
+                                <option {{ old('prodi') == 'D4 Teknologi Pakan Ternak' ? 'selected' : '' }}>D4 Teknologi Pakan Ternak</option>
+                                <option {{ old('prodi') == 'D4 Teknologi Rekayasa Konstruksi Jalan Dan Jembatan' ? 'selected' : '' }}>D4 Teknologi Rekayasa Konstruksi Jalan Dan Jembatan</option>
+                                <option {{ old('prodi') == 'D4 Teknologi Rekayasa Komputer Jaringan' ? 'selected' : '' }}>D4 Teknologi Rekayasa Komputer Jaringan</option>
+                                <option {{ old('prodi') == 'D4 Teknologi Rekayasa Pemeliharaan Alat Berat' ? 'selected' : '' }}>D4 Teknologi Rekayasa Pemeliharaan Alat Berat</option>
+                                <option {{ old('prodi') == 'D4 Akuntansi Perpajakan' ? 'selected' : '' }}>D4 Akuntansi Perpajakan</option>
+                                <option {{ old('prodi') == 'D4 Pengembangan Produk Agroindustri' ? 'selected' : '' }}>D4 Pengembangan Produk Agroindustri</option>
+
                             </select>
                             @error('prodi')
                                 <small class="text-danger">{{ $message }}</small>
@@ -55,7 +63,16 @@
                                 <option selected disabled hidden>Pilih Organisasi</option>
                                 <option {{ old('organisasi') == 'DPM' ? 'selected' : '' }}>DPM</option>
                                 <option {{ old('organisasi') == 'BEM' ? 'selected' : '' }}>BEM</option>
-                                <option {{ old('organisasi') == 'Mapala' ? 'selected' : '' }}>Mapala</option>
+                                <option {{ old('organisasi') == 'UKM MAPALA' ? 'selected' : '' }}>UKM MAPALA</option>
+                                <option {{ old('organisasi') == 'UKM BISEPOL' ? 'selected' : '' }}>UKM BISEPOL</option>
+                                <option {{ old('organisasi') == 'UKM LPM DIGMA' ? 'selected' : '' }}>UKM LPM DIGMA</option>
+                                <option {{ old('organisasi') == 'UKM KSR PMI' ? 'selected' : '' }}>UKM KSR PMI</option>
+                                <option {{ old('organisasi') == 'UKM MENWA' ? 'selected' : '' }}>UKM MENWA</option>
+                                <option {{ old('organisasi') == 'UKM PRAMUKA' ? 'selected' : '' }}>UKM PRAMUKA</option>
+                                <option {{ old('organisasi') == 'UKM FSI AL-IKHWANA' ? 'selected' : '' }}>UKM FSI AL-IKHWANA</option>
+                                <option {{ old('organisasi') == 'UKM KEWIRAUSAHAAN' ? 'selected' : '' }}>UKM KEWIRAUSAHAAN</option>
+                                <option {{ old('organisasi') == 'Hima TI' ? 'selected' : '' }}>Hima TI</option>
+                                <option {{ old('organisasi') == 'Hima Trkj' ? 'selected' : '' }}>Hima Trkj</option>
                             </select>
                             @error('organisasi')
                                 <small class="text-danger">{{ $message }}</small>
