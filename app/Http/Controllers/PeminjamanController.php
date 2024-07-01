@@ -169,9 +169,6 @@ class PeminjamanController extends Controller
             Pengembalian::create([
                 'idpeminjaman'        => $peminjaman->idpeminjaman,
                 'tanggalpengembalian' => now(),
-                'idbarang'            => $peminjaman->idbarang ?? null,
-                'idtransportasi'      => $peminjaman->idtransportasi ?? null,
-                'idruangan'           => $peminjaman->idruangan ?? null,
             ]);
 
             $jenisaset = null;
