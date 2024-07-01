@@ -14,16 +14,10 @@ return new class extends Migration
         Schema::create('pengembalians', function (Blueprint $table) {
             $table->increments('idpengembalian');
             $table->unsignedInteger('idpeminjaman')->nullable();
-            $table->unsignedInteger('idbarang')->nullable(); // Tambahkan kolom idbarang
-            $table->unsignedInteger('idtransportasi')->nullable(); // Tambahkan kolom idbarang
-            $table->unsignedInteger('idruangan')->nullable(); // Tambahkan kolom idbarang
             $table->date('tanggalpengembalian')->nullable();
 
             // Define foreign key constraints
             $table->foreign('idpeminjaman')->references('idpeminjaman')->on('peminjamans')->onDelete('cascade');
-            $table->foreign('idbarang')->references('idbarang')->on('barangs')->onDelete('cascade'); // Tambahkan foreign key untuk idbarang
-            $table->foreign('idtransportasi')->references('idtransportasi')->on('transportasis')->onDelete('cascade'); // Tambahkan foreign key untuk idbarang
-            $table->foreign('idruangan')->references('idruangan')->on('ruangans')->onDelete('cascade'); // Tambahkan foreign key untuk idbarang
         });
     }
 
