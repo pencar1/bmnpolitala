@@ -61,20 +61,17 @@
                             <label for="lampiran">Lampiran</label>
                             @if ($peminjaman->lampiran)
                                 <div class="mt-2">
-                                    @php
-                                        $fileExtension = pathinfo($peminjaman->lampiran, PATHINFO_EXTENSION);
-                                    @endphp
-                                    @if (in_array($fileExtension, ['jpg', 'jpeg', 'png']))
-                                        <img src="{{ asset('lampiran/' . $peminjaman->lampiran) }}" alt="Lampiran" style="max-width: 200px;">
-                                    @elseif (in_array($fileExtension, ['pdf']))
-                                        <iframe src="{{ asset('lampiran/' . $peminjaman->lampiran) }}" style="width: 100%; height: 500px;" frameborder="0"></iframe>
+                                    @if (in_array(pathinfo($peminjaman->lampiran, PATHINFO_EXTENSION), ['jpg', 'jpeg', 'png']))
+                                        <img src="{{ asset('lampiran/' . $peminjaman->lampiran) }}" alt="Lampiran" style="max-width: 200px; cursor: pointer;" data-toggle="modal" data-target="#lampiranModal">
+                                    @elseif (in_array(pathinfo($peminjaman->lampiran, PATHINFO_EXTENSION), ['pdf', 'doc', 'docx']))
+                                        <a href="{{ asset('lampiran/' . $peminjaman->lampiran) }}" style="cursor: pointer;" data-toggle="modal" data-target="#lampiranModal">{{ $peminjaman->lampiran }}</a>
                                     @else
                                         <a href="{{ asset('lampiran/' . $peminjaman->lampiran) }}" target="_blank">{{ $peminjaman->lampiran }}</a>
                                     @endif
                                 </div>
                             @endif
                             @error('lampiran')
-                                <small>{{ $message }}</small>
+                                <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="form-group">
@@ -117,7 +114,9 @@
                 @elseif (in_array(pathinfo($peminjaman->lampiran, PATHINFO_EXTENSION), ['pdf']))
                     <iframe src="{{ asset('lampiran/' . $peminjaman->lampiran) }}" width="100%" height="500px"></iframe>
                 @elseif (in_array(pathinfo($peminjaman->lampiran, PATHINFO_EXTENSION), ['doc', 'docx']))
-                    <iframe src="https://view.officeapps.live.com/op/embed.aspx?src={{ urlencode(asset('lampiran/' . $peminjaman->lampiran)) }}" width="100%" height="500px"></iframe>
+                    <object data="{{ asset('lampiran/' . $peminjaman->lampiran) }}" type="application/vnd.openxmlformats-officedocument.wordprocessingml.document" width="100%" height="500px">
+                        <p>Tidak dapat menampilkan file. Anda bisa <a href="{{ asset('lampiran/' . $peminjaman->lampiran) }}">unduh file</a> untuk melihatnya.</p>
+                    </object>
                 @else
                     <p>File tidak dapat ditampilkan.</p>
                 @endif
@@ -125,4 +124,5 @@
         </div>
     </div>
 </div>
+
 @endsection

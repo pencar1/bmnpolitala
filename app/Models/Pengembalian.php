@@ -18,16 +18,13 @@ class Pengembalian extends Model
     protected $fillable = [
         'idpeminjaman',
         'tanggalpengembalian',
-        'idbarang',
-        'idtransportasi',
-        'idruangan',
     ];
 
     public function peminjaman()
     {
         return $this->belongsTo(Peminjaman::class, 'idpeminjaman', 'idpeminjaman');
     }
-    
+
     public function user()
     {
         return $this->belongsTo(User::class, 'iduser', 'id');
@@ -73,6 +70,5 @@ class Pengembalian extends Model
         }
         return 'Aset tidak ditemukan';
     }
-
 }
 
