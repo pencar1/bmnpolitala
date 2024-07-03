@@ -32,7 +32,6 @@
                                 <option selected disabled hidden>Pilih Jenis Aset</option>
                                 <option value="barang" {{ old('jenisaset') == 'barang' ? 'selected' : '' }}>Barang</option>
                                 <option value="transportasi" {{ old('jenisaset') == 'transportasi' ? 'selected' : '' }}>Transportasi</option>
-                                <option value="ruangan" {{ old('jenisaset') == 'ruangan' ? 'selected' : '' }}>Ruangan</option>
                             </select>
                             @error('jenisaset')
                                 <div class="text-danger">{{ $message }}</div>
