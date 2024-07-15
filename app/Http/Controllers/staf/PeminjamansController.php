@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Models\Barang;
 use App\Models\Transportasi;
 use App\Models\Ruangan;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -27,9 +28,10 @@ class PeminjamansController extends Controller
         $barangs = Barang::all();
         $transportasis = Transportasi::all();
         $ruangans = Ruangan::all();
+        $tanggalPeminjaman = Carbon::now('Asia/Makassar')->toDateString();
 
         // Kirim semua aset ke view
-        return view('staf.peminjaman.tambahp', compact('barangs', 'transportasis', 'ruangans'));
+        return view('staf.peminjaman.tambahp', compact('barangs', 'transportasis', 'ruangans', 'tanggalPeminjaman'));
     }
 
     public function store(Request $request)
@@ -179,7 +181,7 @@ class PeminjamansController extends Controller
         if ($request->input('status') == 'dikembalikan') {
             Pengembalian::create([
                 'idpeminjaman'        => $peminjaman->idpeminjaman,
-                'tanggalpengembalian' => now(),
+                'tanggalpengembalian' => Carbon::now('Asia/Makassar'),
             ]);
 
             $jenisaset = null;

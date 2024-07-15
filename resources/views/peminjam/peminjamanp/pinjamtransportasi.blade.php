@@ -26,7 +26,7 @@
 
                         <div class="form-group">
                             <label for="tanggalpeminjaman">Tanggal Peminjaman</label>
-                            <input type="date" name="tanggalpeminjaman" class="form-control" id="tanggalpeminjaman" value="{{ old('tanggalpeminjaman') }}" placeholder="Masukkan Tanggal Peminjaman" min="{{ date('Y-m-d') }}">
+                            <input type="date" name="tanggalpeminjaman" class="form-control" id="tanggalpeminjaman" value="{{ old('tanggalpeminjaman') }}" placeholder="Masukkan Tanggal Peminjaman" min="{{ \Carbon\Carbon::now('Asia/Makassar')->toDateString() }}">
                             @error('tanggalpeminjaman')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror

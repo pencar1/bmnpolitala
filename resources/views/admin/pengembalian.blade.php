@@ -40,7 +40,7 @@
                                         <td>{{ $data->nama }}</td>
                                         <td>{{ $data->getAsetName() }}</td>
                                         <td>{{ \Carbon\Carbon::parse($data->tanggalpeminjaman)->format('d-m-Y') }}</td>
-                                        <td>{{ \Carbon\Carbon::parse($data->tanggalpengembalian)->format('d-m-Y') }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($data->pengembalian->tanggalpengembalian ?? '')->format('d-m-Y') }}</td>
                                         <td>{{ $data->status }}</td>
                                         <td>
                                             <div class="form-button-action">
