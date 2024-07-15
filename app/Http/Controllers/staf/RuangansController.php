@@ -45,6 +45,7 @@ class RuangansController extends Controller
         $ruangan = new Ruangan();
         $ruangan->namaruangan = $request->input('namaruangan');
         $ruangan->deskripsiruangan = $request->input('deskripsiruangan');
+        $ruangan->stokruangan = 1;
 
         if ($request->hasFile('foto')) {
             $file = $request->file('foto');
@@ -74,7 +75,7 @@ class RuangansController extends Controller
             'namaruangan' => 'required|string|max:255',
             'deskripsiruangan' => 'required|string',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-        ], [
+        ],[
             'namaruangan.required'      => 'Nama ruangan harus diisi!',
             'namaruangan.string'        => 'Nama ruangan harus berupa teks!',
             'namaruangan.max'           => 'Nama ruangan maksimal 255 karakter!',
@@ -92,7 +93,7 @@ class RuangansController extends Controller
 
         $ruangan = Ruangan::find($id);
         if (!$ruangan) {
-            return redirect()->route('staf.ruangan')->withErrors('Data tidak ditemukan.');
+            return redirect()->route('admin.ruangan')->withErrors('Data tidak ditemukan.');
         }
 
         $ruangan->namaruangan = $request->input('namaruangan');
