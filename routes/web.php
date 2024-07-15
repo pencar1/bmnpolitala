@@ -116,6 +116,9 @@ Route::group(['prefix' => 'staf', 'middleware' => ['auth', 'role:staf'], 'as' =>
     Route::put('/peminjaman/{id}', [PeminjamansController::class, 'update'])->name('peminjaman.update');
     Route::delete('/peminjaman/{id}', [PeminjamansController::class, 'destroy'])->name('peminjaman.destroy');
 
+    Route::get('/pengembalian', [PengembaliansController::class, 'index'])->name('pengembalian');
+    Route::get('/pengembalian/{id}/detail', [PengembaliansController::class, 'detail'])->name('pengembalian.detail');
+
     Route::get('/barang', [BarangsController::class, 'index'])->name('barang');
     Route::get('/tambahbarang', [BarangsController::class, 'tambahbarang'])->name('barang.tambah');
     Route::post('/barang', [BarangsController::class, 'store'])->name('barang.store');
@@ -138,8 +141,8 @@ Route::group(['prefix' => 'staf', 'middleware' => ['auth', 'role:staf'], 'as' =>
     Route::delete('/ruangan/{id}', [RuangansController::class, 'destroy'])->name('ruangan.destroy');
     Route::delete('/ruangan/{id}', [RuangansController::class, 'destroy'])->name('ruangan.delete');
 
-    Route::get('/arsiptolak', [ArsipditolaksController::class, 'index'])->name('arsipditolak');
-    Route::get('/pengembalian', [PengembaliansController::class, 'index'])->name('pengembalian');
+    Route::get('/arsiptolak', [ArsipditolaksController::class, 'index'])->name('arsiptolak');
+    Route::get('/arsiptolak/{id}/detail', [ArsipditolaksController::class, 'detail'])->name('arsiptolak.detail');
 
 
 });

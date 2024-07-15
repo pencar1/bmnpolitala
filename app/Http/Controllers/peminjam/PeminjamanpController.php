@@ -31,7 +31,7 @@ class PeminjamanpController extends Controller
                 $query->whereNotNull('idbarang')
                     ->orWhereNotNull('idtransportasi')
                     ->orWhereNotNull('idruangan');
-            })
+            })->orderBy('idpeminjaman', 'desc')
             ->get();
 
         return view('peminjam.peminjaman', compact('data', 'transportasis'));
@@ -111,7 +111,7 @@ class PeminjamanpController extends Controller
         $peminjaman->iduser = $user->id;
         $peminjaman->nama = $request->input('nama');
         $peminjaman->nim = $request->input('nim');
-        $peminjaman->tanggalpeminjaman = $request->input('tanggalpeminjaman');
+        $peminjaman->tanggalpeminjaman = Carbon::parse($request->input('tanggalpeminjaman'))->timezone('Asia/Makassar');
         $peminjaman->status = 'Diproses';
         $peminjaman->idbarang = $asetId;
         $peminjaman->jumlahaset = $jumlah;
@@ -163,7 +163,7 @@ class PeminjamanpController extends Controller
     $peminjaman->iduser = $user->id;
     $peminjaman->nama = $request->input('nama');
     $peminjaman->nim = $request->input('nim');
-    $peminjaman->tanggalpeminjaman = $request->input('tanggalpeminjaman');
+    $peminjaman->tanggalpeminjaman = Carbon::parse($request->input('tanggalpeminjaman'))->timezone('Asia/Makassar');
     $peminjaman->status = 'Diproses';
     $peminjaman->idtransportasi = $request->input('idtransportasi');
     $peminjaman->jumlahaset = $jumlah;
@@ -204,7 +204,7 @@ class PeminjamanpController extends Controller
         $peminjaman->iduser = $user->id;
         $peminjaman->nama = $request->input('nama');
         $peminjaman->nim = $request->input('nim');
-        $peminjaman->tanggalpeminjaman = $request->input('tanggalpeminjaman');
+        $peminjaman->tanggalpeminjaman = Carbon::parse($request->input('tanggalpeminjaman'))->timezone('Asia/Makassar');
         $peminjaman->idruangan = $request->input('idruangan');
         $peminjaman->status = 'Diproses';
         $jumlah = 1;

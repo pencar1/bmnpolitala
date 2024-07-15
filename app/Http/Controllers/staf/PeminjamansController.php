@@ -5,10 +5,12 @@ namespace App\Http\Controllers\staf;
 use App\Http\Controllers\Controller;
 
 use App\Models\Peminjaman;
+use App\Models\Pengembalian;
 use App\Models\User;
 use App\Models\Barang;
 use App\Models\Transportasi;
 use App\Models\Ruangan;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -26,9 +28,10 @@ class PeminjamansController extends Controller
         $barangs = Barang::all();
         $transportasis = Transportasi::all();
         $ruangans = Ruangan::all();
+        $tanggalPeminjaman = Carbon::now('Asia/Makassar')->toDateString();
 
         // Kirim semua aset ke view
-        return view('staf.peminjaman.tambahp', compact('barangs', 'transportasis', 'ruangans'));
+        return view('staf.peminjaman.tambahp', compact('barangs', 'transportasis', 'ruangans', 'tanggalPeminjaman'));
     }
 
     public function store(Request $request)
@@ -126,15 +129,15 @@ class PeminjamansController extends Controller
         return view('staf.peminjaman.editp', compact('data', 'jenisAset', 'namaAset'));
     }
 
-
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
             'nama'              => 'required|string|max:50',
-            'nim'               => 'required|string|max:16',
+            'nim'               => 'max:16',
             'tanggalpeminjaman' => 'required|date',
-            'lampiran'          => 'nullable|mimes:jpeg,png,jpg,gif,pdf,docx|max:2048',
             'jumlahaset'        => 'required|integer|min:1',
+            'status'            => 'required|in:dipinjam,dikembalikan',
+            'lampiran'          => 'nullable|file|mimes:jpg,jpeg,png,pdf,doc,docx|max:2048',
         ], [
             'nama.required'                 => 'Nama harus diisi!',
             'nama.string'                   => 'Nama harus berupa teks!',
@@ -152,91 +155,69 @@ class PeminjamansController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return redirect()->back()->withInput()->withErrors($validator);
+            return redirect()->back()->withErrors($validator)->withInput();
         }
 
         $peminjaman = Peminjaman::find($id);
         if (!$peminjaman) {
-            return redirect()->route('admin.peminjaman')->withErrors('Data tidak ditemukan.');
+            return redirect()->route('staf.peminjaman')->withErrors('Data tidak ditemukan.');
         }
 
         $peminjaman->nama = $request->input('nama');
         $peminjaman->nim = $request->input('nim');
         $peminjaman->tanggalpeminjaman = $request->input('tanggalpeminjaman');
-        $peminjaman->status = 'Dipinjam';
-
-        $jenisaset = $request->input('jenisaset');
-        $jumlahBaru = $request->input('jumlahaset');
-        $jumlahLama = $peminjaman->jumlahaset;
-        $jenisaset = $request->input('jenisaset');
-        $asetId = null;
-
-        if ($jenisaset === 'barang') {
-            $asetId = $peminjaman->idbarang;
-        } elseif ($jenisaset === 'transportasi') {
-            $asetId = $peminjaman->idtransportasi;
-        } elseif ($jenisaset === 'ruangan') {
-            $asetId = $peminjaman->idruangan;
-        }
-
-        if ($jenisaset === 'barang') {
-            $barang = Barang::find($asetId);
-            if ($barang) {
-                $stokTersedia = $barang->stokbarang + $jumlahLama;
-                if ($stokTersedia >= $jumlahBaru) {
-                    $barang->tambahStokb($jumlahLama);
-                    $barang->kurangiStokb($jumlahBaru);
-                    $peminjaman->idbarang = $asetId;
-                } else {
-                    return redirect()->back()->withInput()->withErrors(['jumlahaset' => 'Stok barang tidak mencukupi.']);
-                }
-            } else {
-                return redirect()->back()->withInput()->withErrors(['jumlahaset' => 'Barang tidak ditemukan.']);
-            }
-        } elseif ($jenisaset === 'transportasi') {
-            $transportasi = Transportasi::find($asetId);
-            if ($transportasi) {
-                $stokTersedia = $transportasi->stoktransportasi + $jumlahLama;
-                if ($stokTersedia >= $jumlahBaru) {
-                    $transportasi->tambahStokt($jumlahLama);
-                    $transportasi->kurangiStokt($jumlahBaru);
-                    $peminjaman->idtransportasi = $asetId;
-                } else {
-                    return redirect()->back()->withInput()->withErrors(['jumlahaset' => 'Stok transportasi tidak mencukupi.']);
-                }
-            } else {
-                return redirect()->back()->withInput()->withErrors(['jumlahaset' => 'Transportasi tidak ditemukan.']);
-            }
-        } elseif ($jenisaset === 'ruangan') {
-            $ruangan = Ruangan::find($asetId);
-            $stokTersedia = $ruangan->stokruangan + $jumlahLama;
-            if ($ruangan && $stokTersedia >= $jumlahBaru) {
-                $ruangan->tambahStokt($jumlahLama);
-                $ruangan->kurangiStokt($jumlahBaru);
-                $peminjaman->idruangan = $asetId;
-            } else {
-                return redirect()->back()->withInput()->withErrors(['jumlahaset' => 'Stok barang tidak mencukupi.']);
-            }
-        }
+        $peminjaman->jumlahaset = $request->input('jumlahaset');
+        $peminjaman->status = $request->input('status');
 
         if ($request->hasFile('lampiran')) {
-            if ($peminjaman->lampiran) {
-                $old_file_path = public_path('lampiran/' . $peminjaman->lampiran);
-                if (file_exists($old_file_path)) {
-                    unlink($old_file_path);
-                }
-            }
-
-            $file = $request->file('lampiran');
-            $filename = time() . '_' . $file->getClientOriginalName();
-            $file->move(public_path('lampiran'), $filename);
-            $peminjaman->lampiran = $filename;
+            $lampiran = $request->file('lampiran');
+            $lampiranName = time() . '_' . $lampiran->getClientOriginalName();
+            $lampiran->move(public_path('lampiran'), $lampiranName);
+            $peminjaman->lampiran = $lampiranName;
         }
 
-        $peminjaman->jumlahaset = $jumlahBaru;
         $peminjaman->save();
 
-        return redirect()->route('staf.peminjaman')->with('success', 'Data berhasil diperbarui.');
+        if ($request->input('status') == 'dikembalikan') {
+            Pengembalian::create([
+                'idpeminjaman'        => $peminjaman->idpeminjaman,
+                'tanggalpengembalian' => Carbon::now('Asia/Makassar'),
+            ]);
+
+            $jenisaset = null;
+            if ($peminjaman->idbarang) {
+                $jenisaset = 'barang';
+            } elseif ($peminjaman->idtransportasi) {
+                $jenisaset = 'transportasi';
+            } elseif ($peminjaman->idruangan) {
+                $jenisaset = 'ruangan';
+            }
+
+            switch ($jenisaset) {
+                case 'barang':
+                    $barang = Barang::find($peminjaman->idbarang);
+                    if ($barang) {
+                        $barang->tambahStokb($peminjaman->jumlahaset);
+                    }
+                    break;
+                case 'transportasi':
+                    $transportasi = Transportasi::find($peminjaman->idtransportasi);
+                    if ($transportasi) {
+                        $transportasi->tambahStokt($peminjaman->jumlahaset);
+                    }
+                    break;
+                case 'ruangan':
+                    $ruangan = Ruangan::find($peminjaman->idruangan);
+                    if ($ruangan) {
+                        $ruangan->tambahStokr($peminjaman->jumlahaset);
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        return redirect()->route('staf.peminjaman')->with('success', 'Data peminjaman berhasil diperbarui.');
     }
 
     public function destroy($id)

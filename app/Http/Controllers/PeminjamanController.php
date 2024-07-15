@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Barang;
 use App\Models\Transportasi;
 use App\Models\Ruangan;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -26,9 +27,10 @@ class PeminjamanController extends Controller
         $barangs = Barang::all();
         $transportasis = Transportasi::all();
         $ruangans = Ruangan::all();
+        $tanggalPeminjaman = Carbon::now('Asia/Makassar')->toDateString();
 
         // Kirim semua aset ke view
-        return view('admin.peminjaman.tambahp', compact('barangs', 'transportasis', 'ruangans'));
+        return view('admin.peminjaman.tambahp', compact('barangs', 'transportasis', 'ruangans', 'tanggalPeminjaman'));
     }
 
     public function store(Request $request)
@@ -66,7 +68,7 @@ class PeminjamanController extends Controller
         $peminjaman->iduser = $user->id;
         $peminjaman->nama = $request->input('nama');
         $peminjaman->nim = $request->input('nim');
-        $peminjaman->tanggalpeminjaman = $request->input('tanggalpeminjaman');
+        $peminjaman->tanggalpeminjaman = Carbon::parse($request->input('tanggalpeminjaman'))->setTimezone('Asia/Makassar')->toDateString();
         $peminjaman->status = 'Dipinjam';
 
         $jenisaset = $request->input('jenisaset');
@@ -168,7 +170,7 @@ class PeminjamanController extends Controller
         if ($request->input('status') == 'dikembalikan') {
             Pengembalian::create([
                 'idpeminjaman'        => $peminjaman->idpeminjaman,
-                'tanggalpengembalian' => now(),
+                'tanggalpengembalian' => Carbon::now('Asia/Makassar'),
             ]);
 
             $jenisaset = null;
@@ -206,7 +208,6 @@ class PeminjamanController extends Controller
 
         return redirect()->route('admin.peminjaman')->with('success', 'Data peminjaman berhasil diperbarui.');
     }
-
 
     public function destroy($id)
     {

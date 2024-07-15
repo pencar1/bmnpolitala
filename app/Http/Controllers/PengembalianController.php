@@ -23,15 +23,13 @@ class PengembalianController extends Controller
     {
         // Mengambil data peminjaman berdasarkan ID dengan relasi peminjaman, barang, transportasi, ruangan, dan pengembalian
         $peminjaman = Peminjaman::with(['user', 'barang', 'transportasi', 'ruangan', 'pengembalian'])->find($id);
-        
+
         // Jika tidak menemukan data peminjaman
         if (!$peminjaman) {
             return redirect()->route('admin.peminjaman')->withErrors('Data tidak ditemukan.');
         }
-        
+
         // Menampilkan view detail peminjaman dengan data yang diperlukan
         return view('admin.pengembalian.detailkembali', compact('peminjaman'));
     }
-
-
 }

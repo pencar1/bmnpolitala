@@ -32,7 +32,6 @@
                                 <option selected disabled hidden>Pilih Jenis Aset</option>
                                 <option value="barang" {{ old('jenisaset') == 'barang' ? 'selected' : '' }}>Barang</option>
                                 <option value="transportasi" {{ old('jenisaset') == 'transportasi' ? 'selected' : '' }}>Transportasi</option>
-                                <option value="ruangan" {{ old('jenisaset') == 'ruangan' ? 'selected' : '' }}>Ruangan</option>
                             </select>
                             @error('jenisaset')
                                 <div class="text-danger">{{ $message }}</div>
@@ -62,7 +61,7 @@
                         </div>
                         <div class="form-group">
                             <label for="tanggalpeminjaman">Tanggal Peminjaman</label>
-                            <input type="date" name="tanggalpeminjaman" class="form-control" id="tanggalpeminjaman" value="{{ old('tanggalpeminjaman') }}" placeholder="Masukkan Tanggal Peminjaman" min="{{ date('Y-m-d') }}">
+                            <input type="date" name="tanggalpeminjaman" class="form-control" id="tanggalpeminjaman" value="{{ old('tanggalpeminjaman') }}" placeholder="Masukkan Tanggal Peminjaman" min="{{ \Carbon\Carbon::now('Asia/Makassar')->toDateString() }}">
                             @error('tanggalpeminjaman')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror

@@ -75,8 +75,8 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="exampleFormControlSelect1">Status</label>
-                            <select class="form-control" id="exampleFormControlSelect1" name="status" onchange="toggleAlasanPenolakan()">
+                            <label for="statusSelect">Status</label>
+                            <select class="form-control" id="statusSelect" name="status" onchange="handleStatusChange()">
                                 <option value="diproses" {{ $data->status == 'diproses' ? 'selected' : '' }}>Diproses</option>
                                 <option value="ditolak" {{ $data->status == 'ditolak' ? 'selected' : '' }}>Ditolak</option>
                                 <option value="disetujui" {{ $data->status == 'disetujui' ? 'selected' : '' }}>Disetujui</option>
@@ -86,10 +86,9 @@
                                 <small>{{ $message }}</small>
                             @enderror
                         </div>
-
                         <div class="form-group" id="alasanPenolakanGroup" style="display: none;">
                             <label for="alasanpenolakan">Alasan Penolakan</label>
-                            <textarea class="form-control" id="alasanpenolakan" name="alasanpenolakan">{{ old('alasanpenolakan', $data->alasanpenolakan ?? '') }}</textarea>
+                            <textarea class="form-control" id="alasanpenolakan" name="alasanpenolakan" rows="5">{{ old('alasanpenolakan', $data->alasanpenolakan ?? '') }}</textarea>
                             @error('alasanpenolakan')
                                 <small>{{ $message }}</small>
                             @enderror
@@ -133,8 +132,14 @@
 </div>
 
 <script>
+    function handleStatusChange() {
+        toggleAlasanPenolakan();
+        toggleDipinjamOption();
+        toggleStatusOptions();
+    }
+
     function toggleAlasanPenolakan() {
-        var status = document.getElementById("exampleFormControlSelect1").value;
+        var status = document.getElementById("statusSelect").value;
         var alasanPenolakanGroup = document.getElementById("alasanPenolakanGroup");
         if (status === "ditolak") {
             alasanPenolakanGroup.style.display = "block";
@@ -143,9 +148,47 @@
         }
     }
 
-    // Panggil fungsi saat halaman dimuat untuk memeriksa status saat ini
+    function toggleDipinjamOption() {
+        var statusSelect = document.getElementById("statusSelect");
+        var statusValue = statusSelect.value;
+        var dipinjamOption = statusSelect.querySelector('option[value="dipinjam"]');
+
+        if (statusValue !== "disetujui") {
+            dipinjamOption.style.display = "none";
+        } else {
+            dipinjamOption.style.display = "block";
+        }
+    }
+
+    function toggleStatusOptions() {
+        var statusSelect = document.getElementById("statusSelect");
+        var statusValue = statusSelect.value;
+        var options = statusSelect.querySelectorAll('option');
+
+        options.forEach(function(option) {
+            if (option.value === "diproses") {
+                option.style.display = "none";
+            } else if (option.value === "dipinjam") {
+                if (statusValue === "disetujui") {
+                    option.style.display = "block";
+                } else {
+                    option.style.display = "none";
+                }
+            } else {
+                option.style.display = "block";
+            }
+
+            if (statusValue === "disetujui") {
+                if (option.value === "diproses") {
+                    option.style.display = "none";
+                }
+            }
+        });
+    }
+
+    // Call function on page load to set initial state
     window.onload = function() {
-        toggleAlasanPenolakan();
+        handleStatusChange();
     };
 </script>
 

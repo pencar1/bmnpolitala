@@ -27,9 +27,16 @@
                         <div class="form-group">
                             <label for="exampleFormControlSelect1">Prodi</label>
                             <select class="form-control" id="exampleFormControlSelect1" name="prodi">
-                                <option value="teknologi informasi" {{ $data->prodi == 'teknologi informasi' ? 'selected' : '' }}>Teknologi Informasi</option>
-                                <option value="mesin otomotif" {{ $data->prodi == 'mesin otomotif' ? 'selected' : '' }}>Mesin Otomotif</option>
-                                <option value="agroindustri" {{ $data->prodi == 'agroindustri' ? 'selected' : '' }}>Agroindustri</option>
+                                <option {{ $data->prodi == 'D3 Teknologi Informasi' ? 'selected' : '' }}>D3 Teknologi Informasi</option>
+                                <option {{ $data->prodi == 'D3 Teknologi Otomotif' ? 'selected' : '' }}>D3 Teknologi Otomotif</option>
+                                <option {{ $data->prodi == 'D3 Agroindustri' ? 'selected' : '' }}>D3 Agroindustri</option>
+                                <option {{ $data->prodi == 'D3 Akuntansi' ? 'selected' : '' }}>D3 Akuntansi</option>
+                                <option {{ $data->prodi == 'D4 Teknologi Pakan Ternak' ? 'selected' : '' }}>D4 Teknologi Pakan Ternak</option>
+                                <option {{ $data->prodi == 'D4 Teknologi Rekayasa Konstruksi Jalan Dan Jembatan' ? 'selected' : '' }}>D4 Teknologi Rekayasa Konstruksi Jalan Dan Jembatan</option>
+                                <option {{ $data->prodi == 'D4 Teknologi Rekayasa Komputer Jaringan' ? 'selected' : '' }}>D4 Teknologi Rekayasa Komputer Jaringan</option>
+                                <option {{ $data->prodi == 'D4 Teknologi Rekayasa Pemeliharaan Alat Berat' ? 'selected' : '' }}>D4 Teknologi Rekayasa Pemeliharaan Alat Berat</option>
+                                <option {{ $data->prodi == 'D4 Akuntansi Perpajakan' ? 'selected' : '' }}>D4 Akuntansi Perpajakan</option>
+                                <option {{ $data->prodi == 'D4 Pengembangan Produk Agroindustri' ? 'selected' : '' }}>D4 Pengembangan Produk Agroindustri</option>
                             </select>
                         </div>
                         <div class="form-group">
@@ -49,9 +56,18 @@
                         <div class="form-group">
                             <label for="exampleFormControlSelect1">Organisasi</label>
                             <select class="form-control" id="exampleFormControlSelect1" name="organisasi">
-                                <option value="dpm" {{ $data->organisasi == 'dpm' ? 'selected' : '' }}>DPM</option>
-                                <option value="bem" {{ $data->organisasi == 'bem' ? 'selected' : '' }}>BEM</option>
-                                <option value="mapala" {{ $data->organisasi == 'mapala' ? 'selected' : '' }}>Mapala</option>
+                                <option {{ $data->organisasi == 'DPM' ? 'selected' : '' }}>DPM</option>
+                                <option {{ $data->organisasi == 'BEM' ? 'selected' : '' }}>BEM</option>
+                                <option {{ $data->organisasi == 'UKM MAPALA' ? 'selected' : '' }}>UKM MAPALA</option>
+                                <option {{ $data->organisasi == 'UKM BISEPOL' ? 'selected' : '' }}>UKM BISEPOL</option>
+                                <option {{ $data->organisasi == 'UKM LPM DIGMA' ? 'selected' : '' }}>UKM LPM DIGMA</option>
+                                <option {{ $data->organisasi == 'UKM KSR PMI' ? 'selected' : '' }}>UKM KSR PMI</option>
+                                <option {{ $data->organisasi == 'UKM MENWA' ? 'selected' : '' }}>UKM MENWA</option>
+                                <option {{ $data->organisasi == 'UKM PRAMUKA' ? 'selected' : '' }}>UKM PRAMUKA</option>
+                                <option {{ $data->organisasi == 'UKM FSI AL-IKHWANA' ? 'selected' : '' }}>UKM FSI AL-IKHWANA</option>
+                                <option {{ $data->organisasi == 'UKM KEWIRAUSAHAAN' ? 'selected' : '' }}>UKM KEWIRAUSAHAAN</option>
+                                <option {{ $data->organisasi == 'Hima TI' ? 'selected' : '' }}>Hima TI</option>
+                                <option {{ $data->organisasi == 'Hima Trkj' ? 'selected' : '' }}>Hima Trkj</option>
                             </select>
                             @error('organisasi')
                                 <small class="text-danger">{{ $message }}</small>
